@@ -78,8 +78,8 @@ static int	ft_is_map_line(char *line)
 	while (line[i])
 	{
 		if (line[i] != '0' && line[i] != '1' && line[i] != ' ' &&
-			line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W' &&
-			line[i] != '\n')
+			line[i] != 'N' && line[i] != 'S' && line[i] != 'E' &&
+			line[i] != 'W' && line[i] != '\n')
 			return (0);
 		if (line[i] == '0' || line[i] == '1' || line[i] == 'N' ||
 			line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
@@ -168,7 +168,8 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 			map->data[y][x] = 0;
 		else if (line[x] == '1')
 			map->data[y][x] = 1;
-		else if (line[x] == 'N' || line[x] == 'S' || line[x] == 'E' || line[x] == 'W')
+		else if (line[x] == 'N' || line[x] == 'S'
+				|| line[x] == 'E' || line[x] == 'W')
 		{
 			map->data[y][x] = 0;
 			map->player_x = x;
@@ -212,15 +213,12 @@ t_map	ft_map_parse(char *file)
 	map.data = (int **)malloc((map.height + 1) * sizeof(int *));
 	if (!map.data)
 		ft_mlx_error("Memory allocation failed\n");
-
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		ft_mlx_error("Could not open file\n");
-
 	line = get_next_line(fd);
 	config_done = 0;
 	y = 0;
-
 	while (line)
 	{
 		if (!config_done && ft_parse_texture_color(&map, line))
@@ -229,23 +227,19 @@ t_map	ft_map_parse(char *file)
 			line = get_next_line(fd);
 			continue;
 		}
-
 		if (ft_is_map_line(line))
 		{
 			config_done = 1;
 			ft_parse_map_line(&map, line, y);
 			y++;
 		}
-		else if (config_done && !ft_is_map_line(line) && line[0] != '\n' && line[0] != 0)
+		else if (config_done && !ft_is_map_line(line)
+				&& line[0] != '\n' && line[0] != 0)
 			ft_mlx_error("Invalid map format\n");
-
 		free(line);
-
 		line = get_next_line(fd);
 	}
-
 	close(fd);
-
 	ft_validate_map_textures(&map);
 	return (map);
 }

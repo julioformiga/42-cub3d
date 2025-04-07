@@ -152,6 +152,7 @@ typedef struct s_range
 	int	max;
 }	t_range;
 
+void		ft_debug_map(t_map *map);
 void		ft_check_file(char *file);
 t_env		*ft_mlx_create_env(void);
 void		ft_mlx_hooks(t_env *env);
@@ -162,8 +163,7 @@ void		ft_mlx_draw_line(t_env *env, t_point p0, t_point p1, int color);
 int			ft_mlx_line_color(t_env *env, int i, int j, char type);
 void		ft_draw_line_to_image(t_env *env, int x, int y, int color);
 int			ft_map_value(t_range range_in, t_range range_out, int value);
-void		ft_mlx_scale(t_env *env);
-void		ft_mlx_info(t_env *env);
+void		render_info(t_env *env);
 void		ft_mlx_draw_lines(t_env *env, char type, int i, int j);
 t_point		ft_select_projection(int x, int y, int z, t_view view);
 t_point		ft_iso_transform(int x, int y, int z, t_view view);

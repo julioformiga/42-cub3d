@@ -46,40 +46,14 @@ void	ft_map_draw(t_env *env)
 		}
 		i++;
 	}
-	ft_mlx_scale(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->screen.img, 0, 0);
 	ft_mlx_put_image(env);
-	ft_mlx_info(env);
+	render_info(env);
 	mlx_do_sync(env->mlx);
+	ft_debug_map(&env->map);
 }
 
-void	ft_mlx_scale(t_env *env)
-{
-	int		i;
-	int		x;
-	int		y;
-
-	i = -1;
-	while (i++, i < WIN_WIDTH)
-	{
-		x = 10;
-		ft_draw_line_to_image(env, i, WIN_HEIGHT - 1, GREEN);
-		if (i % (int)env->view.zoom > -2 && i % (int)env->view.zoom < 2)
-			while (x--, x > 2)
-				ft_draw_line_to_image(env, i, WIN_HEIGHT - x, GREEN_DARK);
-	}
-	i = -1;
-	while (i++, i < WIN_HEIGHT)
-	{
-		y = 10;
-		ft_draw_line_to_image(env, 1, i, GREEN);
-		if (i % (int)env->view.zoom > -2 && i % (int)env->view.zoom < 2)
-			while (y--, y > 2)
-				ft_draw_line_to_image(env, y, i, GREEN_DARK);
-	}
-}
-
-void	ft_mlx_info(t_env *env)
+void	render_info(t_env *env)
 {
 	char	*str;
 	char	*tmp;
