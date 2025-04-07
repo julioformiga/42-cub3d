@@ -62,6 +62,9 @@ run:	all
 debug:	all
 		$(CC) $(CFLAGS) $(XFLAGS) $(NAME) $(LIBFT) $(MINILIBX) -g3 -o a.out
 
+mleak:	all
+			valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(BIN)
+
 
 .SILENT:	all clean fclean re
 .PHONY:		all clean fclean re run

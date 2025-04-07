@@ -14,10 +14,10 @@
 # define CUB3D
 
 # define WIN_TITLE "Cub3D"
-// # define WIN_WIDTH 1024
-// # define WIN_HEIGHT 768
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 1024
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 768
+// # define WIN_WIDTH 1280
+// # define WIN_HEIGHT 1024
 
 # define BLACK 0
 # define BLUE 255
@@ -74,9 +74,12 @@ typedef struct s_map
 	t_texture	east;
 	t_color		floor;
 	t_color		ceiling;
-	int			player_x;
-	int			player_y;
+	float		player_x;
+	float		player_y;
+	float		player_direction;
 	char		player_dir;
+	float		pdx;
+	float		pdy;
 }	t_map;
 
 typedef struct s_view
@@ -173,7 +176,6 @@ void		ft_map_init(t_map *map, int n);
 
 void		ft_check_dirfile(char *file);
 int			ft_file_count_lines(int fd);
-void		ft_mlx_map_zoom(t_env *env, char zoom);
 void		ft_free_array(int **ar);
 void		ft_free_array_char(char **ar);
 void		ft_mlx_xpm(t_env *env, char *filename);

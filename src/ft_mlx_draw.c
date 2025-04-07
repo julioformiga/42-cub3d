@@ -12,11 +12,44 @@
 
 #include "cub3d.h"
 
+void print_square(t_env *env, int x, int y, int width, int color)
+{
+	int i;
+
+	i = -1;
+	while (i++, i < width)
+	{
+		ft_mlx_draw_line(env, (t_point){x, y + i}, (t_point){x + width, y + i}, color);
+		printf("x, y: %d, %d\n", x, y);
+	}
+}
+
+void player(t_env *env)
+{
+	int x;
+	int y;
+	int width = 20;
+
+	x = env->map.player_x;
+	y = env->map.player_y;
+	print_square(env, x, y, width, RED);
+	ft_mlx_draw_line(env,
+				  (t_point){x + (width/2), y + (width/2)},
+				  (t_point){
+					(x + ((float)width/2)) + env->map.pdx * 5,
+					(y + ((float)width/2)) + env->map.pdy * 5
+				  },
+			YELLOW);
+	printf("Player x, y: %d, %d\n", x, y);
+	printf("Player direction: %f\n", env->map.player_direction);
+	printf("Player pdx, pdy: %f, %f\n", env->map.pdx, env->map.pdy);
+}
+
 void	ft_map_draw(t_env *env)
 {
 	int		i;
 	int		j;
-	t_point	point;
+	int width = 100;
 
 	if (!env->map.data)
 	{
@@ -35,20 +68,18 @@ void	ft_map_draw(t_env *env)
 				printf("Map data[%d] is NULL\n", i);
 				break ;
 			}
-			point = ft_select_projection(j, i, env->map.data[i][j], env->view);
-			env->cursor_x = env->init.x + point.x;
-			env->cursor_y = env->init.y + point.y;
-			if (j < env->map.width - 1)
-				ft_mlx_draw_lines(env, 'h', i, j);
-			if (i < env->map.height - 1)
-				ft_mlx_draw_lines(env, 'v', i, j);
+			if (env->map.data[i][j] == 1)
+				print_square(env, j * width, i * width, width, WHITE);
+			else
+				print_square(env, j * width, i * width, width, BLACK);
 			j++;
 		}
 		i++;
 	}
+	player(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->screen.img, 0, 0);
-	ft_mlx_put_image(env);
-	render_info(env);
+	// ft_mlx_put_image(env);
+	// render_info(env);
 	mlx_do_sync(env->mlx);
 	ft_debug_map(&env->map);
 }
