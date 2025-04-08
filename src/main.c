@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	ft_init_mlx_values(t_env *env)
+static void	ft_mlx_init_values(t_env *env)
 {
 	env->view.zoom = (float)WIN_WIDTH / env->map.width / (float)2;
 	env->view.projection = 1;
@@ -22,11 +22,11 @@ void	ft_init_mlx_values(t_env *env)
 	env->view.rotation_angle_x = 0;
 	env->view.rotation_angle_y = 0;
 	env->view.rotation_angle_z = 0;
-	env->map.player_x = 300;
-	env->map.player_y = 300;
-	env->map.player_direction = 0;
-	env->map.pdx = 3;
-	env->map.pdy = 3;
+	env->map.player.x = 300;
+	env->map.player.y = 300;
+	env->map.player.direction = 0;
+	env->map.player.dx = 3;
+	env->map.player.dy = 3;
 	env->init.x = ((float)WIN_WIDTH / 2)
 		- (env->view.zoom * (env->map.width - 1)) / 8;
 	env->init.y = ((float)WIN_HEIGHT / 2)
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img,
 			&env->screen.bpp, &env->screen.line, &env->screen.endian);
-	ft_init_mlx_values(env);
+	ft_mlx_init_values(env);
 	ft_map_draw(env);
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);

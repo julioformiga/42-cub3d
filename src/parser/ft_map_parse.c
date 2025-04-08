@@ -170,9 +170,9 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 				|| line[x] == 'E' || line[x] == 'W')
 		{
 			map->data[y][x] = 0;
-			map->player_x = x;
-			map->player_y = y;
-			map->player_dir = line[x];
+			map->player.x = x;
+			map->player.y = y;
+			map->player.direction = line[x];
 		}
 		x++;
 	}
@@ -189,7 +189,7 @@ static void	ft_validate_map_textures(t_map *map)
 	if (!map->east.path)
 		map->east.path = ft_strdup("./assets/textures/east_default.xpm");
 
-	if (map->player_dir == 0)
+	if (map->player.direction == 0)
 		ft_mlx_error("No player position found in map\n");
 }
 
@@ -202,7 +202,7 @@ t_map	ft_map_parse(char *file)
 	int		config_done;
 
 	ft_bzero(&map, sizeof(t_map));
-	map.player_dir = 0;
+	map.player.direction = 0;
 	map.floor = (t_color){0, 100, 100, 100};
 	map.ceiling = (t_color){0, 135, 206, 235};
 	map.height = ft_count_map_lines(file);

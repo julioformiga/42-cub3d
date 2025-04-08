@@ -60,36 +60,36 @@ int ft_update_game(t_env *env)
 
 	if (env->keys.up)
 	{
-		env->map.player_x += env->map.pdx;
-		env->map.player_y += env->map.pdy;
+		env->map.player.x += env->map.player.dx;
+		env->map.player.y += env->map.player.dy;
 		update_needed = 1;
 	}
 	if (env->keys.down)
 	{
-		env->map.player_x -= env->map.pdx;
-		env->map.player_y -= env->map.pdy;
+		env->map.player.x -= env->map.player.dx;
+		env->map.player.y -= env->map.player.dy;
 		update_needed = 1;
 	}
 	if (env->keys.left)
 	{
-		env->map.player_direction -= 0.1;
-		if (env->map.player_direction < 0)
+		env->map.player.direction -= 0.1;
+		if (env->map.player.direction < 0)
 
-			env->map.player_direction += 2 * M_PI;
+			env->map.player.direction += 2 * M_PI;
 
-		env->map.pdx = cos(env->map.player_direction) * 5;
-		env->map.pdy = sin(env->map.player_direction) * 5;
+		env->map.player.dx = cos(env->map.player.direction) * 5;
+		env->map.player.dy = sin(env->map.player.direction) * 5;
 		update_needed = 1;
 	}
 	if (env->keys.right)
 	{
-		env->map.player_direction += 0.1;
-		if (env->map.player_direction > 2 * M_PI)
+		env->map.player.direction += 0.1;
+		if (env->map.player.direction > 2 * M_PI)
 
-			env->map.player_direction -= 2 * M_PI;
+			env->map.player.direction -= 2 * M_PI;
 
-		env->map.pdx = cos(env->map.player_direction) * 5;
-		env->map.pdy = sin(env->map.player_direction) * 5;
+		env->map.player.dx = cos(env->map.player.direction) * 5;
+		env->map.player.dy = sin(env->map.player.direction) * 5;
 		update_needed = 1;
 	}
 	if (update_needed)

@@ -14,10 +14,10 @@
 # define CUB3D
 
 # define WIN_TITLE "Cub3D"
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
-// # define WIN_WIDTH 1280
-// # define WIN_HEIGHT 1024
+// # define WIN_WIDTH 1024
+// # define WIN_HEIGHT 768
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 1024
 
 # define BLACK 0
 # define BLUE 255
@@ -49,6 +49,12 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
 typedef struct s_texture
 {
 	char	*path;
@@ -69,6 +75,15 @@ typedef struct s_keys
 	int	right;
 }	t_keys;
 
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	int		dx;
+	int		dy;
+	float	direction;
+}	t_player;
+
 typedef struct s_map
 {
 	int			**data;
@@ -82,12 +97,7 @@ typedef struct s_map
 	t_texture	east;
 	t_color		floor;
 	t_color		ceiling;
-	float		player_x;
-	float		player_y;
-	float		player_direction;
-	char		player_dir;
-	float		pdx;
-	float		pdy;
+	t_player	player;
 }	t_map;
 
 typedef struct s_view
@@ -101,12 +111,6 @@ typedef struct s_view
 	float	rotation_angle_y;
 	float	rotation_angle_z;
 }	t_view;
-
-typedef struct s_point
-{
-	int	x;
-	int	y;
-}	t_point;
 
 typedef struct s_point3d
 {
@@ -164,6 +168,7 @@ typedef struct s_range
 	int	max;
 }	t_range;
 
+void		player(t_env *env);
 void		ft_debug_map(t_map *map);
 void		ft_check_file(char *file);
 t_env		*ft_mlx_create_env(void);
@@ -174,11 +179,12 @@ int			ft_update_game(t_env *env);
 int			ft_mlx_destroy_window(t_env *env);
 int			ft_mlx_color(t_color color);
 void		ft_mlx_draw_line(t_env *env, t_point p0, t_point p1, int color);
+void		ft_mlx_draw_square(t_env *env, t_point p, int width, int color);
+// void		ft_mlx_draw_lines(t_env *env, char type, int i, int j);
 int			ft_mlx_line_color(t_env *env, int i, int j, char type);
 void		ft_draw_line_to_image(t_env *env, int x, int y, int color);
 int			ft_map_value(t_range range_in, t_range range_out, int value);
 void		render_info(t_env *env);
-void		ft_mlx_draw_lines(t_env *env, char type, int i, int j);
 t_point		ft_select_projection(int x, int y, int z, t_view view);
 t_point		ft_iso_transform(int x, int y, int z, t_view view);
 t_point		ft_parallel_transform(int x, int y, int z, t_view view);
