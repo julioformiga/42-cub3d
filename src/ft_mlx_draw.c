@@ -20,7 +20,7 @@ void print_square(t_env *env, int x, int y, int width, int color)
 	while (i++, i < width)
 	{
 		ft_mlx_draw_line(env, (t_point){x, y + i}, (t_point){x + width, y + i}, color);
-		printf("x, y: %d, %d\n", x, y);
+		// printf("x, y: %d, %d\n", x, y);
 	}
 }
 
@@ -40,9 +40,9 @@ void player(t_env *env)
 					(y + ((float)width/2)) + env->map.pdy * 5
 				  },
 			YELLOW);
-	printf("Player x, y: %d, %d\n", x, y);
-	printf("Player direction: %f\n", env->map.player_direction);
-	printf("Player pdx, pdy: %f, %f\n", env->map.pdx, env->map.pdy);
+	// printf("Player x, y: %d, %d\n", x, y);
+	// printf("Player direction: %f\n", env->map.player_direction);
+	// printf("Player pdx, pdy: %f, %f\n", env->map.pdx, env->map.pdy);
 }
 
 void	ft_map_draw(t_env *env)

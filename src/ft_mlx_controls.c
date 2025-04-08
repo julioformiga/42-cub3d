@@ -14,45 +14,86 @@
 
 void ft_mlx_hooks(t_env *env)
 {
+	env->keys.up = 0;
+	env->keys.down = 0;
+	env->keys.left = 0;
+	env->keys.right = 0;
+
 	mlx_hook(env->win, KeyPress, KeyPressMask, ft_mlx_keypress, env);
+	mlx_hook(env->win, KeyRelease, KeyReleaseMask, ft_mlx_keyrelease, env);
 	mlx_hook(env->win, DestroyNotify, StructureNotifyMask,
 			 ft_mlx_destroy_window, env);
+	mlx_loop_hook(env->mlx, ft_update_game, env);
 }
 
 int ft_mlx_keypress(int keycode, t_env *env)
 {
 	if (keycode == XK_Escape || keycode == 'q')
 		ft_mlx_destroy_window(env);
+	else if (keycode == XK_Up || keycode == 'k')
+		env->keys.up = 1;
+	else if (keycode == XK_Down || keycode == 'j')
+		env->keys.down = 1;
+	else if (keycode == XK_Left || keycode == 'h')
+		env->keys.left = 1;
+	else if (keycode == XK_Right || keycode == 'l')
+		env->keys.right = 1;
+	return (0);
+}
+
+int ft_mlx_keyrelease(int keycode, t_env *env)
+{
 	if (keycode == XK_Up || keycode == 'k')
+		env->keys.up = 0;
+	else if (keycode == XK_Down || keycode == 'j')
+		env->keys.down = 0;
+	else if (keycode == XK_Left || keycode == 'h')
+		env->keys.left = 0;
+	else if (keycode == XK_Right || keycode == 'l')
+		env->keys.right = 0;
+	return (0);
+}
+
+int ft_update_game(t_env *env)
+{
+	int update_needed = 0;
+
+	if (env->keys.up)
 	{
 		env->map.player_x += env->map.pdx;
 		env->map.player_y += env->map.pdy;
+		update_needed = 1;
 	}
-	if (keycode == XK_Down || keycode == 'j')
+	if (env->keys.down)
 	{
 		env->map.player_x -= env->map.pdx;
 		env->map.player_y -= env->map.pdy;
+		update_needed = 1;
 	}
-	if (keycode == XK_Left || keycode == 'h')
+	if (env->keys.left)
 	{
 		env->map.player_direction -= 0.1;
 		if (env->map.player_direction < 0)
-		{
+
 			env->map.player_direction += 2 * M_PI;
-		}
+
 		env->map.pdx = cos(env->map.player_direction) * 5;
 		env->map.pdy = sin(env->map.player_direction) * 5;
+		update_needed = 1;
 	}
-	if (keycode == XK_Right || keycode == 'l')
+	if (env->keys.right)
 	{
 		env->map.player_direction += 0.1;
 		if (env->map.player_direction > 2 * M_PI)
-		{
+
 			env->map.player_direction -= 2 * M_PI;
-		}
+
 		env->map.pdx = cos(env->map.player_direction) * 5;
 		env->map.pdy = sin(env->map.player_direction) * 5;
+		update_needed = 1;
 	}
-	ft_map_draw(env);
+	if (update_needed)
+		ft_map_draw(env);
+
 	return (0);
 }

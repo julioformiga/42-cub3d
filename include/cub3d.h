@@ -61,6 +61,14 @@ typedef struct s_texture
 	int		endian;
 }	t_texture;
 
+typedef struct s_keys
+{
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+}	t_keys;
+
 typedef struct s_map
 {
 	int			**data;
@@ -140,6 +148,7 @@ typedef struct s_env
 	t_map	map;
 	t_view	view;
 	t_point	init;
+	t_keys	keys;
 }	t_env;
 
 typedef struct s_line
@@ -160,6 +169,8 @@ void		ft_check_file(char *file);
 t_env		*ft_mlx_create_env(void);
 void		ft_mlx_hooks(t_env *env);
 int			ft_mlx_keypress(int keycode, t_env *env);
+int			ft_mlx_keyrelease(int keycode, t_env *env);
+int			ft_update_game(t_env *env);
 int			ft_mlx_destroy_window(t_env *env);
 int			ft_mlx_color(t_color color);
 void		ft_mlx_draw_line(t_env *env, t_point p0, t_point p1, int color);

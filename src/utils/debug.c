@@ -22,10 +22,10 @@ void ft_debug_map(t_map *map)
 		j = 0;
 		while (j < map->width)
 		{
-			printf("%d ", map->data[i][j]);
+			// printf("%d ", map->data[i][j]);
 			j++;
 		}
-		printf("\n");
+		// printf("\n");
 		i++;
 	}
 }

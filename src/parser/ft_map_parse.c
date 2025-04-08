@@ -153,14 +153,12 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 		ft_mlx_error("Memory allocation failed\n");
 
 	x = 0;
-	// Inicializar todos os valores primeiro
 	while (x < width)
 	{
 		map->data[y][x] = 0;
 		x++;
 	}
-	map->data[y][x] = -1; // Marcador de fim
-
+	map->data[y][x] = -1;
 	x = 0;
 	while (line[x] && line[x] != '\n')
 	{
@@ -182,7 +180,6 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 
 static void	ft_validate_map_textures(t_map *map)
 {
-	// Usar caminhos de texturas que existem ou que você planeja criar
 	if (!map->north.path)
 		map->north.path = ft_strdup("./assets/textures/north_default.xpm");
 	if (!map->south.path)
@@ -192,7 +189,6 @@ static void	ft_validate_map_textures(t_map *map)
 	if (!map->east.path)
 		map->east.path = ft_strdup("./assets/textures/east_default.xpm");
 
-	// Verificar se o jogador foi encontrado
 	if (map->player_dir == 0)
 		ft_mlx_error("No player position found in map\n");
 }
