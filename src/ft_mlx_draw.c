@@ -28,7 +28,7 @@ void draw_minimap(t_env *env)
 {
 	int		i;
 	int		j;
-	int width = 100;
+	int width = 30;
 	if (!env->map.data)
 	{
 		printf("Map data is NULL\n");

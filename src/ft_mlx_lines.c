@@ -37,32 +37,6 @@ void	ft_draw_line_to_image(t_env *env, int x, int y, int color)
 	}
 }
 
-void	ft_mlx_draw_lines(t_env *env, char type, int i, int j)
-{
-	t_point	start;
-	t_point	dest;
-
-	start = ft_select_projection(j, i, env->map.data[i][j], env->view);
-	start.x += env->init.x;
-	start.y += env->init.y;
-	if (type == 'h' && j < env->map.width - 1)
-	{
-		dest = ft_select_projection(j + 1, i,
-				env->map.data[i][j + 1], env->view);
-		dest.x += env->init.x;
-		dest.y += env->init.y;
-		ft_mlx_draw_line(env, start, dest, ft_mlx_line_color(env, i, j, 'h'));
-	}
-	if (type == 'v' && i < env->map.height - 1)
-	{
-		dest = ft_select_projection(j, i + 1,
-				env->map.data[i + 1][j], env->view);
-		dest.x += env->init.x;
-		dest.y += env->init.y;
-		ft_mlx_draw_line(env, start, dest, ft_mlx_line_color(env, i, j, 'v'));
-	}
-}
-
 void	ft_mlx_draw_line(t_env *env, t_point begin, t_point end, int color)
 {
 	t_point	d;

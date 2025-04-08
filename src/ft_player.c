@@ -17,6 +17,7 @@ void player(t_env *env)
 	int x;
 	int y;
 	int width = 20;
+	int ray_length = 150;
 
 	x = env->map.player.x;
 	y = env->map.player.y;
@@ -25,12 +26,9 @@ void player(t_env *env)
 	ft_mlx_draw_line(env,
 				  (t_point){x + (width), y + (width)},
 				  (t_point){
-					(x + ((float)width)) + env->map.player.dx * 5,
-					(y + ((float)width)) + env->map.player.dy * 5
+					(x + ((float)width)) + env->map.player.dx * ray_length,
+					(y + ((float)width)) + env->map.player.dy * ray_length,
 				  },
 			YELLOW);
-	// printf("Player x, y: %d, %d\n", x, y);
-	// printf("Player direction: %f\n", env->map.player_direction);
-	// printf("Player pdx, pdy: %f, %f\n", env->map.pdx, env->map.pdy);
 }
 

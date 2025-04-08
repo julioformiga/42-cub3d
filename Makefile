@@ -57,7 +57,7 @@ fclean:	clean
 re:		fclean all run
 
 run:	all
-		./$(BIN) ./maps/minimap.cub
+		./$(BIN)
 
 debug:	all
 		$(CC) $(CFLAGS) $(XFLAGS) $(NAME) $(LIBFT) $(MINILIBX) -g3 -o a.out

@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 	t_map	map;
 
 	if (argc != 2)
-		argv[1] = "./maps/minimap.cub";
+		argv[1] = "./maps/minimap_large.cub";
 		// ft_mlx_error("Usage: ./cub3d <map>.cub");
 	ft_check_file(argv[1]);
 	map = ft_map_parse(argv[1]);
