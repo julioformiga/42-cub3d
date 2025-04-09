@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx_controls.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 02:19:51 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/05 02:19:51 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/09 17:28:19 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,26 @@ int ft_mlx_keypress(int keycode, t_env *env)
 {
 	if (keycode == XK_Escape || keycode == 'q')
 		ft_mlx_destroy_window(env);
-	else if (keycode == XK_Up || keycode == 'k')
+	else if (keycode == XK_Up || keycode == 'w')
 		env->keys.up = 1;
-	else if (keycode == XK_Down || keycode == 'j')
+	else if (keycode == XK_Down || keycode == 's')
 		env->keys.down = 1;
-	else if (keycode == XK_Left || keycode == 'h')
+	else if (keycode == XK_Left || keycode == 'a')
 		env->keys.left = 1;
-	else if (keycode == XK_Right || keycode == 'l')
+	else if (keycode == XK_Right || keycode == 'd')
 		env->keys.right = 1;
 	return (0);
 }
 
 int ft_mlx_keyrelease(int keycode, t_env *env)
 {
-	if (keycode == XK_Up || keycode == 'k')
+	if (keycode == XK_Up || keycode == 'w')
 		env->keys.up = 0;
-	else if (keycode == XK_Down || keycode == 'j')
+	else if (keycode == XK_Down || keycode == 's')
 		env->keys.down = 0;
-	else if (keycode == XK_Left || keycode == 'h')
+	else if (keycode == XK_Left || keycode == 'a')
 		env->keys.left = 0;
-	else if (keycode == XK_Right || keycode == 'l')
+	else if (keycode == XK_Right || keycode == 'd')
 		env->keys.right = 0;
 	return (0);
 }

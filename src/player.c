@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 06:33:12 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/08 06:33:12 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/08 06:33:12 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/09 17:30:40 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static float calculate_ray_length(t_env *env, float ray_angle)
     float side_dist_y;
 
     int hit = 0;
-    int side;
+    int side = -1;
     float max_dist = 1000.0;
     float dist = 0;
 
@@ -101,7 +101,6 @@ static float calculate_ray_length(t_env *env, float ray_angle)
             map_y += step_y;
             side = 1;
         }
-
         if (map_x >= 0 && map_y >= 0 && map_x < env->map.width && map_y < env->map.height)
         {
             if (env->map.data[map_y][map_x] == 1)
@@ -109,11 +108,10 @@ static float calculate_ray_length(t_env *env, float ray_angle)
         }
         dist += 1.0;
     }
-
     if (side == 0)
-        perpendicular_wall_dist = (map_x - env->map.player.x / map_size + (1 - step_x) / 2) / ray_dir_x;
+        perpendicular_wall_dist = ((map_x - env->map.player.x / map_size + (1 - step_x) / 2) / ray_dir_x) / 1.5;
     else
-        perpendicular_wall_dist = (map_y - env->map.player.y / map_size + (1 - step_y) / 2) / ray_dir_y;
+        perpendicular_wall_dist = ((map_y - env->map.player.y / map_size + (1 - step_y) / 2) / ray_dir_y) / 1.5;
     return perpendicular_wall_dist * map_size;
 }
 
