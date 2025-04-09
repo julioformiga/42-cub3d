@@ -39,7 +39,6 @@ static int	ft_point_inside_rect(t_point p, t_rect rect)
 		- (rect.p3.y - rect.p2.y) * (p.x - rect.p2.x);
 	cross4 = (rect.p0.x - rect.p3.x) * (p.y - rect.p3.y)
 		- (rect.p0.y - rect.p3.y) * (p.x - rect.p3.x);
-
 	if ((cross1 >= 0 && cross2 >= 0 && cross3 >= 0 && cross4 >= 0)
 		|| (cross1 <= 0 && cross2 <= 0 && cross3 <= 0 && cross4 <= 0))
 		return (1);
@@ -51,7 +50,6 @@ static void	ft_mlx_draw_rect_fill(t_env *env, t_rect rect, int color)
 	int	min_x;
 	int	max_x;
 	int	min_y;
-
 	int	max_y;
 	int	x;
 	int	y;

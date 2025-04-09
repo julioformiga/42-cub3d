@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static t_rect rotate_rect(t_rect rect, t_point center, float angle)
+static t_rect	rotate_rect(t_rect rect, t_point center, float angle)
 {
 	t_rect	rotated_rect;
 	float	cos_angle;
@@ -40,33 +40,118 @@ static t_rect rotate_rect(t_rect rect, t_point center, float angle)
 	return (rotated_rect);
 }
 
+static float calculate_ray_length(t_env *env, float ray_angle)
+{
+    float ray_dir_x = cos(ray_angle);
+    float ray_dir_y = sin(ray_angle);
+
+	int map_size = 30;
+
+    int map_x = (int)(env->map.player.x / map_size);
+    int map_y = (int)(env->map.player.y / map_size);
+
+    float delta_dist_x = fabs(1 / ray_dir_x);
+    float delta_dist_y = fabs(1 / ray_dir_y);
+
+    int step_x;
+    int step_y;
+    float side_dist_x;
+    float side_dist_y;
+
+    int hit = 0;
+    int side;
+    float max_dist = 1000.0;
+    float dist = 0;
+
+    float perpendicular_wall_dist;
+
+	if (ray_dir_x < 0)
+    {
+        step_x = -1;
+        side_dist_x = (env->map.player.x / map_size - map_x) * delta_dist_x;
+    }
+    else
+    {
+        step_x = 1;
+        side_dist_x = (map_x + 1.0 - env->map.player.x / map_size) * delta_dist_x;
+    }
+
+    if (ray_dir_y < 0)
+    {
+        step_y = -1;
+        side_dist_y = (env->map.player.y / map_size - map_y) * delta_dist_y;
+    }
+    else
+    {
+        step_y = 1;
+        side_dist_y = (map_y + 1.0 - env->map.player.y / map_size) * delta_dist_y;
+    }
+
+    while (hit == 0 && dist < max_dist)
+    {
+        if (side_dist_x < side_dist_y)
+        {
+            side_dist_x += delta_dist_x;
+            map_x += step_x;
+            side = 0;
+        }
+        else
+        {
+            side_dist_y += delta_dist_y;
+            map_y += step_y;
+            side = 1;
+        }
+
+        if (map_x >= 0 && map_y >= 0 && map_x < env->map.width && map_y < env->map.height)
+        {
+            if (env->map.data[map_y][map_x] == 1)
+                hit = 1;
+        }
+        dist += 1.0;
+    }
+
+    if (side == 0)
+        perpendicular_wall_dist = (map_x - env->map.player.x / map_size + (1 - step_x) / 2) / ray_dir_x;
+    else
+        perpendicular_wall_dist = (map_y - env->map.player.y / map_size + (1 - step_y) / 2) / ray_dir_y;
+    return perpendicular_wall_dist * map_size;
+}
+
 void	player(t_env *env)
 {
 	int		x;
 	int		y;
 	int		width;
-	int		ray_length;
+	float	ray_length;
 	t_rect	rect;
 
 	width = 20;
-	ray_length = 150;
+
 	x = env->map.player.x;
 	y = env->map.player.y;
 	rect = (t_rect){
-		(t_point){x + 10, y - 10},
-		(t_point){x + 10, y - 10},
-		(t_point){x + 27, y + 27},
-		(t_point){x - 10, y + 27},
+		(t_point){x - 20, y - 20},
+		(t_point){x - 20, y + 20},
+		(t_point){x, y},
+		(t_point){x, y},
 	};
-	ft_mlx_draw_square(env, (t_point){x, y}, width, RED);
-	rect = rotate_rect(rect, (t_point){x + 10, y + 13}, env->map.player.direction);
+	rect = rotate_rect(rect, (t_point){x, y}, env->map.player.direction);
 	ft_mlx_draw_rect(env, rect, BLUE, 1);
+	ft_mlx_draw_rect(env, rect, RED, 0);
+
+	ray_length = calculate_ray_length(env, env->map.player.direction);
+
+	if (ray_length < 10)
+		ray_length = 10;
+	if (ray_length > 1000)
+		ray_length = 1000;
+
 	width = width / 2;
 	ft_mlx_draw_line(env,
-		(t_point){x + (width), y + (width)},
+		(t_point){x, y},
 		(t_point){
-		(x + ((float)width)) + env->map.player.dx * ray_length,
-		(y + ((float)width)) + env->map.player.dy * ray_length,
+		x + env->map.player.dx * ray_length,
+		y + env->map.player.dy * ray_length,
 	},
-		YELLOW);
+		RED);
 }

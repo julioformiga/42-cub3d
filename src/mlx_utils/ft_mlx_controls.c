@@ -54,20 +54,21 @@ int ft_mlx_keyrelease(int keycode, t_env *env)
 	return (0);
 }
 
-int ft_update_game(t_env *env)
+int	ft_update_game(t_env *env)
 {
-	int update_needed = 0;
+	int	update_needed;
 
+	update_needed = 0;
 	if (env->keys.up)
 	{
-		env->map.player.x += env->map.player.dx;
-		env->map.player.y += env->map.player.dy;
+		env->map.player.x += env->map.player.dx * env->map.player.speed;
+		env->map.player.y += env->map.player.dy * env->map.player.speed;
 		update_needed = 1;
 	}
 	if (env->keys.down)
 	{
-		env->map.player.x -= env->map.player.dx;
-		env->map.player.y -= env->map.player.dy;
+		env->map.player.x -= env->map.player.dx * env->map.player.speed;
+		env->map.player.y -= env->map.player.dy * env->map.player.speed;
 		update_needed = 1;
 	}
 	if (env->keys.left)
@@ -75,8 +76,8 @@ int ft_update_game(t_env *env)
 		env->map.player.direction -= 0.04;
 		if (env->map.player.direction < 0)
 			env->map.player.direction += 2.0f * M_PI;
-		env->map.player.dx = cos(env->map.player.direction) * 2;
-		env->map.player.dy = sin(env->map.player.direction) * 2;
+		env->map.player.dx = cos(env->map.player.direction) * env->map.player.speed;
+		env->map.player.dy = sin(env->map.player.direction) * env->map.player.speed;
 		update_needed = 1;
 	}
 	if (env->keys.right)
@@ -84,12 +85,11 @@ int ft_update_game(t_env *env)
 		env->map.player.direction += 0.04;
 		if (env->map.player.direction > 2 * M_PI)
 			env->map.player.direction -= 2.0f * M_PI;
-		env->map.player.dx = cos(env->map.player.direction) * 2;
-		env->map.player.dy = sin(env->map.player.direction) * 2;
+		env->map.player.dx = cos(env->map.player.direction) * env->map.player.speed;
+		env->map.player.dy = sin(env->map.player.direction) * env->map.player.speed;
 		update_needed = 1;
 	}
 	if (update_needed)
 		draw_map(env);
-
 	return (0);
 }

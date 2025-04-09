@@ -14,23 +14,14 @@
 
 static void	ft_mlx_init_values(t_env *env)
 {
-	env->view.zoom = (float)WIN_WIDTH / env->map.width / (float)2;
-	env->view.projection = 1;
-	env->view.angle = 120;
-	env->view.angle_rotate = 10;
-	env->view.height = 0.05;
-	env->view.rotation_angle_x = 0;
-	env->view.rotation_angle_y = 0;
-	env->view.rotation_angle_z = 0;
 	env->map.player.x = 300;
 	env->map.player.y = 300;
-	env->map.player.direction = 0.1f;
-	env->map.player.dx = 1;
-	env->map.player.dy = 1;
-	env->init.x = ((float)WIN_WIDTH / 2)
-		- (env->view.zoom * (env->map.width - 1)) / 8;
-	env->init.y = ((float)WIN_HEIGHT / 2)
-		- (env->view.zoom * env->map.height) / 2;
+	env->map.player.direction = 0;
+	env->map.player.speed = 1.5f;
+	env->map.player.dx = cos(env->map.player.direction)
+		* env->map.player.speed;
+	env->map.player.dy = sin(env->map.player.direction)
+		* env->map.player.speed;
 }
 
 int	main(int argc, char **argv)
@@ -45,10 +36,10 @@ int	main(int argc, char **argv)
 	map = ft_map_parse(argv[1]);
 	env = ft_mlx_create_env();
 	env->map = map;
+	ft_mlx_init_values(env);
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img,
 			&env->screen.bpp, &env->screen.line, &env->screen.endian);
-	ft_mlx_init_values(env);
 	draw_map(env);
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);

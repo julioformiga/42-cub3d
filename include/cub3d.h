@@ -85,11 +85,12 @@ typedef struct s_keys
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
-	float	dx;
-	float	dy;
-	float	direction;
+	double	x;
+	double	y;
+	double	dx;
+	double	dy;
+	double	speed;
+	double	direction;
 }	t_player;
 
 typedef struct s_map
