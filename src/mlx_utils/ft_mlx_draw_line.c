@@ -25,7 +25,7 @@ static t_point	set_point(t_point begin, t_point end)
 	return (point_s);
 }
 
-static void	ft_draw_line_to_image(t_env *env, int x, int y, int color)
+void	ft_draw_line_to_image(t_env *env, int x, int y, int color)
 {
 	char	*dst;
 

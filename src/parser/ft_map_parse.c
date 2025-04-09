@@ -134,7 +134,6 @@ static int	ft_count_map_lines(char *file)
 		free(line);
 		line = get_next_line(fd);
 	}
-
 	close(fd);
 	return (count);
 }

@@ -24,9 +24,9 @@ static void	ft_mlx_init_values(t_env *env)
 	env->view.rotation_angle_z = 0;
 	env->map.player.x = 300;
 	env->map.player.y = 300;
-	env->map.player.direction = 0;
-	env->map.player.dx = 3;
-	env->map.player.dy = 3;
+	env->map.player.direction = 0.1f;
+	env->map.player.dx = 1;
+	env->map.player.dy = 1;
 	env->init.x = ((float)WIN_WIDTH / 2)
 		- (env->view.zoom * (env->map.width - 1)) / 8;
 	env->init.y = ((float)WIN_HEIGHT / 2)
