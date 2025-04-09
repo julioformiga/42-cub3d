@@ -31,6 +31,8 @@
 # include <fcntl.h>
 # include <stdarg.h>
 
+int		ft_min(int a, int b);
+int		ft_max(int a, int b);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
