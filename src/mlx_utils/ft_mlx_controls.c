@@ -12,6 +12,17 @@
 
 #include "cub3d.h"
 
+static int	ft_mlx_mouse(int button, int x, int y, t_env *env)
+{
+	(void)x;
+	(void)y;
+	if (button == 5)
+		ft_mlx_keypress('-', env);
+	if (button == 4)
+		ft_mlx_keypress('+', env);
+	return (0);
+}
+
 void ft_mlx_hooks(t_env *env)
 {
 	env->keys.up = 0;
@@ -21,6 +32,7 @@ void ft_mlx_hooks(t_env *env)
 
 	mlx_hook(env->win, KeyPress, KeyPressMask, ft_mlx_keypress, env);
 	mlx_hook(env->win, KeyRelease, KeyReleaseMask, ft_mlx_keyrelease, env);
+	mlx_hook(env->win, ButtonPress, ButtonPressMask, ft_mlx_mouse, env);
 	mlx_hook(env->win, DestroyNotify, StructureNotifyMask,
 			 ft_mlx_destroy_window, env);
 	mlx_loop_hook(env->mlx, ft_update_game, env);
@@ -38,6 +50,16 @@ int ft_mlx_keypress(int keycode, t_env *env)
 		env->keys.left = 1;
 	else if (keycode == XK_Right || keycode == 'd')
 		env->keys.right = 1;
+	else if (keycode == '-')
+	{
+		env->map.size -= 1;
+		draw_map(env);
+	}
+	else if (keycode == '+')
+	{
+		env->map.size += 1;
+		draw_map(env);
+	}
 	return (0);
 }
 
