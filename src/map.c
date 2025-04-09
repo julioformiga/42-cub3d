@@ -14,11 +14,11 @@
 
 void draw_minimap(t_env *env)
 {
-	int	i;
-	int	j;
-	int	width;
+	int		i;
+	int		j;
+	double	size;
 
-	width = 30;
+	size = env->map.size;
 	if (!env->map.data)
 	{
 		printf("Map data is NULL\n");
@@ -36,9 +36,9 @@ void draw_minimap(t_env *env)
 				break ;
 			}
 			if (env->map.data[i][j] == 1)
-				ft_mlx_draw_square(env, (t_point){j * width, i * width}, width, WHITE);
+				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, WHITE);
 			else
-				ft_mlx_draw_square(env, (t_point){j * width, i * width}, width, BLACK);
+				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, BLACK);
 			j++;
 		}
 		i++;

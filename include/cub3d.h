@@ -100,6 +100,7 @@ typedef struct s_map
 	int			height;
 	int			min;
 	int			max;
+	double		size;
 	t_texture	north;
 	t_texture	south;
 	t_texture	west;
