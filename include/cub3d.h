@@ -77,10 +77,10 @@ typedef struct s_keys
 
 typedef struct s_player
 {
-	int		x;
-	int		y;
-	int		dx;
-	int		dy;
+	float	x;
+	float	y;
+	float	dx;
+	float	dy;
 	float	direction;
 }	t_player;
 
@@ -168,7 +168,8 @@ typedef struct s_range
 	int	max;
 }	t_range;
 
-void		player(t_env *env);
+void		ft_mlx_put_image(t_env *env);
+void		ft_mlx_error(char *msg);
 void		ft_debug_map(t_map *map);
 void		ft_check_file(char *file);
 t_env		*ft_mlx_create_env(void);
@@ -181,13 +182,7 @@ int			ft_mlx_color(t_color color);
 void		ft_mlx_draw_line(t_env *env, t_point p0, t_point p1, int color);
 void		ft_mlx_draw_square(t_env *env, t_point p, int width, int color);
 int			ft_mlx_line_color(t_env *env, int i, int j, char type);
-void		ft_draw_line_to_image(t_env *env, int x, int y, int color);
 int			ft_map_value(t_range range_in, t_range range_out, int value);
-void		render_info(t_env *env);
-t_point		ft_select_projection(int x, int y, int z, t_view view);
-t_point		ft_iso_transform(int x, int y, int z, t_view view);
-t_point		ft_parallel_transform(int x, int y, int z, t_view view);
-t_point3d	ft_map_rotate3d(int x, int y, int z, t_view view);
 void		ft_map_init(t_map *map, int n);
 
 void		ft_check_dirfile(char *file);
@@ -196,8 +191,8 @@ void		ft_free_array(int **ar);
 void		ft_free_array_char(char **ar);
 void		ft_mlx_xpm(t_env *env, char *filename);
 t_map		ft_map_parse(char *file);
-void		ft_map_draw(t_env *env);
-void		ft_mlx_put_image(t_env *env);
-void		ft_mlx_error(char *msg);
+void		draw_map(t_env *env);
+void		map_render_info(t_env *env);
+void		player(t_env *env);
 
 #endif

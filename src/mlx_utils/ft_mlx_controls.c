@@ -93,7 +93,7 @@ int ft_update_game(t_env *env)
 		update_needed = 1;
 	}
 	if (update_needed)
-		ft_map_draw(env);
+		draw_map(env);
 
 	return (0);
 }

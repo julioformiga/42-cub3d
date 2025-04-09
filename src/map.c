@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx_draw.c                                      :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 02:19:51 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/05 02:19:51 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/09 12:09:11 by julio.formiga     #+#    #+#             */
+/*   Updated: 2025/04/09 12:09:11 by julio.formiga    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void ft_mlx_draw_square(t_env *env, t_point p, int width, int color)
-{
-	int	i;
-
-	i = -1;
-	while (i++, i < width)
-		ft_mlx_draw_line(env,
-				   (t_point){p.x, p.y + i},
-				   (t_point){p.x + width, p.y + i},
-				   color);
-}
-
 void draw_minimap(t_env *env)
 {
-	int		i;
-	int		j;
-	int width = 30;
+	int	i;
+	int	j;
+	int	width;
+
+	width = 30;
 	if (!env->map.data)
 	{
 		printf("Map data is NULL\n");
@@ -56,7 +46,7 @@ void draw_minimap(t_env *env)
 	player(env);
 }
 
-void	ft_map_draw(t_env *env)
+void	draw_map(t_env *env)
 {
 	if (!env->map.data)
 	{
@@ -67,12 +57,12 @@ void	ft_map_draw(t_env *env)
 	draw_minimap(env);
 	// ft_mlx_put_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->screen.img, 0, 0);
-	render_info(env);
+	map_render_info(env);
 	// mlx_do_sync(env->mlx);
 	// ft_debug_map(&env->map);
 }
 
-void	render_info(t_env *env)
+void	map_render_info(t_env *env)
 {
 	char	*str;
 	int		y_pos;

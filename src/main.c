@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	env->screen.addr = mlx_get_data_addr(env->screen.img,
 			&env->screen.bpp, &env->screen.line, &env->screen.endian);
 	ft_mlx_init_values(env);
-	ft_map_draw(env);
+	draw_map(env);
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);
 	exit(EXIT_SUCCESS);

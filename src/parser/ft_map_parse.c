@@ -77,12 +77,12 @@ static int	ft_is_map_line(char *line)
 	has_valid_char = 0;
 	while (line[i])
 	{
-		if (line[i] != '0' && line[i] != '1' && line[i] != ' ' &&
-			line[i] != 'N' && line[i] != 'S' && line[i] != 'E' &&
-			line[i] != 'W' && line[i] != '\n')
+		if (line[i] != '0' && line[i] != '1' && line[i] != ' '
+			&& line[i] != 'N' && line[i] != 'S' && line[i] != 'E'
+			&& line[i] != 'W' && line[i] != '\n')
 			return (0);
-		if (line[i] == '0' || line[i] == '1' || line[i] == 'N' ||
-			line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		if (line[i] == '0' || line[i] == '1' || line[i] == 'N'
+			|| line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
 			has_valid_char = 1;
 		i++;
 	}
