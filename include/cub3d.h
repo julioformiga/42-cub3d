@@ -195,6 +195,7 @@ int			ft_mlx_line_color(t_env *env, int i, int j, char type);
 int			ft_map_value(t_range range_in, t_range range_out, int value);
 void		ft_map_init(t_map *map, int n);
 
+void		raycasting(t_env *env);
 void		ft_draw_line_to_image(t_env *env, int x, int y, int color);
 void		ft_mlx_draw_rect(t_env *env, t_rect rect, int color, int fill);
 void		ft_check_dirfile(char *file);
