@@ -143,7 +143,6 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 	int	x;
 	int	width;
 
-
 	map->size = 10;//da spostare
 	width = ft_count_map_width(line);
 	if (width > map->width)
@@ -173,7 +172,14 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 			map->data[y][x] = 0;
 			map->player.x = x * map->size;
 			map->player.y = y * map->size;
-			map->player.direction = line[x];
+			if (line[x] == 'N')
+				map->player.direction = 270 * M_PI / 180;
+			else if (line[x] == 'S')
+				map->player.direction = 90 * M_PI / 180;
+			else if (line[x] == 'E')
+				map->player.direction = 0.00001f;
+			else if (line[x] == 'W')
+				map->player.direction = 180 * M_PI / 180;
 		}
 		x++;
 	}

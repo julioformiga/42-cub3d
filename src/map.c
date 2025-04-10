@@ -51,12 +51,35 @@ void draw_minimap(t_env *env)
 
 void	draw_map(t_env *env)
 {
+	int	floor;
+	int	celing;
+
 	if (!env->map.data)
 	{
 		printf("Map data is NULL\n");
 		return ;
 	}
-	ft_bzero(env->screen.addr, WIN_WIDTH * WIN_HEIGHT * (env->screen.bpp / 8));
+	ft_bzero(env->screen.addr, WIN_WIDTH * WIN_HEIGHT * ((float)env->screen.bpp / 8));
+	if (env->map.ceiling.r)
+		celing = ft_mlx_color(env->map.ceiling);
+	else
+		celing = ft_mlx_color((t_color){0, 135, 206, 235});
+	if (env->map.floor.r)
+		floor = ft_mlx_color(env->map.floor);
+	else
+		floor = ft_mlx_color((t_color){0, 100, 100, 100});
+	ft_mlx_draw_rect(env, (t_rect){
+		(t_point){0, 0},
+		(t_point){0, WIN_HEIGHT/2},
+		(t_point){WIN_WIDTH, WIN_HEIGHT/2},
+		(t_point){WIN_WIDTH, 0},
+	}, celing, 1);
+	ft_mlx_draw_rect(env, (t_rect){
+		(t_point){0, WIN_HEIGHT/2},
+		(t_point){0, WIN_HEIGHT},
+		(t_point){WIN_WIDTH, WIN_HEIGHT},
+		(t_point){WIN_WIDTH, WIN_HEIGHT/2},
+	}, floor, 1);
 	draw_minimap(env);
 	// ft_mlx_put_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->screen.img, 0, 0);
@@ -143,19 +166,18 @@ void	map_render_info(t_env *env)
 	mlx_string_put(env->mlx, env->win, x_pos, y_pos, YELLOW, "Raycasting Info:");
 
 	y_pos += 20;
-	str = ft_itoa(60);  /* Número de raios - definido na função raycasting */
+	str = ft_itoa(60);
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Ray Count: ");
 	mlx_string_put(env->mlx, env->win, x_pos + 100, y_pos, WHITE, str);
 	free(str);
 
 	y_pos += 20;
-	str = ft_itoa(60);  /* FOV em graus - definido na função raycasting */
+	str = ft_itoa(60);
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "FOV: ");
 	mlx_string_put(env->mlx, env->win, x_pos + 100, y_pos, WHITE, str);
 	mlx_string_put(env->mlx, env->win, x_pos + 120, y_pos, WHITE, "degrees");
 	free(str);
 
-	/* Calcular e exibir os ângulos do FOV */
 	y_pos += 20;
 	float fov_rad = 60.0f * (M_PI / 180.0f);
 	float left_angle = env->map.player.direction - (fov_rad / 2.0f);
@@ -184,7 +206,7 @@ void	map_render_info(t_env *env)
 	free(str);
 
 	y_pos += 20;
-	float fov_step = fov_rad / (60.0f - 1.0f);  /* Ângulo entre raios adjacentes */
+	float fov_step = fov_rad / (60.0f - 1.0f);
 	char angle_str[10];
 	sprintf(angle_str, "%.2f", fov_step * 180 / M_PI);
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Ray Step: ");
