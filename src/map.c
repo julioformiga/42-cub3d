@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 12:09:11 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/09 12:09:11 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/09 12:09:11 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/10 15:23:34 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void draw_minimap(t_env *env)
 		i++;
 	}
 	player(env);
+	/* ft_mlx_draw_line(env, (t_point){0, 170}, (t_point){1060+ env->map.player.dx * 10, 150 + env->map.player.dy * 10}, WHITE);	
+	ft_mlx_draw_line(env, (t_point){1060 + env->map.player.dx * 10, 160 + 10 + env->map.player.dy * 10}, (t_point){1080 - 20 + env->map.player.dx * 10, WIN_HEIGHT}, WHITE); */
+	
 }
 
 void	draw_map(t_env *env)

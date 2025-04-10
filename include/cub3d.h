@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 06:12:05 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/05 06:12:05 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/05 06:12:05 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/10 15:23:45 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

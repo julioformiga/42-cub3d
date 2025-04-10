@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/nfs/homes/tfalchi/esercizi/git/42-cub3d/src",
-      "program": "/nfs/homes/tfalchi/esercizi/git/42-cub3d/src/build/Debug/outDebug",
+      "cwd": "/nfs/homes/tfalchi/esercizi/git/42-cub3d/lib/minilibx",
+      "program": "/nfs/homes/tfalchi/esercizi/git/42-cub3d/a.out",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
