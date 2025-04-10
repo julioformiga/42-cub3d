@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 06:13:11 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/05 06:13:11 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/05 06:13:11 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/10 11:35:01 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 	int	x;
 	int	width;
 
+
+	map->size = 10;//da spostare
 	width = ft_count_map_width(line);
 	if (width > map->width)
 		map->width = width;
@@ -168,9 +170,10 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 		else if (line[x] == 'N' || line[x] == 'S'
 				|| line[x] == 'E' || line[x] == 'W')
 		{
+			printf("Player found at (%d, %d)\n", x, y);
 			map->data[y][x] = 0;
-			map->player.x = x;
-			map->player.y = y;
+			map->player.x = x * map->size;
+			map->player.y = y * map->size;
 			map->player.direction = line[x];
 		}
 		x++;

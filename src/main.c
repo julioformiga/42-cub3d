@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 06:33:27 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/01 06:33:27 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/01 06:33:27 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/10 11:34:29 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static void	ft_mlx_init_values(t_env *env)
 {
-	env->map.size = 30;
-	env->map.player.x = 300;
-	env->map.player.y = 300;
+	env->map.size = 10;
 	env->map.player.direction = 0.0001f;
 	env->map.player.speed = 2.5f;
 	env->map.player.dx = cos(env->map.player.direction)
