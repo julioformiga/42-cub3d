@@ -78,7 +78,7 @@ static float calculate_ray_length(t_env *env, float ray_angle)
         if (map_x >= 0 && map_y >= 0 && map_x < env->map.width && map_y < env->map.height)
         {
             if (env->map.data[map_y][map_x] == 1)
-                hit = 1;
+				hit = 1;
         }
         else
             break;
@@ -136,4 +136,65 @@ void	raycasting(t_env *env)
 		);
 		i++;
 	}
+}
+
+void	raycasting3d(t_env *env)
+{
+	float NUM_RAYS = 60.0;
+	float angle = env->map.player.direction - 60.0f * (M_PI / 180.0f) / 2.0f;
+	for (size_t i = 0; i < 60; i++)
+	{
+		float ray_length = calculate_ray_length(env, angle);
+		float wall_height = (env->map.size * WIN_HEIGHT) / (ray_length * cos(angle - env->map.player.direction));
+		float draw_start = ((float)WIN_HEIGHT / 2) - (wall_height / 2);
+		float draw_end = ((float)WIN_HEIGHT / 2) + (wall_height / 2);
+		if (draw_start < 0)
+			draw_start = 0;
+		if (draw_end >= WIN_HEIGHT)
+			draw_end = WIN_HEIGHT - 1;
+		ft_mlx_draw_rect(env,
+			(t_rect){
+			(t_point){i * ((float)WIN_WIDTH / NUM_RAYS), draw_start},
+			(t_point){i * ((float)WIN_WIDTH / NUM_RAYS), draw_end},
+			(t_point){(i + 1) * ((float)WIN_WIDTH / NUM_RAYS), draw_end},
+			(t_point){(i + 1) * ((float)WIN_WIDTH / NUM_RAYS), draw_start}
+			},
+			BLUE, 1);
+		angle += (60.0f * (M_PI / 180.0f)) / NUM_RAYS;
+	}
+	// int		i;
+	// float	ray_angle;
+	// float	ray_length;
+	// float	fov;
+	// float	fov_start;
+	// float	fov_step;
+	// int		ray_count;
+	//
+	// fov = 60.0f * (M_PI / 180.0f);
+	// ray_count = 60;
+	// fov_start = env->map.player.direction - (fov / 2.0f);
+	// fov_step = fov / (float)(ray_count - 1);
+	// i = 0;
+	// while (i < ray_count)
+	// {
+	// 	ray_angle = fov_start + (fov_step * i);
+	// 	while (ray_angle < 0)
+	// 		ray_angle += 2 * M_PI;
+	// 	while (ray_angle >= 2 * M_PI)
+	// 		ray_angle -= 2 * M_PI;
+	//
+	// 	float ray_dir_x = cos(ray_angle);
+	// 	float ray_dir_y = sin(ray_angle);
+	// 	ray_length = calculate_ray_length(env, ray_angle);
+	// 	ft_mlx_draw_line(
+	// 		env,
+	// 		(t_point){env->map.player.x, env->map.player.y},
+	// 		(t_point){
+	// 			env->map.player.x + ray_dir_x * ray_length,
+	// 			env->map.player.y + ray_dir_y * ray_length
+	// 		},
+	// 		RED
+	// 	);
+	// 	i++;
+	// }
 }

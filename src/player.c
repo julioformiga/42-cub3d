@@ -63,4 +63,5 @@ void	player(t_env *env)
 	env->map.player.dy = sin(env->map.player.direction);
 
 	raycasting(env);
+	raycasting3d(env);
 }
