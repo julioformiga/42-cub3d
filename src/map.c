@@ -104,16 +104,16 @@ void	map_render_info(t_env *env)
 	free(str);
 
 	y_pos += 20;
-	str = ft_itoa(env->map.player.dx);
+	char dx_str[10];
+	sprintf(dx_str, "%.2f", env->map.player.dx);
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "DX: ");
-	mlx_string_put(env->mlx, env->win, x_pos + 40, y_pos, WHITE, str);
-	free(str);
+	mlx_string_put(env->mlx, env->win, x_pos + 40, y_pos, WHITE, dx_str);
 
 	y_pos += 20;
-	str = ft_itoa(env->map.player.dy);
+	char dy_str[10];
+	sprintf(dy_str, "%.2f", env->map.player.dy);
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "DY: ");
-	mlx_string_put(env->mlx, env->win, x_pos + 40, y_pos, WHITE, str);
-	free(str);
+	mlx_string_put(env->mlx, env->win, x_pos + 40, y_pos, WHITE, dy_str);
 
 	y_pos += 30;
 	mlx_string_put(env->mlx, env->win, x_pos, y_pos, CYAN, "Map Information:");
@@ -129,6 +129,64 @@ void	map_render_info(t_env *env)
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Height: ");
 	mlx_string_put(env->mlx, env->win, x_pos + 70, y_pos, WHITE, str);
 	free(str);
+
+	y_pos += 20;
+	char size_str[10];
+	sprintf(size_str, "%.2f", env->map.size);
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Size: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 70, y_pos, WHITE, size_str);
+
+	y_pos += 30;
+	mlx_string_put(env->mlx, env->win, x_pos, y_pos, YELLOW, "Raycasting Info:");
+
+	y_pos += 20;
+	str = ft_itoa(60);  /* Número de raios - definido na função raycasting */
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Ray Count: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 100, y_pos, WHITE, str);
+	free(str);
+
+	y_pos += 20;
+	str = ft_itoa(60);  /* FOV em graus - definido na função raycasting */
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "FOV: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 100, y_pos, WHITE, str);
+	mlx_string_put(env->mlx, env->win, x_pos + 120, y_pos, WHITE, "degrees");
+	free(str);
+
+	/* Calcular e exibir os ângulos do FOV */
+	y_pos += 20;
+	float fov_rad = 60.0f * (M_PI / 180.0f);
+	float left_angle = env->map.player.direction - (fov_rad / 2.0f);
+	while (left_angle < 0)
+		left_angle += 2 * M_PI;
+	while (left_angle >= 2 * M_PI)
+		left_angle -= 2 * M_PI;
+
+	str = ft_itoa((int)(left_angle * 180 / M_PI));
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "FOV Left: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 100, y_pos, WHITE, str);
+	mlx_string_put(env->mlx, env->win, x_pos + 130, y_pos, WHITE, "degrees");
+	free(str);
+
+	y_pos += 20;
+	float right_angle = env->map.player.direction + (fov_rad / 2.0f);
+	while (right_angle < 0)
+		right_angle += 2 * M_PI;
+	while (right_angle >= 2 * M_PI)
+		right_angle -= 2 * M_PI;
+
+	str = ft_itoa((int)(right_angle * 180 / M_PI));
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "FOV Right: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 100, y_pos, WHITE, str);
+	mlx_string_put(env->mlx, env->win, x_pos + 130, y_pos, WHITE, "degrees");
+	free(str);
+
+	y_pos += 20;
+	float fov_step = fov_rad / (60.0f - 1.0f);  /* Ângulo entre raios adjacentes */
+	char angle_str[10];
+	sprintf(angle_str, "%.2f", fov_step * 180 / M_PI);
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Ray Step: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 100, y_pos, WHITE, angle_str);
+	mlx_string_put(env->mlx, env->win, x_pos + 130, y_pos, WHITE, "degrees");
 
 	y_pos += 40;
 	mlx_string_put(env->mlx, env->win, x_pos, y_pos, MAGENTA, "Controls:");
