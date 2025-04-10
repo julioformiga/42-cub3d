@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:13:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/10 11:35:01 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/10 17:19:43 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 		else if (line[x] == 'N' || line[x] == 'S'
 				|| line[x] == 'E' || line[x] == 'W')
 		{
-			printf("Player found at (%d, %d)\n", x, y);
 			map->data[y][x] = 0;
 			map->player.x = x * map->size;
 			map->player.y = y * map->size;

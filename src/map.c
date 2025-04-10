@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 12:09:11 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/09 12:09:11 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/09 12:09:11 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/10 16:46:05 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void draw_minimap(t_env *env)
 		return ;
 	}
 	i = 0;
+	env->map.player.dx = cos(env->map.player.direction);
+	env->map.player.dy = sin(env->map.player.direction);
+	raycasting3d(env);
 	while (i < env->map.height)
 	{
 		j = 0;

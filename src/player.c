@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 06:33:12 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/09 17:30:40 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/10 16:45:56 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,5 @@ void	player(t_env *env)
 	ft_mlx_draw_rect(env, rect, BLUE, 1);
 	ft_mlx_draw_rect(env, rect, RED, 0);
 
-	env->map.player.dx = cos(env->map.player.direction);
-	env->map.player.dy = sin(env->map.player.direction);
-
 	raycasting(env);
-	raycasting3d(env);
 }

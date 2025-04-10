@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 06:12:05 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/05 06:12:05 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/05 06:12:05 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/10 16:02:10 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # include <string.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <stdbool.h>
 # include "libft.h"
 # include "mlx.h"
 
