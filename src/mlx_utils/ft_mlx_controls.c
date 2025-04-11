@@ -58,9 +58,9 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 {
 	if (keycode == XK_Escape || keycode == 'q')
 		ft_mlx_destroy_window(env);
-	else if (keycode == 'w')
+	else if (keycode == 'w' || keycode == XK_Up)
 		env->keys.up = 1;
-	else if (keycode == 's')
+	else if (keycode == 's' || keycode == XK_Down)
 		env->keys.down = 1;
 	else if (keycode == 'a')
 		env->keys.left = 1;
@@ -85,9 +85,9 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 
 int	ft_mlx_keyrelease(int keycode, t_env *env)
 {
-	if (keycode == 'w')
+	if (keycode == 'w' || keycode == XK_Up)
 		env->keys.up = 0;
-	else if (keycode == 's')
+	else if (keycode == 's' || keycode == XK_Down)
 		env->keys.down = 0;
 	else if (keycode == 'a')
 		env->keys.left = 0;
