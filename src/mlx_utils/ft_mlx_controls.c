@@ -41,9 +41,9 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 {
 	if (keycode == XK_Escape || keycode == 'q')
 		ft_mlx_destroy_window(env);
-	else if (keycode == 'w')
+	else if (keycode == 'w' || keycode == XK_Up)
 		env->keys.up = 1;
-	else if (keycode == 's')
+	else if (keycode == 's' || keycode == XK_Down)
 		env->keys.down = 1;
 	else if (keycode == 'a')
 		env->keys.left = 1;
@@ -68,9 +68,9 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 
 int	ft_mlx_keyrelease(int keycode, t_env *env)
 {
-	if (keycode == 'w')
+	if (keycode == 'w' || keycode == XK_Up)
 		env->keys.up = 0;
-	else if (keycode == 's')
+	else if (keycode == 's' || keycode == XK_Down)
 		env->keys.down = 0;
 	else if (keycode == 'a')
 		env->keys.left = 0;
@@ -148,14 +148,12 @@ int	ft_update_game(t_env *env)
 	if (i != 0 && !collision(env, env->map.player.x, env->map.player.y + env->map.player.dy
 		* env->map.player.speed * i))
 	{
-		printf("casa\n");
 		env->map.player.y += env->map.player.dy * env->map.player.speed * i;
 		update_needed = 1;
 	}
 	if (i != 0 && !collision(env, env->map.player.x + env->map.player.dx
 		* env->map.player.speed * i, env->map.player.y))
 	{
-		printf("casa2\n");
 		env->map.player.x += env->map.player.dx * env->map.player.speed * i;
 		update_needed = 1;
 	}
