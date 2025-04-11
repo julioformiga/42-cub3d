@@ -50,8 +50,8 @@ void	player(t_env *env)
 	y = env->map.player.y;
 
 	rect = (t_rect){
-		(t_point){x - 20, y - 20},
-		(t_point){x - 20, y + 20},
+		(t_point){x - 20, y - 10},
+		(t_point){x - 20, y + 10},
 		(t_point){x, y},
 		(t_point){x, y},
 	};

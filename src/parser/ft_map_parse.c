@@ -40,6 +40,17 @@ static t_color	ft_parse_color(char *color_str)
 	return (color);
 }
 
+static void	ft_remove_newline(char *str)
+{
+	int	len;
+
+	if (!str)
+		return ;
+	len = ft_strlen(str);
+	if (len > 0 && str[len - 1] == '\n')
+		str[len - 1] = '\0';
+}
+
 static int	ft_parse_texture_color(t_map *map, char *line)
 {
 	char	**elements;
@@ -47,6 +58,8 @@ static int	ft_parse_texture_color(t_map *map, char *line)
 	elements = ft_split(line, ' ');
 	if (!elements || !elements[0])
 		return (0);
+	if (elements[1])
+		ft_remove_newline(elements[1]);
 	if (!ft_strncmp(elements[0], "NO", 3) && elements[1])
 		map->north.path = ft_strdup(elements[1]);
 	else if (!ft_strncmp(elements[0], "SO", 3) && elements[1])
@@ -143,7 +156,7 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 	int	x;
 	int	width;
 
-	map->size = 10;//da spostare
+	map->size = 10;
 	width = ft_count_map_width(line);
 	if (width > map->width)
 		map->width = width;

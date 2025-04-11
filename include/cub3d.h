@@ -76,12 +76,34 @@ typedef struct s_texture
 	int		endian;
 }	t_texture;
 
+typedef struct s_raycast
+{
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	double	perp_wall_dist;
+	double	wall_x;
+	int		tex_x;
+	t_texture *texture;
+} t_raycast;
+
 typedef struct s_keys
 {
 	int	up;
 	int	down;
 	int	left;
 	int	right;
+	int	view_left;
+	int	view_right;
 }	t_keys;
 
 typedef struct s_player
@@ -92,6 +114,7 @@ typedef struct s_player
 	double	dy;
 	double	speed;
 	double	direction;
+	double	fov;
 }	t_player;
 
 typedef struct s_map
@@ -102,6 +125,7 @@ typedef struct s_map
 	int			min;
 	int			max;
 	double		size;
+	double		numrays;
 	t_texture	north;
 	t_texture	south;
 	t_texture	west;
@@ -196,6 +220,7 @@ int			ft_mlx_line_color(t_env *env, int i, int j, char type);
 int			ft_map_value(t_range range_in, t_range range_out, int value);
 void		ft_map_init(t_map *map, int n);
 
+void		init_textures(t_env *env);
 void		raycasting(t_env *env);
 void		raycasting3d(t_env *env);
 void		ft_draw_line_to_image(t_env *env, int x, int y, int color);

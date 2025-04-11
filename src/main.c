@@ -14,7 +14,9 @@
 
 static void	ft_mlx_init_values(t_env *env)
 {
-	env->map.player.speed = 0.8f;
+	env->map.numrays = 360.0f;
+	env->map.player.fov = 60.0f;
+	env->map.player.speed = 1.8f;
 	env->map.player.dx = cos(env->map.player.direction)
 		* env->map.player.speed;
 	env->map.player.dy = sin(env->map.player.direction)

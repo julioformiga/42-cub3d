@@ -166,13 +166,13 @@ void	map_render_info(t_env *env)
 	mlx_string_put(env->mlx, env->win, x_pos, y_pos, YELLOW, "Raycasting Info:");
 
 	y_pos += 20;
-	str = ft_itoa(60);
+	str = ft_itoa(env->map.numrays);
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Ray Count: ");
 	mlx_string_put(env->mlx, env->win, x_pos + 100, y_pos, WHITE, str);
 	free(str);
 
 	y_pos += 20;
-	str = ft_itoa(60);
+	str = ft_itoa(env->map.player.fov);
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "FOV: ");
 	mlx_string_put(env->mlx, env->win, x_pos + 100, y_pos, WHITE, str);
 	mlx_string_put(env->mlx, env->win, x_pos + 120, y_pos, WHITE, "degrees");
