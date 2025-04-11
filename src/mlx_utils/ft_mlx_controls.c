@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/10 17:33:32 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/11 16:27:59 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,18 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 {
 	if (keycode == XK_Escape || keycode == 'q')
 		ft_mlx_destroy_window(env);
-	else if (keycode == XK_Up || keycode == 'w')
+	else if (keycode == 'w')
 		env->keys.up = 1;
-	else if (keycode == XK_Down || keycode == 's')
+	else if (keycode == 's')
 		env->keys.down = 1;
-	else if (keycode == XK_Left || keycode == 'a')
+	else if (keycode == 'a')
 		env->keys.left = 1;
-	else if (keycode == XK_Right || keycode == 'd')
+	else if (keycode == 'd')
 		env->keys.right = 1;
+	else if (keycode == XK_Left)
+		env->keys.arrow_left = 1;
+	else if (keycode == XK_Right)
+		env->keys.arrow_right = 1;
 	else if (keycode == '-')
 	{
 		env->map.size -= 1;
@@ -64,14 +68,18 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 
 int	ft_mlx_keyrelease(int keycode, t_env *env)
 {
-	if (keycode == XK_Up || keycode == 'w')
+	if (keycode == 'w')
 		env->keys.up = 0;
-	else if (keycode == XK_Down || keycode == 's')
+	else if (keycode == 's')
 		env->keys.down = 0;
-	else if (keycode == XK_Left || keycode == 'a')
+	else if (keycode == 'a')
 		env->keys.left = 0;
-	else if (keycode == XK_Right || keycode == 'd')
+	else if (keycode == 'd')
 		env->keys.right = 0;
+	else if (keycode == XK_Left)
+		env->keys.arrow_left = 0;
+	else if (keycode == XK_Right)
+		env->keys.arrow_right = 0;
 	return (0);
 }
 
@@ -115,61 +123,43 @@ bool	collision(t_env *env, double p_x, double p_y)
 int	ft_update_game(t_env *env)
 {
 	int	update_needed;
+	int	i = 0;
+	double tmp;
 
 	update_needed = 0;
 	if (env->keys.up)
-	{
-		if (!collision(env, env->map.player.x + env->map.player.dx
-				* env->map.player.speed, env->map.player.y + env->map.player.dy
-				* env->map.player.speed))
-		{
-			env->map.player.x += env->map.player.dx * env->map.player.speed;
-			env->map.player.y += env->map.player.dy * env->map.player.speed;
-			update_needed = 1;
-		}
-		else if (!collision(env, env->map.player.x, env->map.player.y + env->map.player.dy
-			* env->map.player.speed))
-		{
-			env->map.player.y += env->map.player.dy * env->map.player.speed;
-			update_needed = 1;
-		}
-		else if (!collision(env, env->map.player.x + env->map.player.dx
-			* env->map.player.speed, env->map.player.y))
-		{
-			env->map.player.x += env->map.player.dx * env->map.player.speed;
-			update_needed = 1;
-		}
-	}
+		i = 1;
 	if (env->keys.down)
-	{
-		if (!collision(env, env->map.player.x + env->map.player.dx
-				* env->map.player.speed, env->map.player.y + env->map.player.dy
-				* env->map.player.speed))
-		{
-			env->map.player.x -= env->map.player.dx * env->map.player.speed;
-			env->map.player.y -= env->map.player.dy * env->map.player.speed;
-			update_needed = 1;
-		}
-		else if (!collision(env, env->map.player.x, env->map.player.y - env->map.player.dy
-			* env->map.player.speed))
-		{
-			env->map.player.y -= env->map.player.dy * env->map.player.speed;
-			update_needed = 1;
-		}
-		else if (!collision(env, env->map.player.x - env->map.player.dx
-			* env->map.player.speed, env->map.player.y))
-		{
-			env->map.player.x -= env->map.player.dx * env->map.player.speed;
-			update_needed = 1;
-		}
-		/* else
-		{
-			env->map.player.x -= env->map.player.dx * env->map.player.speed;
-			env->map.player.y -= env->map.player.dy * env->map.player.speed;
-			update_needed = 1;
-		} */
-	}
+		i = -1;
 	if (env->keys.left)
+	{
+		i = -1;
+		tmp = -env->map.player.dy;
+		env->map.player.dy = env->map.player.dx;
+		env->map.player.dx = tmp;
+	}
+	if (env->keys.right)
+	{
+		i = 1;
+		tmp = -env->map.player.dy;
+		env->map.player.dy = env->map.player.dx;
+		env->map.player.dx = tmp;
+	}
+	if (i != 0 && !collision(env, env->map.player.x, env->map.player.y + env->map.player.dy
+		* env->map.player.speed * i))
+	{
+		printf("casa\n");
+		env->map.player.y += env->map.player.dy * env->map.player.speed * i;
+		update_needed = 1;
+	}
+	if (i != 0 && !collision(env, env->map.player.x + env->map.player.dx
+		* env->map.player.speed * i, env->map.player.y))
+	{
+		printf("casa2\n");
+		env->map.player.x += env->map.player.dx * env->map.player.speed * i;
+		update_needed = 1;
+	}
+	if (env->keys.arrow_left)
 	{
 		env->map.player.direction -= 0.04;
 		if (env->map.player.direction < 0)
@@ -180,7 +170,7 @@ int	ft_update_game(t_env *env)
 			* env->map.player.speed;
 		update_needed = 1;
 	}
-	if (env->keys.right)
+	if (env->keys.arrow_right)
 	{
 		env->map.player.direction += 0.04;
 		if (env->map.player.direction > 2 * M_PI)

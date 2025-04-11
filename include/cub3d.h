@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:12:05 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/10 16:02:10 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/11 16:25:59 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ typedef struct s_keys
 	int	down;
 	int	left;
 	int	right;
-	int	view_left;
-	int	view_right;
+	int	arrow_left;
+	int	arrow_right;
 }	t_keys;
 
 typedef struct s_player

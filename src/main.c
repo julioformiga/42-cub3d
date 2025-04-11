@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 06:33:27 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/10 11:34:29 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/11 16:27:01 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_mlx_init_values(t_env *env)
 {
 	env->map.numrays = 360.0f;
 	env->map.player.fov = 60.0f;
-	env->map.player.speed = 1.8f;
+	env->map.player.speed = 1.0f;
 	env->map.player.dx = cos(env->map.player.direction)
 		* env->map.player.speed;
 	env->map.player.dy = sin(env->map.player.direction)
