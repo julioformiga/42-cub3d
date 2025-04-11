@@ -57,6 +57,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
+minilibx/
 # End of https://www.toptal.com/developers/gitignore/api/c
 

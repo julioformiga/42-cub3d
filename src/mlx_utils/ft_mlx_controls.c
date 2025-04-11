@@ -6,11 +6,13 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/11 16:27:59 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/11 17:49:33 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
 
 static int	ft_mlx_mouse(int button, int x, int y, t_env *env)
 {
@@ -21,6 +23,21 @@ static int	ft_mlx_mouse(int button, int x, int y, t_env *env)
 	if (button == 4)
 		ft_mlx_keypress('+', env);
 	return (0);
+}
+
+int ft_mouse_move(void *param)
+{
+    t_env *env;
+	int x;
+	int y;
+	
+	printf("Mouse moved\n");
+	env = (t_env *)param;
+	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
+	env->map.player.direction += (x - WIN_WIDTH / 2) * MROT_SPEED;
+	// env->map.player.direction = env->map.player.direction, (x - WIN_WIDTH / 2) * MROT_SPEED);
+	mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+    return (0);
 }
 
 void	ft_mlx_hooks(t_env *env)
@@ -125,7 +142,8 @@ int	ft_update_game(t_env *env)
 	int	update_needed;
 	int	i = 0;
 	double tmp;
-
+	
+	ft_mouse_move(env);
 	update_needed = 0;
 	if (env->keys.up)
 		i = 1;
@@ -148,14 +166,12 @@ int	ft_update_game(t_env *env)
 	if (i != 0 && !collision(env, env->map.player.x, env->map.player.y + env->map.player.dy
 		* env->map.player.speed * i))
 	{
-		printf("casa\n");
 		env->map.player.y += env->map.player.dy * env->map.player.speed * i;
 		update_needed = 1;
 	}
 	if (i != 0 && !collision(env, env->map.player.x + env->map.player.dx
 		* env->map.player.speed * i, env->map.player.y))
 	{
-		printf("casa2\n");
 		env->map.player.x += env->map.player.dx * env->map.player.speed * i;
 		update_needed = 1;
 	}
@@ -181,7 +197,6 @@ int	ft_update_game(t_env *env)
 			* env->map.player.speed;
 		update_needed = 1;
 	}
-	if (update_needed)
-		draw_map(env);
+	draw_map(env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:12:05 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/11 16:25:59 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/11 17:49:53 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # define WIN_TITLE "Cub3D"
 // # define WIN_WIDTH 1024
-# define WIN_HEIGHT 768.0f
-# define WIN_WIDTH 1280.0f
+# define WIN_HEIGHT 768.0
+# define WIN_WIDTH 1280.0
+# define MROT_SPEED 0.02
 // # define WIN_HEIGHT 1024
 
 # define BLACK 0

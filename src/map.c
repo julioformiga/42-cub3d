@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:09:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/10 16:46:05 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/11 16:43:54 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,9 @@ void	map_render_info(t_env *env)
 	mlx_string_put(env->mlx, env->win, x_pos + 130, y_pos, WHITE, "degrees");
 
 	y_pos += 40;
+
+	
+	
 	mlx_string_put(env->mlx, env->win, x_pos, y_pos, MAGENTA, "Controls:");
 
 	y_pos += 20;
