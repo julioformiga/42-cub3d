@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 02:19:51 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/05 02:19:51 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/15 17:52:51 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env	*ft_mlx_create_env(void)
 {
 	t_env	*env;
 
-	env = (t_env *)malloc(sizeof(t_env));
+	env = (t_env *)calloc(1, sizeof(t_env));
 	if (!env)
 		ft_mlx_error("malloc() failed");
 	env->mlx = mlx_init();
@@ -37,18 +37,22 @@ int	ft_mlx_destroy_window(t_env *env)
 	if (env->mlx)
 	{
 		while (env->map.height--)
+		{
 			free(env->map.data[env->map.height]);
+			env->map.data[env->map.height] = NULL;
+		}
 		free(env->map.data);
+		env->map.data = NULL;
 		if (env->imgs->img)
 		{
 			mlx_destroy_image(env->mlx, env->imgs->img);
-			free(env->imgs);
 		}
 		mlx_destroy_image(env->mlx, env->screen.img);
 		if (env->win)
 			mlx_destroy_window(env->mlx, env->win);
 		mlx_destroy_display(env->mlx);
 		free(env->mlx);
+		env->mlx = NULL;
 		free(env);
 	}
 	exit(EXIT_SUCCESS);

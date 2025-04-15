@@ -1,5 +1,5 @@
 CC				= cc
-CFLAGS			= -Wall -Werror -Wextra -Iinclude
+CFLAGS			= -Wall -Werror -Wextra -Iinclude -g
 XFLAGS			= -lX11 -lXext -lm -lz
 MAKEFLAGS		+= --no-print-directory -s
 AR				= ar -src
@@ -64,7 +64,6 @@ debug:	all
 
 mleak:	all
 			valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(BIN)
-
 
 .SILENT:	all clean fclean re
 .PHONY:		all clean fclean re run

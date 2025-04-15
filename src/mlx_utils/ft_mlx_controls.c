@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/11 17:49:33 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:45:30 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ int ft_mouse_move(void *param)
 	int x;
 	int y;
 	
-	printf("Mouse moved\n");
 	env = (t_env *)param;
 	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
 	env->map.player.direction += (x - WIN_WIDTH / 2) * MROT_SPEED;
-	// env->map.player.direction = env->map.player.direction, (x - WIN_WIDTH / 2) * MROT_SPEED);
+	if (env->map.player.direction < 0)
+		env->map.player.direction += 2.0 * M_PI;
+	else if (env->map.player.direction >= 2.0 * M_PI)
+		env->map.player.direction -= 2.0 * M_PI;
 	mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
     return (0);
 }
@@ -179,7 +181,7 @@ int	ft_update_game(t_env *env)
 	{
 		env->map.player.direction -= 0.04;
 		if (env->map.player.direction < 0)
-			env->map.player.direction += 2.0f * M_PI;
+			env->map.player.direction += 2.0 * M_PI;
 		env->map.player.dx = cos(env->map.player.direction)
 			* env->map.player.speed;
 		env->map.player.dy = sin(env->map.player.direction)
@@ -190,7 +192,7 @@ int	ft_update_game(t_env *env)
 	{
 		env->map.player.direction += 0.04;
 		if (env->map.player.direction > 2 * M_PI)
-			env->map.player.direction -= 2.0f * M_PI;
+			env->map.player.direction -= 2.0 * M_PI;
 		env->map.player.dx = cos(env->map.player.direction)
 			* env->map.player.speed;
 		env->map.player.dy = sin(env->map.player.direction)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/10 09:58:29 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/10 09:58:29 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/10 09:58:29 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/15 12:37:46 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,9 +216,9 @@ void	raycasting(t_env *env)
 	double	fov_step;
 	int		ray_count;
 
-	fov = 60.0f * (M_PI / 180.0f);
+	fov = 60.0 * (M_PI / 180.0);
 	ray_count = 60;
-	fov_start = env->map.player.direction - (fov / 2.0f);
+	fov_start = env->map.player.direction - (fov / 2.0);
 	fov_step = fov / (double)(ray_count - 1);
 	i = 0;
 	while (i < ray_count)
@@ -257,7 +257,7 @@ void	raycasting3d(t_env *env)
 	if (env->map.numrays == 0)
 		env->map.numrays = WIN_WIDTH;
 
-	angle = env->map.player.direction - env->map.player.fov * (M_PI / 180.0f) / 2.0f;
+	angle = env->map.player.direction - env->map.player.fov * (M_PI / 180.0) / 2.0;
 
 	for (size_t i = 0; i < env->map.numrays; i++)
 	{
@@ -299,6 +299,6 @@ void	raycasting3d(t_env *env)
 				ft_draw_line_to_image(env, line_x + w, y, color);
 			}
 		}
-		angle += (env->map.player.fov * (M_PI / 180.0f)) / env->map.numrays;
+		angle += (env->map.player.fov * (M_PI / 180.0)) / env->map.numrays;
 	}
 }
