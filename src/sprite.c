@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <unistd.h>
 
 t_sprite	load_sprite(t_env *env, char *path)
 {
@@ -40,17 +39,6 @@ void	set_sprite_frame(t_sprite *sprite, int frame_index)
 		sprite->current_frame = frame_index;
 }
 
-void	next_sprite_frame(t_sprite *sprite)
-{
-	sprite->current_frame = (sprite->current_frame + 1) % sprite->frames_count;
-}
-
-void	play_sprite_animation(t_env *env)
-{
-	next_sprite_frame(&env->weapon);
-	// next_sprite_frame(&env->weapon);
-	// next_sprite_frame(&env->weapon);
-}
 void	draw_sprite_first_person(t_env *env, t_sprite sprite,
 								t_point position, double scale)
 {
