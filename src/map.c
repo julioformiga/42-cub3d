@@ -82,13 +82,11 @@ void	draw_map(t_env *env)
 		(t_point){WIN_WIDTH, WIN_HEIGHT/2},
 	}, floor, 1);
 	draw_minimap(env);
-	// ft_mlx_put_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->screen.img, 0, 0);
 	map_render_info(env);
 	position.x = (WIN_WIDTH / 2) - ((double)env->weapon.width / 2);
 	position.y = WIN_HEIGHT - (env->weapon.frame_height * 1.2);
-	draw_sprite_first_person(env, env->weapon, position, 1.0);
-	// free_sprite(env, &env->weapon);
+	draw_sprite_first_person(env, env->weapon, position, 1.2);
 	// mlx_do_sync(env->mlx);
 	// ft_debug_map(&env->map);
 }

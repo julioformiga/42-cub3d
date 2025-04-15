@@ -41,6 +41,7 @@ int	main(int argc, char **argv)
 	draw_map(env);
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);
+	free_sprite(env, &env->weapon);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
