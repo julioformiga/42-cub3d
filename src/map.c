@@ -53,6 +53,7 @@ void	draw_map(t_env *env)
 {
 	int	floor;
 	int	celing;
+	t_point position;
 
 	if (!env->map.data)
 	{
@@ -84,6 +85,10 @@ void	draw_map(t_env *env)
 	// ft_mlx_put_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->screen.img, 0, 0);
 	map_render_info(env);
+	position.x = (WIN_WIDTH / 2) - ((double)env->weapon.width / 2);
+	position.y = WIN_HEIGHT - (env->weapon.frame_height * 1.2);
+	draw_sprite_first_person(env, env->weapon, position, 1.0);
+	// free_sprite(env, &env->weapon);
 	// mlx_do_sync(env->mlx);
 	// ft_debug_map(&env->map);
 }
@@ -215,8 +220,6 @@ void	map_render_info(t_env *env)
 
 	y_pos += 40;
 
-	
-	
 	mlx_string_put(env->mlx, env->win, x_pos, y_pos, MAGENTA, "Controls:");
 
 	y_pos += 20;

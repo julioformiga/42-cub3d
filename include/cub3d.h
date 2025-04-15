@@ -43,6 +43,22 @@
 # include "libft.h"
 # include "mlx.h"
 
+typedef struct s_sprite
+{
+	char	*path;
+	void	*img;
+	int		*data;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		current_frame;
+	int		frames_count;
+	int		frame_height;
+	int		visible;
+}	t_sprite;
+
 typedef struct s_color
 {
 	int	t;
@@ -178,17 +194,18 @@ typedef struct s_scr
 
 typedef struct s_env
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	int		cursor_x;
-	int		cursor_y;
-	t_scr	screen;
-	t_img	*imgs;
-	t_map	map;
-	t_view	view;
-	t_point	init;
-	t_keys	keys;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	int			cursor_x;
+	int			cursor_y;
+	t_scr		screen;
+	t_img		*imgs;
+	t_map		map;
+	t_view		view;
+	t_point		init;
+	t_keys		keys;
+	t_sprite	weapon;
 }	t_env;
 
 typedef struct s_line
@@ -235,5 +252,14 @@ t_map		ft_map_parse(char *file);
 void		draw_map(t_env *env);
 void		map_render_info(t_env *env);
 void		player(t_env *env);
+
+/* Sprite functions */
+t_sprite	load_sprite(t_env *env, char *path);
+void		set_sprite_frame(t_sprite *sprite, int frame_index);
+void		next_sprite_frame(t_sprite *sprite);
+void		draw_sprite_first_person(t_env *env, t_sprite sprite,
+							   t_point position, double scale);
+void		play_sprite_animation(t_env *env);
+void		free_sprite(t_env *env, t_sprite *sprite);
 
 #endif

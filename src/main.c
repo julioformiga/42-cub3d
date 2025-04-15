@@ -33,6 +33,7 @@ int	main(int argc, char **argv)
 	map = ft_map_parse(argv[1]);
 	env = ft_mlx_create_env();
 	env->map = map;
+	env->weapon = load_sprite(env, "./assets/sprite_test_vertical.xpm");
 	ft_mlx_init_values(env);
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img, &env->screen.bpp,
