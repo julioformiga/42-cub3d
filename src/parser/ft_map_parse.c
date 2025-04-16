@@ -90,12 +90,9 @@ static int	ft_is_map_line(char *line)
 	has_valid_char = 0;
 	while (line[i])
 	{
-		if (line[i] != '0' && line[i] != '1' && line[i] != ' '
-			&& line[i] != 'N' && line[i] != 'S' && line[i] != 'E'
-			&& line[i] != 'W' && line[i] != '\n')
+		if (!ft_strchr("01NESWD \n", line[i]))
 			return (0);
-		if (line[i] == '0' || line[i] == '1' || line[i] == 'N'
-			|| line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		if (ft_strchr("01NESWD", line[i]))
 			has_valid_char = 1;
 		i++;
 	}
@@ -179,18 +176,19 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 			map->data[y][x] = 0;
 		else if (line[x] == '1')
 			map->data[y][x] = 1;
-		else if (line[x] == 'N' || line[x] == 'S'
-				|| line[x] == 'E' || line[x] == 'W')
+		else if (line[x] == 'D')
+			map->data[y][x] = 2;
+		else if (ft_strchr("NSWE", line[x]))
 		{
 			map->data[y][x] = 0;
-			map->player.x = x * map->size;
-			map->player.y = y * map->size;
+			map->player.x = x * map->size + (map->size / 2);
+			map->player.y = y * map->size + (map->size / 2);
 			if (line[x] == 'N')
 				map->player.direction = 270 * M_PI / 180;
 			else if (line[x] == 'S')
 				map->player.direction = 90 * M_PI / 180;
 			else if (line[x] == 'E')
-				map->player.direction = 0.00001f;
+				map->player.direction = 0.000001f;
 			else if (line[x] == 'W')
 				map->player.direction = 180 * M_PI / 180;
 		}
