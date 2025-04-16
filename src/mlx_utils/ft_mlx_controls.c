@@ -143,12 +143,10 @@ bool	collision(t_env *env, double p_x, double p_y)
 
 int	ft_update_game(t_env *env)
 {
-	int	update_needed;
 	int	i = 0;
 	double tmp;
 
 	ft_mouse_move(env);
-	update_needed = 0;
 	if (env->keys.up)
 		i = 1;
 	if (env->keys.down)
@@ -171,13 +169,11 @@ int	ft_update_game(t_env *env)
 		* env->map.player.speed * i))
 	{
 		env->map.player.y += env->map.player.dy * env->map.player.speed * i;
-		update_needed = 1;
 	}
 	if (i != 0 && !collision(env, env->map.player.x + env->map.player.dx
 		* env->map.player.speed * i, env->map.player.y))
 	{
 		env->map.player.x += env->map.player.dx * env->map.player.speed * i;
-		update_needed = 1;
 	}
 	if (env->keys.arrow_left)
 	{
@@ -188,7 +184,6 @@ int	ft_update_game(t_env *env)
 			* env->map.player.speed;
 		env->map.player.dy = sin(env->map.player.direction)
 			* env->map.player.speed;
-		update_needed = 1;
 	}
 	if (env->keys.arrow_right)
 	{
@@ -199,7 +194,6 @@ int	ft_update_game(t_env *env)
 			* env->map.player.speed;
 		env->map.player.dy = sin(env->map.player.direction)
 			* env->map.player.speed;
-		update_needed = 1;
 	}
 	draw_map(env);
 	return (0);
