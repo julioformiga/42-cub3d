@@ -1,0 +1,30 @@
+{
+   <Minilibx-reachable>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:mlx_new_image
+   ...
+}
+{
+   <Minilibx-definite>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   ...
+   fun:mlx_new_image
+   ...
+}
+{
+   <Minilibx-indirect>
+   Memcheck:Leak
+   match-leak-kinds: indirect
+   ...
+   fun:mlx_new_image
+   ...
+}
+{
+   <Minilibx-mlx_string_put>
+   Memcheck:Cond
+   fun:_XUpdateGCCache
+   ...
+}
