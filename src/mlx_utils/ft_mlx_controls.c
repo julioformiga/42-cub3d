@@ -30,8 +30,8 @@ int ft_mouse_move(void *param)
     t_env *env;
 	int x;
 	int y;
-	
-	printf("Mouse moved\n");
+
+	// printf("Mouse moved\n");
 	env = (t_env *)param;
 	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
 	env->map.player.direction += (x - WIN_WIDTH / 2) * MROT_SPEED;
@@ -80,6 +80,8 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 		env->map.size += 1;
 		draw_map(env);
 	}
+	else if (keycode == XK_space)
+		sprite_set_frame(&env->weapon, 1);
 	return (0);
 }
 
@@ -97,6 +99,8 @@ int	ft_mlx_keyrelease(int keycode, t_env *env)
 		env->keys.arrow_left = 0;
 	else if (keycode == XK_Right)
 		env->keys.arrow_right = 0;
+	else if (keycode == XK_space)
+		sprite_set_frame(&env->weapon, 0);
 	return (0);
 }
 
@@ -142,7 +146,7 @@ int	ft_update_game(t_env *env)
 	int	update_needed;
 	int	i = 0;
 	double tmp;
-	
+
 	ft_mouse_move(env);
 	update_needed = 0;
 	if (env->keys.up)
