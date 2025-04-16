@@ -22,6 +22,9 @@ static int	ft_mlx_mouse(int button, int x, int y, t_env *env)
 		ft_mlx_keypress('-', env);
 	if (button == 4)
 		ft_mlx_keypress('+', env);
+	// manca il release button
+	// if (button == 1)
+	// 	ft_mlx_keypress(XK_space, env);
 	return (0);
 }
 
@@ -30,22 +33,43 @@ int ft_mouse_move(void *param)
     t_env *env;
 	int x;
 	int y;
+	int delta_x;
 
-	// printf("Mouse moved\n");
 	env = (t_env *)param;
 	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
-	env->map.player.direction += (x - WIN_WIDTH / 2) * MROT_SPEED;
-	// env->map.player.direction = env->map.player.direction, (x - WIN_WIDTH / 2) * MROT_SPEED);
-	mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	delta_x = x - env->map.player.mouse_x;
+	if (delta_x != 0)
+	{
+		env->map.player.direction += delta_x * env->map.player.mouse_speed;
+		if (env->map.player.direction < 0)
+			env->map.player.direction += 2.0 * M_PI;
+		else if (env->map.player.direction > 2.0 * M_PI)
+			env->map.player.direction -= 2.0 * M_PI;
+		env->map.player.dx = cos(env->map.player.direction) * env->map.player.speed;
+		env->map.player.dy = sin(env->map.player.direction) * env->map.player.speed;
+	}
+	env->map.player.mouse_x = x;
+	if (x < 100 || x > WIN_WIDTH - 100)
+	{
+		mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		printf("Mouse moved to center\n");
+		env->map.player.mouse_x = WIN_WIDTH / 2;
+	}
+
     return (0);
 }
 
 void	ft_mlx_hooks(t_env *env)
 {
+	int x;
+	int y;
+
 	env->keys.up = 0;
 	env->keys.down = 0;
 	env->keys.left = 0;
 	env->keys.right = 0;
+	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
+	env->map.player.mouse_x = x;
 	mlx_hook(env->win, KeyPress, KeyPressMask, ft_mlx_keypress, env);
 	mlx_hook(env->win, KeyRelease, KeyReleaseMask, ft_mlx_keyrelease, env);
 	mlx_hook(env->win, ButtonPress, ButtonPressMask, ft_mlx_mouse, env);
@@ -72,13 +96,13 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 		env->keys.arrow_right = 1;
 	else if (keycode == '-')
 	{
-		env->map.size -= 1;
-		draw_map(env);
+		if (env->map.player.mouse_speed > 0.0005)
+			env->map.player.mouse_speed -= 0.0002;
 	}
 	else if (keycode == '+')
 	{
-		env->map.size += 1;
-		draw_map(env);
+		if (env->map.player.mouse_speed < 0.01)
+			env->map.player.mouse_speed += 0.0002;
 	}
 	else if (keycode == XK_space)
 		sprite_set_frame(&env->weapon, 1);

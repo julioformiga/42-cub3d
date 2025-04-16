@@ -17,6 +17,7 @@ static void	ft_mlx_init_values(t_env *env)
 	env->map.numrays = 360.0f;
 	env->map.player.fov = 60.0f;
 	env->map.player.speed = 1.0f;
+	env->map.player.mouse_speed = 0.002;
 	env->map.player.dx = cos(env->map.player.direction) * env->map.player.speed;
 	env->map.player.dy = sin(env->map.player.direction) * env->map.player.speed;
 }
@@ -38,6 +39,7 @@ int	main(int argc, char **argv)
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img, &env->screen.bpp,
 			&env->screen.line, &env->screen.endian);
+	mlx_mouse_hide(env->mlx, env->win);
 	draw_map(env);
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);
@@ -45,4 +47,3 @@ int	main(int argc, char **argv)
 	exit(EXIT_SUCCESS);
 	return (0);
 }
-// mlx_mouse_hide(env->mlx, env->win);
