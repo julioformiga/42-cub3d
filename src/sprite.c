@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-t_sprite	load_sprite(t_env *env, char *path)
+t_sprite	sprite_load(t_env *env, char *path)
 {
 	t_sprite	sprite;
 	int			width;
@@ -33,13 +33,13 @@ t_sprite	load_sprite(t_env *env, char *path)
 	return (sprite);
 }
 
-void	set_sprite_frame(t_sprite *sprite, int frame_index)
+void	sprite_set_frame(t_sprite *sprite, int frame_index)
 {
 	if (frame_index >= 0 && frame_index < sprite->frames_count)
 		sprite->current_frame = frame_index;
 }
 
-void	draw_sprite_first_person(t_env *env, t_sprite sprite,
+void	sprite_draw(t_env *env, t_sprite sprite,
 								t_point position, double scale)
 {
 	int		x;

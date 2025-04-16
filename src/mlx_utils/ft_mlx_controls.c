@@ -81,7 +81,7 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 		draw_map(env);
 	}
 	else if (keycode == XK_space)
-		set_sprite_frame(&env->weapon, 1);
+		sprite_set_frame(&env->weapon, 1);
 	return (0);
 }
 
@@ -100,7 +100,7 @@ int	ft_mlx_keyrelease(int keycode, t_env *env)
 	else if (keycode == XK_Right)
 		env->keys.arrow_right = 0;
 	else if (keycode == XK_space)
-		set_sprite_frame(&env->weapon, 0);
+		sprite_set_frame(&env->weapon, 0);
 	return (0);
 }
 

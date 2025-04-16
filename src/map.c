@@ -86,8 +86,8 @@ void	draw_map(t_env *env)
 	map_render_info(env);
 	position.x = (WIN_WIDTH / 2) - ((double)env->weapon.width / 2);
 	position.y = WIN_HEIGHT - (env->weapon.frame_height * 1.2);
-	draw_sprite_first_person(env, env->weapon, position, 1.2);
-	// mlx_do_sync(env->mlx);
+	sprite_draw(env, env->weapon, position, 1.2);
+	mlx_do_sync(env->mlx);
 	// ft_debug_map(&env->map);
 }
 

@@ -254,9 +254,9 @@ void		map_render_info(t_env *env);
 void		player(t_env *env);
 
 /* Sprite functions */
-t_sprite	load_sprite(t_env *env, char *path);
-void		set_sprite_frame(t_sprite *sprite, int frame_index);
-void		draw_sprite_first_person(t_env *env, t_sprite sprite,
+t_sprite	sprite_load(t_env *env, char *path);
+void		sprite_set_frame(t_sprite *sprite, int frame_index);
+void		sprite_draw(t_env *env, t_sprite sprite,
 							   t_point position, double scale);
 void		free_sprite(t_env *env, t_sprite *sprite);
 

@@ -27,13 +27,13 @@ int	main(int argc, char **argv)
 	t_map	map;
 
 	if (argc != 2)
-		argv[1] = "./maps/minimap_large.cub";
+		argv[1] = "./maps/large_map.cub";
 	// ft_mlx_error("Usage: ./cub3d <map>.cub");
 	ft_check_file(argv[1]);
 	map = ft_map_parse(argv[1]);
 	env = ft_mlx_create_env();
 	env->map = map;
-	env->weapon = load_sprite(env, "./assets/sprite_test_vertical.xpm");
+	env->weapon = sprite_load(env, "./assets/sprite_weapon.xpm");
 	ft_mlx_init_values(env);
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img, &env->screen.bpp,
