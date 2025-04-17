@@ -83,7 +83,7 @@ void	ft_mlx_hooks(t_env *env)
 	mlx_hook(env->win, KeyPress, KeyPressMask, ft_mlx_keypress, env);
 	mlx_hook(env->win, KeyRelease, KeyReleaseMask, ft_mlx_keyrelease, env);
 	mlx_hook(env->win, ButtonPress, ButtonPressMask, ft_mlx_button, env);
-	mlx_hook(env->win, ButtonRelease, ButtonPressMask, ft_mlx_button_release, env);
+	mlx_hook(env->win, ButtonRelease, ButtonReleaseMask, ft_mlx_button_release, env);
 	mlx_hook(env->win, DestroyNotify, StructureNotifyMask,
 		ft_mlx_destroy_window, env);
 	mlx_loop_hook(env->mlx, ft_update_game, env);
