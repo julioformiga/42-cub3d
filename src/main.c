@@ -17,6 +17,7 @@ static void	ft_mlx_init_values(t_env *env)
 	env->map.numrays = 360.0;
 	env->map.player.fov = 60.0;
 	env->map.player.speed = 1.0;
+	env->map.player.mouse_speed = 0.002;
 	env->map.player.dx = cos(env->map.player.direction) * env->map.player.speed;
 	env->map.player.dy = sin(env->map.player.direction) * env->map.player.speed;
 }
@@ -72,12 +73,13 @@ int	main(int argc, char **argv)
 	t_map	map;
 
 	if (argc != 2)
-		argv[1] = "./maps/minimap_large.cub";
+		argv[1] = "./maps/large_map.cub";
 	// ft_mlx_error("Usage: ./cub3d <map>.cub");
 	ft_check_file(argv[1]);
 	map = ft_map_parse(argv[1]);
 	env = ft_mlx_create_env();
 	env->map = map;
+	env->weapon = sprite_load(env, "./assets/sprite_weapon.xpm");
 	ft_mlx_init_values(env);
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img, &env->screen.bpp,
@@ -85,7 +87,8 @@ int	main(int argc, char **argv)
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);
 	free_all(env);
+	// mlx_mouse_hide(env->mlx, env->win
+	free_sprite(env, &env->weapon);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
-// mlx_mouse_hide(env->mlx, env->win);

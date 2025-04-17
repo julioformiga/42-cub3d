@@ -53,6 +53,7 @@ void	draw_map(t_env *env)
 {
 	int	floor;
 	int	celing;
+	t_point position;
 
 	if (!env->map.data)
 	{
@@ -81,10 +82,12 @@ void	draw_map(t_env *env)
 		(t_point){WIN_WIDTH, WIN_HEIGHT/2},
 	}, floor, 1);
 	draw_minimap(env);
-	// ft_mlx_put_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->screen.img, 0, 0);
 	map_render_info(env);
-	// mlx_do_sync(env->mlx);
+	position.x = (WIN_WIDTH / 2) - ((double)env->weapon.width / 2);
+	position.y = WIN_HEIGHT - (env->weapon.frame_height * 1.2);
+	sprite_draw(env, env->weapon, position, 1.2);
+	mlx_do_sync(env->mlx);
 	// ft_debug_map(&env->map);
 }
 
@@ -140,6 +143,18 @@ void	map_render_info(t_env *env)
 	sprintf(dy_str, "%.2f", env->map.player.dy);
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "DY: ");
 	mlx_string_put(env->mlx, env->win, x_pos + 40, y_pos, WHITE, dy_str);
+
+	y_pos += 20;
+	char speed_str[10];
+	sprintf(speed_str, "%.2f", env->map.player.speed);
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Speed: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 70, y_pos, WHITE, speed_str);
+
+	y_pos += 20;
+	char mouse_speed_str[10];
+	sprintf(mouse_speed_str, "%.4f", env->map.player.mouse_speed);
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Mouse Speed: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 120, y_pos, WHITE, mouse_speed_str);
 
 	y_pos += 30;
 	mlx_string_put(env->mlx, env->win, x_pos, y_pos, CYAN, "Map Information:");
@@ -215,8 +230,6 @@ void	map_render_info(t_env *env)
 
 	y_pos += 40;
 
-	
-	
 	mlx_string_put(env->mlx, env->win, x_pos, y_pos, MAGENTA, "Controls:");
 
 	y_pos += 20;

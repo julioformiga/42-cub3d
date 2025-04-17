@@ -69,6 +69,7 @@ mleak:	all
 		printf "$(YELLOW)Running with Valgrind leak checker$(RESET)\n"
 		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(BIN)
 
+
 # Run with Address Sanitizer
 san:
 		$(RM) -r $(BIN_DIR)/$(BIN_SAN)

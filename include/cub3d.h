@@ -17,7 +17,6 @@
 // # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768.0
 # define WIN_WIDTH 1280.0
-# define MROT_SPEED 0.01
 // # define WIN_HEIGHT 1024
 
 # define BLACK 0
@@ -42,6 +41,22 @@
 # include <stdbool.h>
 # include "libft.h"
 # include "mlx.h"
+
+typedef struct s_sprite
+{
+	char	*path;
+	void	*img;
+	int		*data;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		current_frame;
+	int		frames_count;
+	int		frame_height;
+	int		visible;
+}	t_sprite;
 
 typedef struct s_color
 {
@@ -116,6 +131,8 @@ typedef struct s_player
 	double	speed;
 	double	direction;
 	double	fov;
+	double	mouse_speed;
+	int		mouse_x;
 }	t_player;
 
 typedef struct s_map
@@ -178,17 +195,18 @@ typedef struct s_scr
 
 typedef struct s_env
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	int		cursor_x;
-	int		cursor_y;
-	t_scr	screen;
-	t_img	*imgs;
-	t_map	map;
-	t_view	view;
-	t_point	init;
-	t_keys	keys;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	int			cursor_x;
+	int			cursor_y;
+	t_scr		screen;
+	t_img		*imgs;
+	t_map		map;
+	t_view		view;
+	t_point		init;
+	t_keys		keys;
+	t_sprite	weapon;
 }	t_env;
 
 typedef struct s_line
@@ -236,5 +254,12 @@ void		draw_map(t_env *env);
 void		map_render_info(t_env *env);
 void		player(t_env *env);
 void		free_all(t_env *env);
+
+/* Sprite functions */
+t_sprite	sprite_load(t_env *env, char *path);
+void		sprite_set_frame(t_sprite *sprite, int frame_index);
+void		sprite_draw(t_env *env, t_sprite sprite,
+							   t_point position, double scale);
+void		free_sprite(t_env *env, t_sprite *sprite);
 
 #endif
