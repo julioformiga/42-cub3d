@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 14:02:43 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/11 14:02:43 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/11 14:02:43 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/16 18:33:56 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

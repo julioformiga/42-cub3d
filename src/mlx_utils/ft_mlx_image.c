@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 02:19:51 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/05 02:19:51 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/15 17:33:10 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_mlx_xpm(t_env *env, char *filename)
 {
-	env->imgs = (t_img *)malloc(sizeof(t_img));
+	env->imgs = (t_img *)ft_calloc(1, sizeof(t_img));
 	env->imgs->size.w = 1280;
 	env->imgs->size.h = 90;
 	env->imgs->img = mlx_xpm_file_to_image(env->mlx, filename,

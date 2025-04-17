@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:09:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/11 16:43:54 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:33:00 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void draw_minimap(t_env *env)
 	env->map.player.dx = cos(env->map.player.direction);
 	env->map.player.dy = sin(env->map.player.direction);
 	raycasting3d(env);
-	while (i < env->map.height)
+	while (env->map.data[i])
 	{
 		j = 0;
-		while (j < env->map.width)
+		while (env->map.data[i][j] != -1)
 		{
 			if (!env->map.data[i])
 			{
@@ -60,7 +60,7 @@ void	draw_map(t_env *env)
 		printf("Map data is NULL\n");
 		return ;
 	}
-	ft_bzero(env->screen.addr, WIN_WIDTH * WIN_HEIGHT * ((float)env->screen.bpp / 8));
+	ft_bzero(env->screen.addr, WIN_WIDTH * WIN_HEIGHT * ((double)env->screen.bpp / 8));
 	if (env->map.ceiling.r)
 		celing = ft_mlx_color(env->map.ceiling);
 	else
@@ -194,8 +194,8 @@ void	map_render_info(t_env *env)
 	free(str);
 
 	y_pos += 20;
-	float fov_rad = 60.0f * (M_PI / 180.0f);
-	float left_angle = env->map.player.direction - (fov_rad / 2.0f);
+	double fov_rad = 60.0 * (M_PI / 180.0);
+	double left_angle = env->map.player.direction - (fov_rad / 2.0);
 	while (left_angle < 0)
 		left_angle += 2 * M_PI;
 	while (left_angle >= 2 * M_PI)
@@ -208,7 +208,7 @@ void	map_render_info(t_env *env)
 	free(str);
 
 	y_pos += 20;
-	float right_angle = env->map.player.direction + (fov_rad / 2.0f);
+	double right_angle = env->map.player.direction + (fov_rad / 2.0);
 	while (right_angle < 0)
 		right_angle += 2 * M_PI;
 	while (right_angle >= 2 * M_PI)
@@ -221,7 +221,7 @@ void	map_render_info(t_env *env)
 	free(str);
 
 	y_pos += 20;
-	float fov_step = fov_rad / (60.0f - 1.0f);
+	double fov_step = fov_rad / (60.0 - 1.0);
 	char angle_str[10];
 	sprintf(angle_str, "%.2f", fov_step * 180 / M_PI);
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Ray Step: ");

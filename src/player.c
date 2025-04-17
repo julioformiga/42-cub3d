@@ -6,17 +6,17 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 06:33:12 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/10 16:45:56 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/15 12:38:08 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_rect	rotate_rect(t_rect rect, t_point center, float angle)
+static t_rect	rotate_rect(t_rect rect, t_point center, double angle)
 {
 	t_rect	rotated_rect;
-	float	cos_angle;
-	float	sin_angle;
+	double	cos_angle;
+	double	sin_angle;
 	t_point	*src_points[4];
 	t_point	*dst_points[4];
 

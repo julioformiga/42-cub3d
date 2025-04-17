@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:12:05 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/11 17:49:53 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:52:20 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,13 +156,13 @@ typedef struct s_map
 typedef struct s_view
 {
 	int		projection;
-	float	zoom;
-	float	angle;
-	float	angle_rotate;
-	float	height;
-	float	rotation_angle_x;
-	float	rotation_angle_y;
-	float	rotation_angle_z;
+	double	zoom;
+	double	angle;
+	double	angle_rotate;
+	double	height;
+	double	rotation_angle_x;
+	double	rotation_angle_y;
+	double	rotation_angle_z;
 }	t_view;
 
 typedef struct s_point3d
@@ -253,6 +253,7 @@ t_map		ft_map_parse(char *file);
 void		draw_map(t_env *env);
 void		map_render_info(t_env *env);
 void		player(t_env *env);
+void		free_all(t_env *env);
 
 /* Sprite functions */
 t_sprite	sprite_load(t_env *env, char *path);
