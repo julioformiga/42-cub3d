@@ -38,9 +38,12 @@
 # include <string.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <X11/Xlib.h>
+# include <X11/extensions/Xfixes.h>
 # include <stdbool.h>
 # include "libft.h"
 # include "mlx.h"
+# include "../lib/minilibx/mlx_int.h"
 
 typedef struct s_sprite
 {
@@ -178,11 +181,11 @@ typedef struct s_size
 	int	h;
 }	t_size;
 
-typedef struct s_img
-{
-	void	*img;
-	t_size	size;
-}	t_img;
+// typedef struct s_img
+// {
+// 	void	*img;
+// 	t_size	size;
+// }	t_img;
 
 typedef struct s_scr
 {
@@ -195,9 +198,9 @@ typedef struct s_scr
 
 typedef struct s_env
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
+	t_xvar		*mlx;
+	t_win_list	*win;
+	t_img		*img;
 	int			cursor_x;
 	int			cursor_y;
 	t_scr		screen;
@@ -238,6 +241,7 @@ void		ft_mlx_draw_square(t_env *env, t_point p, int width, int color);
 int			ft_mlx_line_color(t_env *env, int i, int j, char type);
 int			ft_map_value(t_range range_in, t_range range_out, int value);
 void		ft_map_init(t_map *map, int n);
+void		ft_mouse_hide(t_xvar *xvar, t_win_list *win);
 
 void		init_textures(t_env *env);
 void		raycasting(t_env *env);

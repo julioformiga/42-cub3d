@@ -2,7 +2,7 @@ CC				= cc
 CFLAGS_BASE		= -Wall -Werror -Wextra -Iinclude -g -Wshadow -Wpedantic
 CFLAGS_BASE		+= -Wno-unused-variable -Wno-unused-function -Wno-unused-parameter
 CFLAGS			= $(CFLAGS_BASE)
-XFLAGS			= -lX11 -lXext -lm -lz
+XFLAGS			= -lX11 -lXext -lm -lz -lXfixes
 MAKEFLAGS		+= --no-print-directory -s
 AR				= ar -src
 RM				= rm -f
@@ -57,7 +57,7 @@ fclean:	clean
 		make fclean -C $(LIBFT_DIR)
 		printf "🧹 $(RED)Cleaning$(RESET): $(LIBFT_DIR)\n"
 
-re:		fclean all
+re:		fclean all run
 
 # Normal run without memory checks
 run:	all
@@ -68,7 +68,6 @@ run:	all
 mleak:	all
 		printf "$(YELLOW)Running with Valgrind leak checker$(RESET)\n"
 		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(BIN)
-
 
 # Run with Address Sanitizer
 san:

@@ -18,7 +18,6 @@ static int	ft_mlx_button_release(int button, int x, int y, t_env *env)
 	(void)y;
 	if (button == 1)
 	{
-		printf("Button released\n");
 		sprite_set_frame(&env->weapon, 0);
 	}
 	return (0);
@@ -93,9 +92,9 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 {
 	if (keycode == XK_Escape || keycode == 'q')
 		ft_mlx_destroy_window(env);
-	else if (keycode == 'w')
+	else if (keycode == 'w' || keycode == XK_Up)
 		env->keys.up = 1;
-	else if (keycode == 's')
+	else if (keycode == 's' || keycode == XK_Down)
 		env->keys.down = 1;
 	else if (keycode == 'a')
 		env->keys.left = 1;
@@ -109,11 +108,15 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 	{
 		if (env->map.player.mouse_speed > 0.0005)
 			env->map.player.mouse_speed -= 0.0002;
+		if (env->map.numrays > 100)
+			env->map.numrays -= 10;
 	}
 	else if (keycode == '+')
 	{
 		if (env->map.player.mouse_speed < 0.01)
 			env->map.player.mouse_speed += 0.0002;
+		if (env->map.numrays < 2000)
+			env->map.numrays += 10;
 	}
 	else if (keycode == XK_space)
 		sprite_set_frame(&env->weapon, 1);
@@ -122,9 +125,9 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 
 int	ft_mlx_keyrelease(int keycode, t_env *env)
 {
-	if (keycode == 'w')
+	if (keycode == 'w' || keycode == XK_Up)
 		env->keys.up = 0;
-	else if (keycode == 's')
+	else if (keycode == 's' || keycode == XK_Down)
 		env->keys.down = 0;
 	else if (keycode == 'a')
 		env->keys.left = 0;

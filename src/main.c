@@ -14,7 +14,7 @@
 
 static void	ft_mlx_init_values(t_env *env)
 {
-	env->map.numrays = 360.0;
+	env->map.numrays = 1360.0;
 	env->map.player.fov = 60.0;
 	env->map.player.speed = 1.0;
 	env->map.player.mouse_speed = 0.002;
@@ -35,8 +35,8 @@ void	free_all(t_env *env)
 		}
 		if(env->imgs)
 		{
-			if (env->imgs->img)
-				mlx_destroy_image(env->mlx, env->imgs->img);
+			if (env->imgs->image)
+				mlx_destroy_image(env->mlx, env->imgs->image);
 			free(env->imgs);
 		}
 		if (env->map.north.img)
@@ -83,7 +83,7 @@ int	main(int argc, char **argv)
 	env = ft_mlx_create_env();
 	env->map = map;
 	ft_mlx_init_values(env);
-	// mlx_mouse_hide(env->mlx, env->win);
+	ft_mouse_hide(env->mlx, env->win);
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img, &env->screen.bpp,
 			&env->screen.line, &env->screen.endian);

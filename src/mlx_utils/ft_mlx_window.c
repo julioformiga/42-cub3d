@@ -32,6 +32,10 @@ t_env	*ft_mlx_create_env(void)
 	return (env);
 }
 
+void		ft_mouse_hide(t_xvar *xvar, t_win_list *win) {
+	XFixesHideCursor(xvar->display, win->window);
+}
+
 int	ft_mlx_destroy_window(t_env *env)
 {
 	if (env->mlx)
