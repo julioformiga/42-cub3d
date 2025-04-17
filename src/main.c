@@ -90,7 +90,6 @@ int	main(int argc, char **argv)
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);
 	free_all(env);
-	free_sprite(env, &env->weapon);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
