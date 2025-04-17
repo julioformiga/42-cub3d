@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:13:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/15 17:25:43 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/17 10:56:46 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 	map->size = 10;
 	width = ft_count_map_width(line);
 	if (width > map->width)
-		map->width = width;
+		map->width = width + 1;
 	map->data[y] = (int *)ft_calloc(width + 1, sizeof(int));
 	if (!map->data[y])
 		ft_mlx_error("Memory allocation failed\n");

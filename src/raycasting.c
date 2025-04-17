@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 09:58:29 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/15 12:37:46 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/17 11:24:51 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ void	raycasting3d(t_env *env)
 	double	angle;
 	t_raycast ray;
 
-	init_textures(env);
+	
 
 	if (env->map.player.fov == 0)
 		env->map.player.fov = 60.0;

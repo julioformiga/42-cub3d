@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 06:33:27 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/15 17:51:26 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/16 18:34:14 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,37 @@ void	free_all(t_env *env)
 				free(env->map.data[env->map.height]);
 			free(env->map.data);
 		}
-		if (env->imgs->img)
+		if(env->imgs)
 		{
-			mlx_destroy_image(env->mlx, env->imgs->img);
+			if (env->imgs->img)
+				mlx_destroy_image(env->mlx, env->imgs->img);
 			free(env->imgs);
 		}
-		if (env->screen.img)
-			mlx_destroy_image(env->mlx, env->screen.img);
-		if (env->win)
-			mlx_destroy_window(env->mlx, env->win);
+		if (env->map.north.img)
+			mlx_destroy_image(env->mlx, env->map.north.img);
+		if (env->map.north.path)
+			free(env->map.north.path);
+		if (env->map.south.img)
+			mlx_destroy_image(env->mlx, env->map.south.img);
+		if (env->map.south.path)
+			free(env->map.south.path);
+		if (env->map.east.img)
+			mlx_destroy_image(env->mlx, env->map.east.img);
+		if (env->map.east.path)
+			free(env->map.east.path);
+		if (env->map.west.img)
+			mlx_destroy_image(env->mlx, env->map.west.img);
+		if (env->map.west.path)
+			free(env->map.west.path);
 		if (env->mlx)
 		{
+			if (env->screen.img)
+				mlx_destroy_image(env->mlx, env->screen.img);
+			if (env->win)
+				mlx_destroy_window(env->mlx, env->win);
 			mlx_destroy_display(env->mlx);
 			free(env->mlx);
 		}
-		free(env->mlx);
 		free(env);
 	}
 }
@@ -66,7 +82,6 @@ int	main(int argc, char **argv)
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img, &env->screen.bpp,
 			&env->screen.line, &env->screen.endian);
-	draw_map(env);
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);
 	free_all(env);
