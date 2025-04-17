@@ -12,9 +12,19 @@
 
 #include "cub3d.h"
 
+static int	ft_mlx_button_release(int button, int x, int y, t_env *env)
+{
+	(void)x;
+	(void)y;
+	if (button == 1)
+	{
+		printf("Button released\n");
+		sprite_set_frame(&env->weapon, 0);
+	}
+	return (0);
+}
 
-
-static int	ft_mlx_mouse(int button, int x, int y, t_env *env)
+static int	ft_mlx_button(int button, int x, int y, t_env *env)
 {
 	(void)x;
 	(void)y;
@@ -22,9 +32,8 @@ static int	ft_mlx_mouse(int button, int x, int y, t_env *env)
 		ft_mlx_keypress('-', env);
 	if (button == 4)
 		ft_mlx_keypress('+', env);
-	// manca il release button
-	// if (button == 1)
-	// 	ft_mlx_keypress(XK_space, env);
+	if (button == 1)
+		ft_mlx_keypress(XK_space, env);
 	return (0);
 }
 
@@ -52,8 +61,8 @@ int ft_mouse_move(void *param)
 	if (x < 100 || x > WIN_WIDTH - 100)
 	{
 		mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		printf("Mouse moved to center\n");
 		env->map.player.mouse_x = WIN_WIDTH / 2;
+		// printf("Mouse moved to center\n");
 	}
 
     return (0);
@@ -72,7 +81,8 @@ void	ft_mlx_hooks(t_env *env)
 	env->map.player.mouse_x = x;
 	mlx_hook(env->win, KeyPress, KeyPressMask, ft_mlx_keypress, env);
 	mlx_hook(env->win, KeyRelease, KeyReleaseMask, ft_mlx_keyrelease, env);
-	mlx_hook(env->win, ButtonPress, ButtonPressMask, ft_mlx_mouse, env);
+	mlx_hook(env->win, ButtonPress, ButtonPressMask, ft_mlx_button, env);
+	mlx_hook(env->win, ButtonRelease, ButtonPressMask, ft_mlx_button_release, env);
 	mlx_hook(env->win, DestroyNotify, StructureNotifyMask,
 		ft_mlx_destroy_window, env);
 	mlx_loop_hook(env->mlx, ft_update_game, env);

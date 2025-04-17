@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img, &env->screen.bpp,
 			&env->screen.line, &env->screen.endian);
-	mlx_mouse_hide(env->mlx, env->win);
+	// mlx_mouse_hide(env->mlx, env->win);
 	draw_map(env);
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);
