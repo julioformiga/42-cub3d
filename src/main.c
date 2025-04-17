@@ -20,6 +20,7 @@ static void	ft_mlx_init_values(t_env *env)
 	env->map.player.mouse_speed = 0.002;
 	env->map.player.dx = cos(env->map.player.direction) * env->map.player.speed;
 	env->map.player.dy = sin(env->map.player.direction) * env->map.player.speed;
+	sprite_load(env, "./assets/sprite_weapon.xpm");
 }
 
 void	free_all(t_env *env)
@@ -58,6 +59,8 @@ void	free_all(t_env *env)
 		{
 			if (env->screen.img)
 				mlx_destroy_image(env->mlx, env->screen.img);
+			if (env->weapon.img)
+				mlx_destroy_image(env->mlx, env->weapon.img);
 			if (env->win)
 				mlx_destroy_window(env->mlx, env->win);
 			mlx_destroy_display(env->mlx);
@@ -79,15 +82,14 @@ int	main(int argc, char **argv)
 	map = ft_map_parse(argv[1]);
 	env = ft_mlx_create_env();
 	env->map = map;
-	env->weapon = sprite_load(env, "./assets/sprite_weapon.xpm");
 	ft_mlx_init_values(env);
+	// mlx_mouse_hide(env->mlx, env->win);
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img, &env->screen.bpp,
 			&env->screen.line, &env->screen.endian);
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);
 	free_all(env);
-	// mlx_mouse_hide(env->mlx, env->win
 	free_sprite(env, &env->weapon);
 	exit(EXIT_SUCCESS);
 	return (0);

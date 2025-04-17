@@ -256,7 +256,7 @@ void		player(t_env *env);
 void		free_all(t_env *env);
 
 /* Sprite functions */
-t_sprite	sprite_load(t_env *env, char *path);
+void		sprite_load(t_env *env, char *path);
 void		sprite_set_frame(t_sprite *sprite, int frame_index);
 void		sprite_draw(t_env *env, t_sprite sprite,
 							   t_point position, double scale);

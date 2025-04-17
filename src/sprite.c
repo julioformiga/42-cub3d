@@ -12,25 +12,23 @@
 
 #include "cub3d.h"
 
-t_sprite	sprite_load(t_env *env, char *path)
+void	sprite_load(t_env *env, char *path)
 {
-	t_sprite	sprite;
 	int			width;
 	int			height;
 
-	sprite.path = path;
-	sprite.img = mlx_xpm_file_to_image(env->mlx, path, &width, &height);
-	if (!sprite.img)
+	env->weapon.path = path;
+	env->weapon.img = mlx_xpm_file_to_image(env->mlx, path, &width, &height);
+	if (!env->weapon.img)
 		ft_mlx_error("Failed to load sprite image\n");
-	sprite.data = (int *)mlx_get_data_addr(sprite.img, &sprite.bpp,
-		&sprite.size_line, &sprite.endian);
-	sprite.width = width;
-	sprite.height = height;
-	sprite.frames_count = 3;
-	sprite.frame_height = height / sprite.frames_count;
-	sprite.current_frame = 0;
-	sprite.visible = 1;
-	return (sprite);
+	env->weapon.data = (int *)mlx_get_data_addr(env->weapon.img, &env->weapon.bpp,
+		&env->weapon.size_line, &env->weapon.endian);
+	env->weapon.width = width;
+	env->weapon.height = height;
+	env->weapon.frames_count = 3;
+	env->weapon.frame_height = height / env->weapon.frames_count;
+	env->weapon.current_frame = 0;
+	env->weapon.visible = 1;
 }
 
 void	sprite_set_frame(t_sprite *sprite, int frame_index)
