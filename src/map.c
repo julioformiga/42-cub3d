@@ -144,6 +144,18 @@ void	map_render_info(t_env *env)
 	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "DY: ");
 	mlx_string_put(env->mlx, env->win, x_pos + 40, y_pos, WHITE, dy_str);
 
+	y_pos += 20;
+	char speed_str[10];
+	sprintf(speed_str, "%.2f", env->map.player.speed);
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Speed: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 70, y_pos, WHITE, speed_str);
+
+	y_pos += 20;
+	char mouse_speed_str[10];
+	sprintf(mouse_speed_str, "%.4f", env->map.player.mouse_speed);
+	mlx_string_put(env->mlx, env->win, x_pos + 10, y_pos, WHITE, "Mouse Speed: ");
+	mlx_string_put(env->mlx, env->win, x_pos + 120, y_pos, WHITE, mouse_speed_str);
+
 	y_pos += 30;
 	mlx_string_put(env->mlx, env->win, x_pos, y_pos, CYAN, "Map Information:");
 

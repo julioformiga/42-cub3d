@@ -12,9 +12,19 @@
 
 #include "cub3d.h"
 
+static int	ft_mlx_button_release(int button, int x, int y, t_env *env)
+{
+	(void)x;
+	(void)y;
+	if (button == 1)
+	{
+		printf("Button released\n");
+		sprite_set_frame(&env->weapon, 0);
+	}
+	return (0);
+}
 
-
-static int	ft_mlx_mouse(int button, int x, int y, t_env *env)
+static int	ft_mlx_button(int button, int x, int y, t_env *env)
 {
 	(void)x;
 	(void)y;
@@ -22,6 +32,8 @@ static int	ft_mlx_mouse(int button, int x, int y, t_env *env)
 		ft_mlx_keypress('-', env);
 	if (button == 4)
 		ft_mlx_keypress('+', env);
+	if (button == 1)
+		ft_mlx_keypress(XK_space, env);
 	return (0);
 }
 
@@ -30,25 +42,47 @@ int ft_mouse_move(void *param)
     t_env *env;
 	int x;
 	int y;
+	int delta_x;
 
-	// printf("Mouse moved\n");
 	env = (t_env *)param;
 	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
-	env->map.player.direction += (x - WIN_WIDTH / 2) * MROT_SPEED;
-	// env->map.player.direction = env->map.player.direction, (x - WIN_WIDTH / 2) * MROT_SPEED);
-	mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	delta_x = x - env->map.player.mouse_x;
+	if (delta_x != 0)
+	{
+		env->map.player.direction += delta_x * env->map.player.mouse_speed;
+		if (env->map.player.direction < 0)
+			env->map.player.direction += 2.0 * M_PI;
+		else if (env->map.player.direction > 2.0 * M_PI)
+			env->map.player.direction -= 2.0 * M_PI;
+		env->map.player.dx = cos(env->map.player.direction) * env->map.player.speed;
+		env->map.player.dy = sin(env->map.player.direction) * env->map.player.speed;
+	}
+	env->map.player.mouse_x = x;
+	if (x < 100 || x > WIN_WIDTH - 100)
+	{
+		mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		env->map.player.mouse_x = WIN_WIDTH / 2;
+		// printf("Mouse moved to center\n");
+	}
+
     return (0);
 }
 
 void	ft_mlx_hooks(t_env *env)
 {
+	int x;
+	int y;
+
 	env->keys.up = 0;
 	env->keys.down = 0;
 	env->keys.left = 0;
 	env->keys.right = 0;
+	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
+	env->map.player.mouse_x = x;
 	mlx_hook(env->win, KeyPress, KeyPressMask, ft_mlx_keypress, env);
 	mlx_hook(env->win, KeyRelease, KeyReleaseMask, ft_mlx_keyrelease, env);
-	mlx_hook(env->win, ButtonPress, ButtonPressMask, ft_mlx_mouse, env);
+	mlx_hook(env->win, ButtonPress, ButtonPressMask, ft_mlx_button, env);
+	mlx_hook(env->win, ButtonRelease, ButtonPressMask, ft_mlx_button_release, env);
 	mlx_hook(env->win, DestroyNotify, StructureNotifyMask,
 		ft_mlx_destroy_window, env);
 	mlx_loop_hook(env->mlx, ft_update_game, env);
@@ -72,13 +106,13 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 		env->keys.arrow_right = 1;
 	else if (keycode == '-')
 	{
-		env->map.size -= 1;
-		draw_map(env);
+		if (env->map.player.mouse_speed > 0.0005)
+			env->map.player.mouse_speed -= 0.0002;
 	}
 	else if (keycode == '+')
 	{
-		env->map.size += 1;
-		draw_map(env);
+		if (env->map.player.mouse_speed < 0.01)
+			env->map.player.mouse_speed += 0.0002;
 	}
 	else if (keycode == XK_space)
 		sprite_set_frame(&env->weapon, 1);
@@ -143,12 +177,10 @@ bool	collision(t_env *env, double p_x, double p_y)
 
 int	ft_update_game(t_env *env)
 {
-	int	update_needed;
 	int	i = 0;
 	double tmp;
 
 	ft_mouse_move(env);
-	update_needed = 0;
 	if (env->keys.up)
 		i = 1;
 	if (env->keys.down)
@@ -171,13 +203,11 @@ int	ft_update_game(t_env *env)
 		* env->map.player.speed * i))
 	{
 		env->map.player.y += env->map.player.dy * env->map.player.speed * i;
-		update_needed = 1;
 	}
 	if (i != 0 && !collision(env, env->map.player.x + env->map.player.dx
 		* env->map.player.speed * i, env->map.player.y))
 	{
 		env->map.player.x += env->map.player.dx * env->map.player.speed * i;
-		update_needed = 1;
 	}
 	if (env->keys.arrow_left)
 	{
@@ -188,7 +218,6 @@ int	ft_update_game(t_env *env)
 			* env->map.player.speed;
 		env->map.player.dy = sin(env->map.player.direction)
 			* env->map.player.speed;
-		update_needed = 1;
 	}
 	if (env->keys.arrow_right)
 	{
@@ -199,7 +228,6 @@ int	ft_update_game(t_env *env)
 			* env->map.player.speed;
 		env->map.player.dy = sin(env->map.player.direction)
 			* env->map.player.speed;
-		update_needed = 1;
 	}
 	draw_map(env);
 	return (0);

@@ -17,7 +17,6 @@
 // # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768.0
 # define WIN_WIDTH 1280.0
-# define MROT_SPEED 0.02
 // # define WIN_HEIGHT 1024
 
 # define BLACK 0
@@ -132,6 +131,8 @@ typedef struct s_player
 	double	speed;
 	double	direction;
 	double	fov;
+	double	mouse_speed;
+	int		mouse_x;
 }	t_player;
 
 typedef struct s_map
