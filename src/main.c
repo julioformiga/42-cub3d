@@ -33,7 +33,7 @@ void	free_all(t_env *env)
 				free(env->map.data[env->map.height]);
 			free(env->map.data);
 		}
-		if(env->imgs)
+		if (env->imgs)
 		{
 			if (env->imgs->image)
 				mlx_destroy_image(env->mlx, env->imgs->image);

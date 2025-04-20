@@ -12,30 +12,27 @@
 
 #include "cub3d.h"
 
-static double calculate_ray_length(t_env *env, double ray_angle)
+static double	calculate_ray_length(t_env *env, double ray_angle)
 {
-    double ray_dir_x = cos(ray_angle);
-    double ray_dir_y = sin(ray_angle);
+	double	ray_dir_x = cos(ray_angle);
+	double	ray_dir_y = sin(ray_angle);
+	int		map_x = (int)(env->map.player.x / env->map.size);
+	int		map_y = (int)(env->map.player.y / env->map.size);
+	double	delta_dist_x = fabs(1 / ray_dir_x);
+	double	delta_dist_y = fabs(1 / ray_dir_y);
+	int		step_x;
+	int		step_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		hit = 0;
+	int		side = -1;
+	double	max_dist = 1000.0;
+	int		iterations = 0;
 
-    int map_x = (int)(env->map.player.x / env->map.size);
-    int map_y = (int)(env->map.player.y / env->map.size);
-
-    if (fabs(ray_dir_x) < 0.000001)
-        ray_dir_x = 0.000001;
-    if (fabs(ray_dir_y) < 0.000001)
-        ray_dir_y = 0.000001;
-
-    double delta_dist_x = fabs(1 / ray_dir_x);
-    double delta_dist_y = fabs(1 / ray_dir_y);
-
-    int step_x;
-    int step_y;
-    double side_dist_x;
-    double side_dist_y;
-
-    int hit = 0;
-    int side = -1;
-    double max_dist = 1000.0;
+	if (fabs(ray_dir_x) < 0.000001)
+		ray_dir_x = 0.000001;
+	if (fabs(ray_dir_y) < 0.000001)
+		ray_dir_y = 0.000001;
 
     if (ray_dir_x < 0)
     {
@@ -58,8 +55,6 @@ static double calculate_ray_length(t_env *env, double ray_angle)
         step_y = 1;
         side_dist_y = (map_y + 1.0 - env->map.player.y / env->map.size) * delta_dist_y;
     }
-
-    int iterations = 0;
     while (hit == 0 && iterations < max_dist)
     {
         if (side_dist_x < side_dist_y)
@@ -249,8 +244,6 @@ void	raycasting3d(t_env *env)
 {
 	double	angle;
 	t_raycast ray;
-
-	
 
 	if (env->map.player.fov == 0)
 		env->map.player.fov = 60.0;
