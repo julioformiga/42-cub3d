@@ -31,8 +31,8 @@ static t_rect	rotate_rect(t_rect rect, t_point center, double angle)
 	while (i++, i < 4)
 	{
 		dst_points[i]->x = center.x + (src_points[i]->x - center.x) * cos(angle)
-			+ (src_points[i]->y - center.y) * sin(angle);
-		dst_points[i]->y = center.y - (src_points[i]->x - center.x) * sin(angle)
+			- (src_points[i]->y - center.y) * sin(angle);
+		dst_points[i]->y = center.y + (src_points[i]->x - center.x) * sin(angle)
 			+ (src_points[i]->y - center.y) * cos(angle);
 	}
 	return (rotated_rect);
