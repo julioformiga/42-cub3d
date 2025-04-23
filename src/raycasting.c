@@ -12,14 +12,14 @@
 
 #include "cub3d.h"
 
-double	calculate_ray_length(t_env *env, double ray_angle, int visual)
+double	calculate_ray_length(t_env *env, double ray_angle)
 {
-	double	ray_dir_x;
-	double	ray_dir_y;
-	int		map_x;
-	int		map_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
+	double	ray_dir_x = cos(ray_angle);
+	double	ray_dir_y = sin(ray_angle);
+	int		map_x = (int)(env->map.player.x / env->map.size);
+	int		map_y = (int)(env->map.player.y / env->map.size);
+	double	delta_dist_x = fabs(1 / ray_dir_x);
+	double	delta_dist_y = fabs(1 / ray_dir_y);
 	int		step_x;
 	int		step_y;
 	double	side_dist_x;
@@ -255,6 +255,7 @@ void	raycasting(t_env *env)
 
 void	raycasting3d(t_env *env)
 {
+
 	double		angle;
 	t_raycast	ray;
 	double		ray_length;

@@ -10,14 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D
-# define CUB3D
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # define WIN_TITLE "Cub3D"
-// # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768.0
 # define WIN_WIDTH 1280.0
-// # define WIN_HEIGHT 1024
 
 # define BLACK 0
 # define BLUE 255
@@ -100,23 +98,23 @@ typedef struct s_texture
 
 typedef struct s_raycast
 {
-	double	ray_dir_x;
-	double	ray_dir_y;
-	int		map_x;
-	int		map_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-	double	perp_wall_dist;
-	double	wall_x;
-	int		tex_x;
-	t_texture *texture;
-} t_raycast;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	double		perp_wall_dist;
+	double		wall_x;
+	int			tex_x;
+	t_texture	*texture;
+}	t_raycast;
 
 typedef struct s_keys
 {
@@ -184,12 +182,6 @@ typedef struct s_size
 	int	h;
 }	t_size;
 
-// typedef struct s_img
-// {
-// 	void	*img;
-// 	t_size	size;
-// }	t_img;
-
 typedef struct s_scr
 {
 	void	*img;
@@ -245,6 +237,9 @@ int			ft_mlx_line_color(t_env *env, int i, int j, char type);
 int			ft_map_value(t_range range_in, t_range range_out, int value);
 void		ft_map_init(t_map *map, int n);
 void		ft_mouse_hide(t_xvar *xvar, t_win_list *win);
+int			ft_mlx_button_release(int button, int x, int y, t_env *env);
+int			ft_mlx_button(int button, int x, int y, t_env *env);
+int			ft_mouse_move(t_env *env);
 double		calculate_ray_length(t_env *env, double ray_anglem, int visual);
 void		init_textures(t_env *env);
 void		raycasting(t_env *env);
@@ -266,7 +261,7 @@ void		free_all(t_env *env);
 void		sprite_load(t_env *env, char *path);
 void		sprite_set_frame(t_sprite *sprite, int frame_index);
 void		sprite_draw(t_env *env, t_sprite sprite,
-							   t_point position, double scale);
+				t_point position, double scale);
 void		sprite_play(t_sprite *sprite);
 void		sprite_update_animation(t_sprite *sprite);
 
