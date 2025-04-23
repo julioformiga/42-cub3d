@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:12:05 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/15 17:52:20 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/23 12:27:30 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ int			ft_mlx_line_color(t_env *env, int i, int j, char type);
 int			ft_map_value(t_range range_in, t_range range_out, int value);
 void		ft_map_init(t_map *map, int n);
 void		ft_mouse_hide(t_xvar *xvar, t_win_list *win);
-
+double		calculate_ray_length(t_env *env, double ray_anglem, int visual);
 void		init_textures(t_env *env);
 void		raycasting(t_env *env);
 void		raycasting3d(t_env *env);
