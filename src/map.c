@@ -67,6 +67,22 @@ void	draw_minimap(t_env *env)
 	player(env);
 }
 
+void	draw_red_cross(t_env *env, t_point position)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (i++, i < 11)
+	{
+		j = -1;
+		while (j++, j < 11)
+			if (i == 4 || i == 5 || j == 4 || j == 5)
+				ft_draw_line_to_image(env, position.x + i - 5, position.y + j,
+					RED);
+	}
+}
+
 void	draw_map(t_env *env)
 {
 	t_point	position;
@@ -80,6 +96,7 @@ void	draw_map(t_env *env)
 		* ((double)env->screen.bpp / 8));
 	draw_celing_floor(env);
 	draw_minimap(env);
+	draw_red_cross(env, (t_point){WIN_WIDTH / 2, WIN_HEIGHT / 2});
 	mlx_put_image_to_window(env->mlx, env->win, env->screen.img, 0, 0);
 	position.x = (WIN_WIDTH / 2) - ((double)env->weapon.width / 2);
 	position.y = WIN_HEIGHT - (env->weapon.frame_height * 1.2);
