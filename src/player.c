@@ -47,10 +47,10 @@ void	player(t_env *env)
 	x = env->map.player.x;
 	y = env->map.player.y;
 	rect = (t_rect){
-		(t_point){x - 20, y - 10},
-		(t_point){x - 20, y + 10},
-		(t_point){x, y},
-		(t_point){x, y},
+		(t_point){x - 2, y - 2},
+		(t_point){x - 2, y + 2},
+		(t_point){x + 2, y + 2},
+		(t_point){x + 2, y - 2},
 	};
 	rect = rotate_rect(rect, (t_point){x, y}, env->map.player.direction);
 	ft_mlx_draw_rect(env, rect, BLUE, 1);
