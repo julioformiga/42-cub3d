@@ -107,7 +107,7 @@ void	sprite_draw(t_env *env, t_sprite sprite,
 				{
 					draw_pos.x = position.x + x;
 					draw_pos.y = position.y + y;
-					ft_draw_line_to_image(env, draw_pos.x, draw_pos.y, color);
+					ft_draw_line_to_image(env, draw_pos.x - 75, draw_pos.y, color);
 				}
 			}
 			x++;
