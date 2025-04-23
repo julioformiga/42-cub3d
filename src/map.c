@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:09:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/15 17:33:00 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:27:58 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ void	draw_minimap(t_env *env)
 				ft_mlx_error("Map data is NULL");
 			ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, BLACK);
 			if (env->map.data[i][j] == 1)
-				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size,
-					WHITE);
+				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, WHITE);
+			else if (env->map.data[i][j] == 2)
+				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, RED);
+			else
+				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, BLACK);
 		}
 	}
 	player(env);

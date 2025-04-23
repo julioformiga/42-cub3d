@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 14:46:20 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/15 14:46:20 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/15 14:46:20 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/17 17:31:10 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	sprite_load(t_env *env, char *path)
 {
-	int			width;
-	int			height;
+	int	width;
+	int	height;
 
 	env->weapon.path = path;
 	env->weapon.img = mlx_xpm_file_to_image(env->mlx, path, &width, &height);
 	if (!env->weapon.img)
 		ft_mlx_error("Failed to load sprite image\n");
-	env->weapon.data = (int *)mlx_get_data_addr(env->weapon.img, &env->weapon.bpp,
-		&env->weapon.size_line, &env->weapon.endian);
+	env->weapon.data = (int *)mlx_get_data_addr(env->weapon.img,
+			&env->weapon.bpp, &env->weapon.size_line, &env->weapon.endian);
 	env->weapon.width = width;
 	env->weapon.height = height;
 	env->weapon.frames_count = 3;
@@ -36,7 +36,6 @@ void	sprite_set_frame(t_sprite *sprite, int frame_index)
 	if (frame_index >= 0 && frame_index < sprite->frames_count)
 		sprite->current_frame = frame_index;
 }
-
 void sprite_play(t_sprite *sprite)
 {
 	if (sprite->animating)
@@ -82,27 +81,26 @@ void	sprite_draw(t_env *env, t_sprite sprite,
 	if (!sprite.visible)
 		return ;
 	y = 0;
-	while (y < (int)(sprite.frame_height * scale) &&
-		y + position.y < WIN_HEIGHT)
+	while (y < (int)(sprite.frame_height * scale) && y
+		+ position.y < WIN_HEIGHT)
 	{
 		if (position.y + y < 0)
 		{
 			y++;
-			continue;
+			continue ;
 		}
 		x = 0;
-		while (x < (int)(sprite.width * scale) &&
-			x + position.x < WIN_WIDTH)
+		while (x < (int)(sprite.width * scale) && x + position.x < WIN_WIDTH)
 		{
 			if (position.x + x < 0)
 			{
 				x++;
-				continue;
+				continue ;
 			}
 			sprite_x = x / scale;
 			sprite_y = (y / scale) + frame_offset;
-			if (sprite_x >= 0 && sprite_x < sprite.width &&
-				sprite_y >= 0 && sprite_y < sprite.height)
+			if (sprite_x >= 0 && sprite_x < sprite.width && sprite_y >= 0
+				&& sprite_y < sprite.height)
 			{
 				color = sprite.data[sprite_y * sprite.width + sprite_x];
 				if ((color & 0x00FF00FF) != 0)
