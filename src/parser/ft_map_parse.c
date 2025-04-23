@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:13:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/17 10:56:46 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/18 16:55:33 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 			else if (line[x] == 'S')
 				map->player.direction = 90 * M_PI / 180;
 			else if (line[x] == 'E')
-				map->player.direction = 0.000001f;
+				map->player.direction = 0.000001;
 			else if (line[x] == 'W')
 				map->player.direction = 180 * M_PI / 180;
 		}

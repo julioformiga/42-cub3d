@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/17 11:25:07 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/23 12:40:59 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,38 @@ static int	ft_mlx_button_release(int button, int x, int y, t_env *env)
 	return (0);
 }
 
+void	handle_right_click(t_env *env)
+{
+	double	ray_angle;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	ray_length;
+	int		hit_x;
+	int		hit_y;
+
+	ray_angle = env->map.player.direction;
+	while (ray_angle < 0)
+		ray_angle += 2 * M_PI;
+	while (ray_angle >= 2 * M_PI)
+		ray_angle -= 2 * M_PI;
+	ray_dir_x = cos(ray_angle);
+	ray_dir_y = sin(ray_angle);
+	ray_length = calculate_ray_length(env, ray_angle, 1);
+	hit_x = (int)((env->map.player.x + ray_dir_x * ray_length) / env->map.size);
+	hit_y = (int)((env->map.player.y + ray_dir_y * ray_length) / env->map.size);
+	
+	if (hit_y >= 0 && hit_y < env->map.height && hit_x >= 0
+		&& hit_x < env->map.width && env->map.data[hit_y][hit_x] == 2)
+	{
+		env->map.data[hit_y][hit_x] = 3;
+	}
+	else if (hit_y >= 0 && hit_y < env->map.height && hit_x >= 0
+		&& hit_x < env->map.width && env->map.data[hit_y][hit_x] == 3)
+	{
+		env->map.data[hit_y][hit_x] = 2;
+	}
+}
+
 static int	ft_mlx_button(int button, int x, int y, t_env *env)
 {
 	(void)x;
@@ -34,15 +66,17 @@ static int	ft_mlx_button(int button, int x, int y, t_env *env)
 		ft_mlx_keypress('+', env);
 	if (button == 1)
 		env->weapon.animating = 1;
+	if (button == 3)
+		handle_right_click(env);
 	return (0);
 }
 
-int ft_mouse_move(void *param)
+int	ft_mouse_move(void *param)
 {
-    t_env *env;
-	int x;
-	int y;
-	int delta_x;
+	t_env	*env;
+	int		x;
+	int		y;
+	int		delta_x;
 
 	env = (t_env *)param;
 	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
@@ -54,8 +88,10 @@ int ft_mouse_move(void *param)
 			env->map.player.direction += 2.0 * M_PI;
 		else if (env->map.player.direction > 2.0 * M_PI)
 			env->map.player.direction -= 2.0 * M_PI;
-		env->map.player.dx = cos(env->map.player.direction) * env->map.player.speed;
-		env->map.player.dy = sin(env->map.player.direction) * env->map.player.speed;
+		env->map.player.dx = cos(env->map.player.direction)
+			* env->map.player.speed;
+		env->map.player.dy = sin(env->map.player.direction)
+			* env->map.player.speed;
 	}
 	env->map.player.mouse_x = x;
 	if (x < 100 || x > WIN_WIDTH - 100)
@@ -63,26 +99,26 @@ int ft_mouse_move(void *param)
 		mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 		env->map.player.mouse_x = WIN_WIDTH / 2;
 	}
-
-    return (0);
+	return (0);
 }
 
 void	ft_mlx_hooks(t_env *env)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	env->keys.up = 0;
 	env->keys.down = 0;
 	env->keys.left = 0;
 	env->keys.right = 0;
-  init_textures(env);
+	init_textures(env);
 	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
 	env->map.player.mouse_x = x;
 	mlx_hook(env->win, KeyPress, KeyPressMask, ft_mlx_keypress, env);
 	mlx_hook(env->win, KeyRelease, KeyReleaseMask, ft_mlx_keyrelease, env);
 	mlx_hook(env->win, ButtonPress, ButtonPressMask, ft_mlx_button, env);
-	mlx_hook(env->win, ButtonRelease, ButtonReleaseMask, ft_mlx_button_release, env);
+	mlx_hook(env->win, ButtonRelease, ButtonReleaseMask, ft_mlx_button_release,
+		env);
 	mlx_hook(env->win, DestroyNotify, StructureNotifyMask,
 		ft_mlx_destroy_window, env);
 	mlx_loop_hook(env->mlx, ft_update_game, env);
@@ -125,9 +161,9 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 
 int	ft_mlx_keyrelease(int keycode, t_env *env)
 {
-	if (keycode == 'w' || keycode == XK_Up)
+	if (keycode == 'w')
 		env->keys.up = 0;
-	else if (keycode == 's' || keycode == XK_Down)
+	else if (keycode == 's')
 		env->keys.down = 0;
 	else if (keycode == 'a')
 		env->keys.left = 0;
@@ -155,7 +191,7 @@ bool	collision(t_env *env, double p_x, double p_y)
 	double	wall_bottom;
 	double	player_radius;
 
-	player_radius = env->map.size / 4;
+	player_radius = env->map.size / 8;
 	y = 0;
 	while (y < env->map.height)
 	{
@@ -163,7 +199,7 @@ bool	collision(t_env *env, double p_x, double p_y)
 		// while (x < env->map.width)
 		while (env->map.data[y] && env->map.data[y][x] != -1)
 		{
-			if (env->map.data[y][(int)x] == 1)
+			if (env->map.data[y][x] == 1 || env->map.data[y][x] == 2)
 			{
 				wall_left = x * env->map.size;
 				wall_right = (x + 1) * env->map.size;
