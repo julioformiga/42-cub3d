@@ -58,6 +58,9 @@ typedef struct s_sprite
 	int		current_frame;
 	int		frames_count;
 	int		frame_height;
+	int		animating;
+	double	anim_duration;
+	clock_t	anim_start_time;
 	int		visible;
 }	t_sprite;
 
@@ -264,6 +267,7 @@ void		sprite_load(t_env *env, char *path);
 void		sprite_set_frame(t_sprite *sprite, int frame_index);
 void		sprite_draw(t_env *env, t_sprite sprite,
 							   t_point position, double scale);
-void		free_sprite(t_env *env, t_sprite *sprite);
+void		sprite_play(t_sprite *sprite);
+void		sprite_update_animation(t_sprite *sprite);
 
 #endif

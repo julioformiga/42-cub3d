@@ -19,6 +19,7 @@ static int	ft_mlx_button_release(int button, int x, int y, t_env *env)
 	if (button == 1)
 	{
 		sprite_set_frame(&env->weapon, 0);
+		env->weapon.animating = 0;
 	}
 	return (0);
 }
@@ -64,7 +65,7 @@ static int	ft_mlx_button(int button, int x, int y, t_env *env)
 	if (button == 4)
 		ft_mlx_keypress('+', env);
 	if (button == 1)
-		ft_mlx_keypress(XK_space, env);
+		env->weapon.animating = 1;
 	if (button == 3)
 		handle_right_click(env);
 	return (0);
@@ -97,7 +98,6 @@ int	ft_mouse_move(void *param)
 	{
 		mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 		env->map.player.mouse_x = WIN_WIDTH / 2;
-		// printf("Mouse moved to center\n");
 	}
 	return (0);
 }
@@ -154,8 +154,8 @@ int	ft_mlx_keypress(int keycode, t_env *env)
 		if (env->map.numrays < 2000)
 			env->map.numrays += 10;
 	}
-	else if (keycode == XK_space)
-		sprite_set_frame(&env->weapon, 1);
+	// else if (keycode == XK_space)
+	// 	env->weapon.animating = 1;
 	return (0);
 }
 
@@ -173,8 +173,11 @@ int	ft_mlx_keyrelease(int keycode, t_env *env)
 		env->keys.arrow_left = 0;
 	else if (keycode == XK_Right)
 		env->keys.arrow_right = 0;
-	else if (keycode == XK_space)
-		sprite_set_frame(&env->weapon, 0);
+	// else if (keycode == XK_space)
+	// {
+	// 	sprite_set_frame(&env->weapon, 0);
+	// 	env->weapon.animating = 0;
+	// }
 	return (0);
 }
 
@@ -273,5 +276,6 @@ int	ft_update_game(t_env *env)
 			* env->map.player.speed;
 	}
 	draw_map(env);
+	sprite_update_animation(&env->weapon);
 	return (0);
 }

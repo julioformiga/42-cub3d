@@ -36,8 +36,38 @@ void	sprite_set_frame(t_sprite *sprite, int frame_index)
 	if (frame_index >= 0 && frame_index < sprite->frames_count)
 		sprite->current_frame = frame_index;
 }
+void sprite_play(t_sprite *sprite)
+{
+	if (sprite->animating)
+		return ;
+	sprite_set_frame(sprite, 1);
+	sprite->animating = 1;
+	sprite->anim_start_time = clock();
+	sprite->anim_duration = 200;
+}
 
-void	sprite_draw(t_env *env, t_sprite sprite, t_point position, double scale)
+void	sprite_update_animation(t_sprite *sprite)
+{
+	clock_t current_time;
+	double elapsed_ms;
+
+	if (sprite->animating)
+	{
+		current_time = clock();
+		elapsed_ms = (double)(current_time - sprite->anim_start_time) / CLOCKS_PER_SEC * 1000;
+		if (elapsed_ms >= sprite->anim_duration)
+		{
+			if (sprite->current_frame == 1)
+				sprite_set_frame(sprite, 2);
+			else
+				sprite_set_frame(sprite, 1);
+			sprite->anim_start_time = clock();
+		}
+	}
+}
+
+void	sprite_draw(t_env *env, t_sprite sprite,
+								t_point position, double scale)
 {
 	int		x;
 	int		y;
@@ -84,10 +114,4 @@ void	sprite_draw(t_env *env, t_sprite sprite, t_point position, double scale)
 		}
 		y++;
 	}
-}
-
-void	free_sprite(t_env *env, t_sprite *sprite)
-{
-	if (sprite && sprite->img)
-		mlx_destroy_image(env->mlx, sprite->img);
 }

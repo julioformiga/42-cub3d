@@ -90,7 +90,6 @@ void	draw_map(t_env *env)
 	position.y = WIN_HEIGHT - (env->weapon.frame_height * 1.2);
 	sprite_draw(env, env->weapon, position, 1.2);
 	mlx_do_sync(env->mlx);
-	// ft_debug_map(&env->map);
 }
 
 void	map_render_info(t_env *env)

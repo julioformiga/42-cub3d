@@ -89,7 +89,6 @@ int	main(int argc, char **argv)
 			&env->screen.line, &env->screen.endian);
 	ft_mlx_hooks(env);
 	mlx_loop(env->mlx);
-	free_sprite(env, &env->weapon);
 	free_all(env);
 	exit(EXIT_SUCCESS);
 	return (0);
