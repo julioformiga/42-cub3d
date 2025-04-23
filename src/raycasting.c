@@ -6,13 +6,13 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 09:58:29 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/23 12:26:47 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/23 15:37:11 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	calculate_ray_length(t_env *env, double ray_angle)
+double	calculate_ray_length(t_env *env, double ray_angle, int visual)
 {
 	double	ray_dir_x = cos(ray_angle);
 	double	ray_dir_y = sin(ray_angle);
@@ -255,7 +255,6 @@ void	raycasting(t_env *env)
 
 void	raycasting3d(t_env *env)
 {
-
 	double		angle;
 	t_raycast	ray;
 	double		ray_length;

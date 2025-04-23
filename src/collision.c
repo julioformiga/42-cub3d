@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/20 15:15:25 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/20 15:15:25 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/20 15:15:25 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/23 15:51:42 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ bool	collision(t_env *env, double p_x, double p_y)
 	double	wall_bottom;
 	double	player_radius;
 
-	player_radius = env->map.size / 4;
+	player_radius = env->map.size / 8;
 	y = 0;
 	while (y < env->map.height)
 	{
 		x = 0;
 		while (env->map.data[y] && env->map.data[y][x] != -1)
 		{
-			if (env->map.data[y][(int)x] == 1)
+			if (env->map.data[y][x] == 1 || env->map.data[y][x] == 2)
 			{
 				wall_left = x * env->map.size;
 				wall_right = (x + 1) * env->map.size;

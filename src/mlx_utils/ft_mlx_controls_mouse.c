@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx_controls.c                                  :+:      :+:    :+:   */
+/*   ft_mlx_controls_mouse.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/17 11:25:07 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/23 15:46:15 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,38 @@ int	ft_mlx_button_release(int button, int x, int y, t_env *env)
 	return (0);
 }
 
+void	handle_right_click(t_env *env)
+{
+	double	ray_angle;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	ray_length;
+	int		hit_x;
+	int		hit_y;
+
+	ray_angle = env->map.player.direction;
+	while (ray_angle < 0)
+		ray_angle += 2 * M_PI;
+	while (ray_angle >= 2 * M_PI)
+		ray_angle -= 2 * M_PI;
+	ray_dir_x = cos(ray_angle);
+	ray_dir_y = sin(ray_angle);
+	ray_length = calculate_ray_length(env, ray_angle, 1);
+	hit_x = (int)((env->map.player.x + ray_dir_x * ray_length) / env->map.size);
+	hit_y = (int)((env->map.player.y + ray_dir_y * ray_length) / env->map.size);
+	
+	if (hit_y >= 0 && hit_y < env->map.height && hit_x >= 0
+		&& hit_x < env->map.width && env->map.data[hit_y][hit_x] == 2)
+	{
+		env->map.data[hit_y][hit_x] = 3;
+	}
+	else if (hit_y >= 0 && hit_y < env->map.height && hit_x >= 0
+		&& hit_x < env->map.width && env->map.data[hit_y][hit_x] == 3)
+	{
+		env->map.data[hit_y][hit_x] = 2;
+	}
+}
+
 int	ft_mlx_button(int button, int x, int y, t_env *env)
 {
 	(void)x;
@@ -34,6 +66,8 @@ int	ft_mlx_button(int button, int x, int y, t_env *env)
 		ft_mlx_keypress('+', env);
 	if (button == 1)
 		env->weapon.animating = 1;
+	if (button == 3)
+		handle_right_click(env);
 	return (0);
 }
 
