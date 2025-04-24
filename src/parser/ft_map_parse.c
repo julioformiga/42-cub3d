@@ -73,12 +73,8 @@ static int	ft_parse_texture_color(t_map *map, char *line)
 	else if (!ft_strncmp(elements[0], "C", 2) && elements[1])
 		map->ceiling = ft_parse_color(elements[1]);
 	else
-	{
-		ft_free_array_char(elements);
-		return (0);
-	}
-	ft_free_array_char(elements);
-	return (1);
+		return (ft_free_array_char(elements), 0);
+	return (ft_free_array_char(elements), 1);
 }
 
 static int	ft_is_map_line(char *line)
