@@ -30,8 +30,7 @@ void	handle_right_click(t_env *env)
 	double	ray_dir_x;
 	double	ray_dir_y;
 	double	ray_length;
-	int		hit_x;
-	int		hit_y;
+	t_point	hit;
 
 	ray_angle = env->map.player.direction;
 	while (ray_angle < 0)
@@ -41,19 +40,14 @@ void	handle_right_click(t_env *env)
 	ray_dir_x = cos(ray_angle);
 	ray_dir_y = sin(ray_angle);
 	ray_length = calculate_ray_length(env, ray_angle, 1);
-	hit_x = (int)((env->map.player.x + ray_dir_x * ray_length) / env->map.size);
-	hit_y = (int)((env->map.player.y + ray_dir_y * ray_length) / env->map.size);
-	
-	if (hit_y >= 0 && hit_y < env->map.height && hit_x >= 0
-		&& hit_x < env->map.width && env->map.data[hit_y][hit_x] == 2)
-	{
-		env->map.data[hit_y][hit_x] = 3;
-	}
-	else if (hit_y >= 0 && hit_y < env->map.height && hit_x >= 0
-		&& hit_x < env->map.width && env->map.data[hit_y][hit_x] == 3)
-	{
-		env->map.data[hit_y][hit_x] = 2;
-	}
+	hit.x = (int)((env->map.player.x + ray_dir_x * ray_length) / env->map.size);
+	hit.y = (int)((env->map.player.y + ray_dir_y * ray_length) / env->map.size);
+	if (hit.y >= 0 && hit.y < env->map.height && hit.x >= 0
+		&& hit.x < env->map.width && env->map.data[hit.y][hit.x] == 2)
+		env->map.data[hit.y][hit.x] = 3;
+	else if (hit.y >= 0 && hit.y < env->map.height && hit.x >= 0
+		&& hit.x < env->map.width && env->map.data[hit.y][hit.x] == 3)
+		env->map.data[hit.y][hit.x] = 2;
 }
 
 int	ft_mlx_button(int button, int x, int y, t_env *env)
