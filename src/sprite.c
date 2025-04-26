@@ -36,6 +36,7 @@ void	sprite_set_frame(t_sprite *sprite, int frame_index)
 	if (frame_index >= 0 && frame_index < sprite->frames_count)
 		sprite->current_frame = frame_index;
 }
+
 void	sprite_play(t_sprite *sprite)
 {
 	if (sprite->animating)
@@ -69,50 +70,49 @@ void	sprite_update_animation(t_sprite *sprite)
 
 void	sprite_draw(t_env *env, t_sprite sprite, t_point position, double scale)
 {
-	int		x;
-	int		y;
+	t_point	pos_dest;
 	int		color;
-	int		sprite_x;
-	int		sprite_y;
+	t_point	sprite_pos;
 	t_point	draw_pos;
 	int		frame_offset;
 
 	frame_offset = sprite.current_frame * sprite.frame_height;
 	if (!sprite.visible)
 		return ;
-	y = 0;
-	while (y < (int)(sprite.frame_height * scale) && y
+	pos_dest.y = 0;
+	while (pos_dest.y < (int)(sprite.frame_height * scale) && pos_dest.y
 		+ position.y < WIN_HEIGHT)
 	{
-		if (position.y + y < 0)
+		if (position.y + pos_dest.y < 0)
 		{
-			y++;
+			pos_dest.y++;
 			continue ;
 		}
-		x = 0;
-		while (x < (int)(sprite.width * scale) && x + position.x < WIN_WIDTH)
+		pos_dest.x = 0;
+		while (pos_dest.x < (int)(sprite.width * scale)
+			&& pos_dest.x + position.x < WIN_WIDTH)
 		{
-			if (position.x + x < 0)
+			if (position.x + pos_dest.x < 0)
 			{
-				x++;
+				pos_dest.x++;
 				continue ;
 			}
-			sprite_x = x / scale;
-			sprite_y = (y / scale) + frame_offset;
-			if (sprite_x >= 0 && sprite_x < sprite.width && sprite_y >= 0
-				&& sprite_y < sprite.height)
+			sprite_pos.x = pos_dest.x / scale;
+			sprite_pos.y = (pos_dest.y / scale) + frame_offset;
+			if (sprite_pos.x >= 0 && sprite_pos.x < sprite.width
+				&& sprite_pos.y >= 0 && sprite_pos.y < sprite.height)
 			{
-				color = sprite.data[sprite_y * sprite.width + sprite_x];
+				color = sprite.data[sprite_pos.y * sprite.width + sprite_pos.x];
 				if ((color & 0x00FF00FF) != 0)
 				{
-					draw_pos.x = position.x + x;
-					draw_pos.y = position.y + y;
-					ft_draw_line_to_image(env, draw_pos.x - 75, draw_pos.y,
-						color);
+					draw_pos.x = position.x + pos_dest.x;
+					draw_pos.y = position.y + pos_dest.y;
+					ft_draw_line_to_image(env, draw_pos.x - 75,
+						draw_pos.y, color);
 				}
 			}
-			x++;
+			pos_dest.x++;
 		}
-		y++;
+		pos_dest.y++;
 	}
 }

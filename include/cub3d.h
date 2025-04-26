@@ -220,6 +220,12 @@ typedef struct s_range
 	int	max;
 }	t_range;
 
+void		ft_remove_newline(char *str);
+void		ft_validate_map_textures(t_map *map);
+t_color		ft_parse_color(char *color_str);
+int			ft_parse_texture_color(t_map *map, char *line);
+int			ft_is_map_line(char *line);
+
 void		ft_mlx_put_image(t_env *env);
 void		ft_mlx_error(char *msg);
 void		ft_debug_map(t_map *map);
