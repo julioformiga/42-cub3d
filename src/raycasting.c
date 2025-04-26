@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 09:58:29 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/23 15:37:11 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/26 11:26:57 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 double	calculate_ray_length(t_env *env, double ray_angle, int visual)
 {
-	double	ray_dir_x = cos(ray_angle);
-	double	ray_dir_y = sin(ray_angle);
-	int		map_x = (int)(env->map.player.x / env->map.size);
-	int		map_y = (int)(env->map.player.y / env->map.size);
-	double	delta_dist_x = fabs(1 / ray_dir_x);
-	double	delta_dist_y = fabs(1 / ray_dir_y);
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
 	int		step_x;
 	int		step_y;
 	double	side_dist_x;
@@ -30,6 +30,12 @@ double	calculate_ray_length(t_env *env, double ray_angle, int visual)
 	int		iterations;
 	double	perpendicular_wall_dist;
 
+	ray_dir_x = cos(ray_angle);
+	ray_dir_y = sin(ray_angle);
+	map_x = (int)(env->map.player.x / env->map.size);
+	map_y = (int)(env->map.player.y / env->map.size);
+	delta_dist_x = fabs(1 / ray_dir_x);
+	delta_dist_y = fabs(1 / ray_dir_y);
 	ray_dir_x = cos(ray_angle);
 	ray_dir_y = sin(ray_angle);
 	map_x = (int)(env->map.player.x / env->map.size);

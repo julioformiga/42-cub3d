@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:46:20 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/17 17:31:10 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/26 11:27:00 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ void	sprite_update_animation(t_sprite *sprite)
 	}
 }
 
-void	sprite_draw(t_env *env, t_sprite sprite,
-								t_point position, double scale)
+void	sprite_draw(t_env *env, t_sprite sprite, t_point position, double scale)
 {
 	t_point	pos_dest;
 	int		color;
