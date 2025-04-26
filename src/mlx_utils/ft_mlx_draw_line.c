@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx_lines.c                                     :+:      :+:    :+:   */
+/*   ft_mlx_draw_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 02:19:51 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/05 02:19:51 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/04/26 11:26:27 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	ft_draw_line_to_image(t_env *env, int x, int y, int color)
 
 	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
 	{
-		dst = env->screen.addr
-			+ (y * env->screen.line + x * (env->screen.bpp / 8));
+		dst = env->screen.addr + (y * env->screen.line + x * (env->screen.bpp
+					/ 8));
 		*(unsigned int *)dst = color;
 	}
 }

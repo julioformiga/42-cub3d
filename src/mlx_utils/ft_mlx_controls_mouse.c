@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 02:19:51 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/23 15:46:15 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/26 11:26:22 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	ft_mlx_button(int button, int x, int y, t_env *env)
 
 int	ft_mouse_move(t_env *env)
 {
-	int		x;
-	int		y;
-	int		delta_x;
+	int	x;
+	int	y;
+	int	delta_x;
 
 	mlx_mouse_get_pos(env->mlx, env->win, &x, &y);
 	delta_x = x - env->map.player.mouse_x;

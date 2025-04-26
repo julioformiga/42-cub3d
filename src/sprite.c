@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:46:20 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/17 17:31:10 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/26 11:27:00 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	sprite_set_frame(t_sprite *sprite, int frame_index)
 	if (frame_index >= 0 && frame_index < sprite->frames_count)
 		sprite->current_frame = frame_index;
 }
-void sprite_play(t_sprite *sprite)
+void	sprite_play(t_sprite *sprite)
 {
 	if (sprite->animating)
 		return ;
@@ -48,13 +48,14 @@ void sprite_play(t_sprite *sprite)
 
 void	sprite_update_animation(t_sprite *sprite)
 {
-	clock_t current_time;
-	double elapsed_ms;
+	clock_t	current_time;
+	double	elapsed_ms;
 
 	if (sprite->animating)
 	{
 		current_time = clock();
-		elapsed_ms = (double)(current_time - sprite->anim_start_time) / CLOCKS_PER_SEC * 1000;
+		elapsed_ms = (double)(current_time - sprite->anim_start_time)
+			/ CLOCKS_PER_SEC * 1000;
 		if (elapsed_ms >= sprite->anim_duration)
 		{
 			if (sprite->current_frame == 1)
@@ -66,8 +67,7 @@ void	sprite_update_animation(t_sprite *sprite)
 	}
 }
 
-void	sprite_draw(t_env *env, t_sprite sprite,
-								t_point position, double scale)
+void	sprite_draw(t_env *env, t_sprite sprite, t_point position, double scale)
 {
 	int		x;
 	int		y;
@@ -107,7 +107,8 @@ void	sprite_draw(t_env *env, t_sprite sprite,
 				{
 					draw_pos.x = position.x + x;
 					draw_pos.y = position.y + y;
-					ft_draw_line_to_image(env, draw_pos.x - 75, draw_pos.y, color);
+					ft_draw_line_to_image(env, draw_pos.x - 75, draw_pos.y,
+						color);
 				}
 			}
 			x++;

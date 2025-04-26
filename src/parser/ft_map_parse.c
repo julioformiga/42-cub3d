@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:13:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/18 16:55:33 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/26 11:26:40 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ int	ft_map_value(t_range range_in, t_range range_out, int value)
 {
 	if (range_out.max - range_out.min == 0)
 		range_out.max = range_out.min + 1;
-	return (range_in.min
-		+ ((range_in.max - range_in.min) / (range_out.max - range_out.min))
-		* (value - range_out.min));
+	return (range_in.min + ((range_in.max - range_in.min) / (range_out.max
+				- range_out.min)) * (value - range_out.min));
 }
 
 static t_color	ft_parse_color(char *color_str)
@@ -156,7 +155,6 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 	map->data[y] = (int *)ft_calloc(width + 1, sizeof(int));
 	if (!map->data[y])
 		ft_mlx_error("Memory allocation failed\n");
-
 	x = 0;
 	while (x < width)
 	{
@@ -201,7 +199,6 @@ static void	ft_validate_map_textures(t_map *map)
 		map->west.path = ft_strdup("./assets/textures/west_default.xpm");
 	if (!map->east.path)
 		map->east.path = ft_strdup("./assets/textures/east_default.xpm");
-
 	if (map->player.direction == 0)
 		ft_mlx_error("No player position found in map\n");
 }
@@ -234,7 +231,7 @@ t_map	ft_map_parse(char *file)
 		{
 			free(line);
 			line = get_next_line(fd);
-			continue;
+			continue ;
 		}
 		if (ft_is_map_line(line))
 		{
@@ -242,8 +239,8 @@ t_map	ft_map_parse(char *file)
 			ft_parse_map_line(&map, line, y);
 			y++;
 		}
-		else if (config_done && !ft_is_map_line(line)
-				&& line[0] != '\n' && line[0] != 0)
+		else if (config_done && !ft_is_map_line(line) && line[0] != '\n'
+			&& line[0] != 0)
 			ft_mlx_error("Invalid map format\n");
 		free(line);
 		line = get_next_line(fd);

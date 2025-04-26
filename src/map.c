@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:09:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/17 17:27:58 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/04/26 11:26:52 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	draw_celing_floor(t_env *env)
 {
-	int		floor;
-	int		celing;
+	int	floor;
+	int	celing;
 
 	celing = ft_mlx_color((t_color){0, 135, 206, 235});
 	if (env->map.ceiling.r)
@@ -23,18 +23,24 @@ static void	draw_celing_floor(t_env *env)
 	floor = ft_mlx_color((t_color){0, 100, 100, 100});
 	if (env->map.floor.r)
 		floor = ft_mlx_color(env->map.floor);
-	ft_mlx_draw_rect(env, (t_rect){
-		(t_point){0, 0},
-		(t_point){0, WIN_HEIGHT / 2},
-		(t_point){WIN_WIDTH, WIN_HEIGHT / 2},
-		(t_point){WIN_WIDTH, 0},
-	}, celing, 1);
-	ft_mlx_draw_rect(env, (t_rect){
-		(t_point){0, WIN_HEIGHT / 2},
-		(t_point){0, WIN_HEIGHT},
-		(t_point){WIN_WIDTH, WIN_HEIGHT},
-		(t_point){WIN_WIDTH, WIN_HEIGHT / 2},
-	}, floor, 1);
+	ft_mlx_draw_rect(env,
+						(t_rect){
+							(t_point){0, 0},
+							(t_point){0, WIN_HEIGHT / 2},
+							(t_point){WIN_WIDTH, WIN_HEIGHT / 2},
+							(t_point){WIN_WIDTH, 0},
+						},
+						celing,
+						1);
+	ft_mlx_draw_rect(env,
+						(t_rect){
+							(t_point){0, WIN_HEIGHT / 2},
+							(t_point){0, WIN_HEIGHT},
+							(t_point){WIN_WIDTH, WIN_HEIGHT},
+							(t_point){WIN_WIDTH, WIN_HEIGHT / 2},
+						},
+						floor,
+						1);
 }
 
 void	draw_minimap(t_env *env)
@@ -57,11 +63,14 @@ void	draw_minimap(t_env *env)
 				ft_mlx_error("Map data is NULL");
 			ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, BLACK);
 			if (env->map.data[i][j] == 1)
-				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, WHITE);
+				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size,
+					WHITE);
 			else if (env->map.data[i][j] == 2)
-				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, RED);
+				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size,
+					RED);
 			else
-				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size, BLACK);
+				ft_mlx_draw_square(env, (t_point){j * size, i * size}, size,
+					BLACK);
 		}
 	}
 	player(env);
@@ -69,8 +78,8 @@ void	draw_minimap(t_env *env)
 
 void	draw_red_cross(t_env *env, t_point position)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (i++, i < 11)
@@ -92,8 +101,8 @@ void	draw_map(t_env *env)
 		printf("Map data is NULL\n");
 		return ;
 	}
-	ft_bzero(env->screen.addr, WIN_WIDTH * WIN_HEIGHT
-		* ((double)env->screen.bpp / 8));
+	ft_bzero(env->screen.addr, WIN_WIDTH * WIN_HEIGHT * ((double)env->screen.bpp
+			/ 8));
 	draw_celing_floor(env);
 	draw_minimap(env);
 	draw_red_cross(env, (t_point){WIN_WIDTH / 2, WIN_HEIGHT / 2});
