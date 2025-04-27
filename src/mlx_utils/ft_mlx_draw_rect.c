@@ -45,28 +45,27 @@ static int	ft_point_inside_rect(t_point p, t_rect rect)
 
 static void	ft_mlx_draw_rect_fill(t_env *env, t_rect rect, int color)
 {
-	int	min_x;
-	int	max_x;
-	int	min_y;
-	int	max_y;
-	int	x;
-	int	y;
+	int		min_x;
+	int		max_x;
+	int		min_y;
+	int		max_y;
+	t_point	p;
 
 	min_x = ft_min(ft_min(rect.p0.x, rect.p1.x), ft_min(rect.p2.x, rect.p3.x));
 	max_x = ft_max(ft_max(rect.p0.x, rect.p1.x), ft_max(rect.p2.x, rect.p3.x));
 	min_y = ft_min(ft_min(rect.p0.y, rect.p1.y), ft_min(rect.p2.y, rect.p3.y));
 	max_y = ft_max(ft_max(rect.p0.y, rect.p1.y), ft_max(rect.p2.y, rect.p3.y));
-	y = min_y;
-	while (y <= max_y)
+	p.y = min_y;
+	while (p.y <= max_y)
 	{
-		x = min_x;
-		while (x <= max_x)
+		p.x = min_x;
+		while (p.x <= max_x)
 		{
-			if (ft_point_inside_rect((t_point){x, y}, rect))
-				ft_draw_line_to_image(env, x, y, color);
-			x++;
+			if (ft_point_inside_rect(p, rect))
+				ft_draw_line_to_image(env, p.x, p.y, color);
+			p.x++;
 		}
-		y++;
+		p.y++;
 	}
 }
 
