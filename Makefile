@@ -62,7 +62,7 @@ re:		fclean all run
 # Normal run without memory checks
 run:	all
 		printf "$(GREEN)Running normal binary$(RESET)\n"
-		./$(BIN)
+		./$(BIN) ./maps/large_map.cub
 
 # Run with Valgrind for thorough memory leak checking
 mleak:	all

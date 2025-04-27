@@ -113,5 +113,6 @@ void	draw_map(t_env *env)
 	position.x = (WIN_WIDTH / 2) - ((double)env->weapon.width / 2);
 	position.y = WIN_HEIGHT - (env->weapon.frame_height * env->weapon.scale);
 	sprite_draw(env, env->weapon, position);
+	map_render_info(env);
 	mlx_do_sync(env->mlx);
 }

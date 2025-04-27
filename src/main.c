@@ -23,6 +23,32 @@ static void	ft_mlx_init_values(t_env *env)
 	sprite_load(env, "./assets/sprite_weapon.xpm");
 }
 
+static void	free_textures(t_env *env)
+{
+	if (env->imgs)
+	{
+		if (env->imgs->image)
+			mlx_destroy_image(env->mlx, env->imgs->image);
+		free(env->imgs);
+	}
+	if (env->map.north.img)
+		mlx_destroy_image(env->mlx, env->map.north.img);
+	if (env->map.north.path)
+		free(env->map.north.path);
+	if (env->map.south.img)
+		mlx_destroy_image(env->mlx, env->map.south.img);
+	if (env->map.south.path)
+		free(env->map.south.path);
+	if (env->map.east.img)
+		mlx_destroy_image(env->mlx, env->map.east.img);
+	if (env->map.east.path)
+		free(env->map.east.path);
+	if (env->map.west.img)
+		mlx_destroy_image(env->mlx, env->map.west.img);
+	if (env->map.west.path)
+		free(env->map.west.path);
+}
+
 void	free_all(t_env *env)
 {
 	if (env)
@@ -33,28 +59,7 @@ void	free_all(t_env *env)
 				free(env->map.data[env->map.height]);
 			free(env->map.data);
 		}
-		if (env->imgs)
-		{
-			if (env->imgs->image)
-				mlx_destroy_image(env->mlx, env->imgs->image);
-			free(env->imgs);
-		}
-		if (env->map.north.img)
-			mlx_destroy_image(env->mlx, env->map.north.img);
-		if (env->map.north.path)
-			free(env->map.north.path);
-		if (env->map.south.img)
-			mlx_destroy_image(env->mlx, env->map.south.img);
-		if (env->map.south.path)
-			free(env->map.south.path);
-		if (env->map.east.img)
-			mlx_destroy_image(env->mlx, env->map.east.img);
-		if (env->map.east.path)
-			free(env->map.east.path);
-		if (env->map.west.img)
-			mlx_destroy_image(env->mlx, env->map.west.img);
-		if (env->map.west.path)
-			free(env->map.west.path);
+		free_textures(env);
 		if (env->mlx)
 		{
 			if (env->screen.img)
@@ -76,8 +81,7 @@ int	main(int argc, char **argv)
 	t_map	map;
 
 	if (argc != 2)
-		argv[1] = "./maps/large_map.cub";
-	// ft_mlx_error("Usage: ./cub3d <map>.cub");
+		ft_mlx_error("Usage: ./cub3d <map>.cub");
 	ft_check_file(argv[1]);
 	map = ft_map_parse(argv[1]);
 	env = ft_mlx_create_env();
