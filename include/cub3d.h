@@ -229,6 +229,8 @@ typedef struct s_sprite_context
 	int			frame_offset;
 }	t_sprite_context;
 
+int			ft_open_file(char *file);
+void		ft_init_map(t_map *map, char *file);
 void		ft_remove_newline(char *str);
 void		ft_validate_map_textures(t_map *map);
 t_color		ft_parse_color(char *color_str);
