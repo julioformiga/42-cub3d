@@ -12,40 +12,27 @@
 
 #include "cub3d.h"
 
-void	init_textures(t_env *env)
+static int	load_texture(t_env *env, t_texture *texture)
 {
 	int	width;
 	int	height;
 
-	env->map.north.img = mlx_xpm_file_to_image(env->mlx, env->map.north.path,
+	texture->img = mlx_xpm_file_to_image(env->mlx, texture->path,
 			&width, &height);
-	env->map.south.img = mlx_xpm_file_to_image(env->mlx, env->map.south.path,
-			&width, &height);
-	env->map.east.img = mlx_xpm_file_to_image(env->mlx, env->map.east.path,
-			&width, &height);
-	env->map.west.img = mlx_xpm_file_to_image(env->mlx, env->map.west.path,
-			&width, &height);
-	if (!env->map.north.img || !env->map.south.img || !env->map.east.img
-		|| !env->map.west.img)
+	if (!texture->img)
+		return (0);
+	texture->data = (int *)mlx_get_data_addr(texture->img,
+			&texture->bpp, &texture->size_line, &texture->endian);
+	texture->width = width;
+	texture->height = height;
+	return (1);
+}
+
+void	init_textures(t_env *env)
+{
+	if (!load_texture(env, &env->map.north)
+		|| !load_texture(env, &env->map.south)
+		|| !load_texture(env, &env->map.east)
+		|| !load_texture(env, &env->map.west))
 		ft_mlx_error("Failed to load textures images\n");
-	env->map.north.data = (int *)mlx_get_data_addr(env->map.north.img,
-			&env->map.north.bpp, &env->map.north.size_line,
-			&env->map.north.endian);
-	env->map.south.data = (int *)mlx_get_data_addr(env->map.south.img,
-			&env->map.south.bpp, &env->map.south.size_line,
-			&env->map.south.endian);
-	env->map.east.data = (int *)mlx_get_data_addr(env->map.east.img,
-			&env->map.east.bpp, &env->map.east.size_line,
-			&env->map.east.endian);
-	env->map.west.data = (int *)mlx_get_data_addr(env->map.west.img,
-			&env->map.west.bpp, &env->map.west.size_line,
-			&env->map.west.endian);
-	env->map.north.width = width;
-	env->map.north.height = height;
-	env->map.south.width = width;
-	env->map.south.height = height;
-	env->map.east.width = width;
-	env->map.east.height = height;
-	env->map.west.width = width;
-	env->map.west.height = height;
 }
