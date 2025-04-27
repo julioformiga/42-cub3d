@@ -158,6 +158,14 @@ typedef struct s_map
 	t_player	player;
 }	t_map;
 
+typedef struct s_wall
+{
+	double	left;
+	double	right;
+	double	top;
+	double	bottom;
+}	t_wall;
+
 typedef struct s_view
 {
 	int		projection;
