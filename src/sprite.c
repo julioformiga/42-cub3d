@@ -28,6 +28,7 @@ void	sprite_load(t_env *env, char *path)
 	env->weapon.frames_count = 3;
 	env->weapon.frame_height = height / env->weapon.frames_count;
 	env->weapon.current_frame = 0;
+	env->weapon.scale = 1.2;
 	env->weapon.visible = 1;
 }
 
@@ -65,54 +66,5 @@ void	sprite_update_animation(t_sprite *sprite)
 				sprite_set_frame(sprite, 1);
 			sprite->anim_start_time = clock();
 		}
-	}
-}
-
-void	sprite_draw(t_env *env, t_sprite sprite, t_point position, double scale)
-{
-	t_point	pos_dest;
-	int		color;
-	t_point	sprite_pos;
-	t_point	draw_pos;
-	int		frame_offset;
-
-	frame_offset = sprite.current_frame * sprite.frame_height;
-	if (!sprite.visible)
-		return ;
-	pos_dest.y = 0;
-	while (pos_dest.y < (int)(sprite.frame_height * scale) && pos_dest.y
-		+ position.y < WIN_HEIGHT)
-	{
-		if (position.y + pos_dest.y < 0)
-		{
-			pos_dest.y++;
-			continue ;
-		}
-		pos_dest.x = 0;
-		while (pos_dest.x < (int)(sprite.width * scale)
-			&& pos_dest.x + position.x < WIN_WIDTH)
-		{
-			if (position.x + pos_dest.x < 0)
-			{
-				pos_dest.x++;
-				continue ;
-			}
-			sprite_pos.x = pos_dest.x / scale;
-			sprite_pos.y = (pos_dest.y / scale) + frame_offset;
-			if (sprite_pos.x >= 0 && sprite_pos.x < sprite.width
-				&& sprite_pos.y >= 0 && sprite_pos.y < sprite.height)
-			{
-				color = sprite.data[sprite_pos.y * sprite.width + sprite_pos.x];
-				if ((color & 0x00FF00FF) != 0)
-				{
-					draw_pos.x = position.x + pos_dest.x;
-					draw_pos.y = position.y + pos_dest.y;
-					ft_draw_line_to_image(env, draw_pos.x - 75,
-						draw_pos.y, color);
-				}
-			}
-			pos_dest.x++;
-		}
-		pos_dest.y++;
 	}
 }

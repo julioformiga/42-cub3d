@@ -58,6 +58,7 @@ typedef struct s_sprite
 	int		frame_height;
 	int		animating;
 	double	anim_duration;
+	double	scale;
 	clock_t	anim_start_time;
 	int		visible;
 }	t_sprite;
@@ -220,6 +221,14 @@ typedef struct s_range
 	int	max;
 }	t_range;
 
+typedef struct s_sprite_context
+{
+	t_env		*env;
+	t_sprite	sprite;
+	t_point		position;
+	int			frame_offset;
+}	t_sprite_context;
+
 void		ft_remove_newline(char *str);
 void		ft_validate_map_textures(t_map *map);
 t_color		ft_parse_color(char *color_str);
@@ -266,8 +275,7 @@ void		free_all(t_env *env);
 /* Sprite functions */
 void		sprite_load(t_env *env, char *path);
 void		sprite_set_frame(t_sprite *sprite, int frame_index);
-void		sprite_draw(t_env *env, t_sprite sprite,
-				t_point position, double scale);
+void		sprite_draw(t_env *env, t_sprite sprite, t_point position);
 void		sprite_play(t_sprite *sprite);
 void		sprite_update_animation(t_sprite *sprite);
 

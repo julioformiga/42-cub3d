@@ -108,7 +108,7 @@ void	draw_map(t_env *env)
 	draw_red_cross(env, (t_point){WIN_WIDTH / 2, WIN_HEIGHT / 2});
 	mlx_put_image_to_window(env->mlx, env->win, env->screen.img, 0, 0);
 	position.x = (WIN_WIDTH / 2) - ((double)env->weapon.width / 2);
-	position.y = WIN_HEIGHT - (env->weapon.frame_height * 1.2);
-	sprite_draw(env, env->weapon, position, 1.2);
+	position.y = WIN_HEIGHT - (env->weapon.frame_height * env->weapon.scale);
+	sprite_draw(env, env->weapon, position);
 	mlx_do_sync(env->mlx);
 }
