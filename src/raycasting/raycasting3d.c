@@ -22,9 +22,7 @@ static void	ray_texture(t_env *env, t_raycast *ray)
 			+ ray->perp_wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
 	if (ray->map_value == 2)
-	{
 		ray->texture = &env->map.door;
-	}
 	else if (ray->side == 0)
 	{
 		if (ray->dir_x > 0)
@@ -32,72 +30,66 @@ static void	ray_texture(t_env *env, t_raycast *ray)
 		else
 			ray->texture = &env->map.west;
 	}
+	else if (ray->dir_y > 0)
+		ray->texture = &env->map.south;
 	else
-	{
-		if (ray->dir_y > 0)
-			ray->texture = &env->map.south;
-		else
-			ray->texture = &env->map.north;
-	}
+		ray->texture = &env->map.north;
 	ray->tex_x = (int)(ray->wall_x * (double)ray->texture->width);
 	if ((ray->side == 0 && ray->dir_x > 0) || (ray->side == 1
 			&& ray->dir_y < 0))
 		ray->tex_x = ray->texture->width - ray->tex_x - 1;
 }
 
+static void	raycasting3d_setup(t_env *env, t_raycast3d *r3)
+{
+	r3->wall_height = (env->map.size * WIN_HEIGHT)
+		/ (r3->ray_length * cos(r3->angle - env->map.player.direction));
+	r3->draw_start = ((double)WIN_HEIGHT / 2) - (r3->wall_height / 2);
+	r3->draw_end = ((double)WIN_HEIGHT / 2) + (r3->wall_height / 2);
+	if (r3->draw_start < 0)
+		r3->draw_start = 0;
+	if (r3->draw_end >= WIN_HEIGHT)
+		r3->draw_end = WIN_HEIGHT - 1;
+	r3->line_width = ceil((double)WIN_WIDTH / env->map.numrays);
+	r3->line_x = r3->i * ((double)WIN_WIDTH / env->map.numrays);
+	r3->y = r3->draw_start - 1;
+}
+
+static void	raycasting3d_drawline(t_env *env, t_raycast *ray, t_raycast3d *r3)
+{
+	r3->tex_y = (int)r3->tex_pos & (ray->texture->height - 1);
+	r3->tex_pos += r3->step;
+	r3->color = ray->texture->data[ray->texture->height
+		* r3->tex_y + ray->tex_x];
+	if (ray->side == 1)
+		r3->color = (r3->color >> 1) & 8355711;
+	r3->w = -1;
+	while (r3->w++, r3->w < r3->line_width && r3->line_x + r3->w < WIN_WIDTH)
+		ft_draw_line_to_image(env, r3->line_x + r3->w, r3->y, r3->color);
+}
+
 void	raycasting3d(t_env *env)
 {
-	double		angle;
+	t_raycast3d	r3;
 	t_raycast	ray;
-	double		ray_length;
-	double		wall_height;
-	double		draw_start;
-	double		draw_end;
-	int			line_width;
-	int			line_x;
-	double		step;
-	double		tex_pos;
-	int			tex_y;
-	int			color;
-	size_t		i;
-	int			y;
-	int			w;
 
-	angle = env->map.player.direction - env->map.player.fov * (M_PI / 180.0)
+	r3.angle = env->map.player.direction - env->map.player.fov * (M_PI / 180.0)
 		/ 2.0;
-	i = -1;
-	while (i++, i < env->map.numrays)
+	r3.i = -1;
+	while (r3.i++, r3.i < env->map.numrays)
 	{
-		while (angle < 0)
-			angle += 2 * M_PI;
-		while (angle >= 2 * M_PI)
-			angle -= 2 * M_PI;
-		ray_length = ray_calc_length(env, &ray, angle);
+		while (r3.angle < 0)
+			r3.angle += 2 * M_PI;
+		while (r3.angle >= 2 * M_PI)
+			r3.angle -= 2 * M_PI;
+		r3.ray_length = ray_calc_length(env, &ray, r3.angle);
 		ray_texture(env, &ray);
-		wall_height = (env->map.size * WIN_HEIGHT)
-			/ (ray_length * cos(angle - env->map.player.direction));
-		draw_start = ((double)WIN_HEIGHT / 2) - (wall_height / 2);
-		draw_end = ((double)WIN_HEIGHT / 2) + (wall_height / 2);
-		if (draw_start < 0)
-			draw_start = 0;
-		if (draw_end >= WIN_HEIGHT)
-			draw_end = WIN_HEIGHT - 1;
-		line_width = ceil((double)WIN_WIDTH / env->map.numrays);
-		line_x = i * ((double)WIN_WIDTH / env->map.numrays);
-		step = (double)ray.texture->height / wall_height;
-		tex_pos = (draw_start - WIN_HEIGHT / 2 + wall_height / 2) * step;
-		y = draw_start - 1;
-		while (y++, y < draw_end)
-		{
-			tex_y = (int)tex_pos & (ray.texture->height - 1);
-			tex_pos += step;
-			color = ray.texture->data[ray.texture->height * tex_y + ray.tex_x];
-			if (ray.side == 1)
-				color = (color >> 1) & 8355711;
-			w = -1;
-			while (++w, w < line_width && line_x + w < WIN_WIDTH)
-				ft_draw_line_to_image(env, line_x + w, y, color);
-		}
-		angle += (env->map.player.fov * (M_PI / 180.0)) / env->map.numrays;
+		raycasting3d_setup(env, &r3);
+		r3.step = (double)ray.texture->height / r3.wall_height;
+		r3.tex_pos = (r3.draw_start - WIN_HEIGHT / 2 + r3.wall_height / 2)
+			* r3.step;
+		while (r3.y++, r3.y < r3.draw_end)
+			raycasting3d_drawline(env, &ray, &r3);
+		r3.angle += (env->map.player.fov * (M_PI / 180.0)) / env->map.numrays;
 	}
 }

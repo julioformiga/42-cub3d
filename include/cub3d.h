@@ -118,6 +118,24 @@ typedef struct s_raycast
 	int			map_value;
 }				t_raycast;
 
+typedef struct s_raycast3d
+{
+	double	angle;
+	double	ray_length;
+	double	wall_height;
+	double	draw_start;
+	double	draw_end;
+	int		line_width;
+	int		line_x;
+	double	step;
+	double	tex_pos;
+	int		tex_y;
+	int		color;
+	size_t	i;
+	int		y;
+	int		w;
+}	t_raycast3d;
+
 typedef struct s_keys
 {
 	int			up;
