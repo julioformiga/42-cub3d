@@ -266,8 +266,12 @@ void		ft_mouse_hide(t_xvar *xvar, t_win_list *win);
 int			ft_mlx_button_release(int button, int x, int y, t_env *env);
 int			ft_mlx_button(int button, int x, int y, t_env *env);
 int			ft_mouse_move(t_env *env);
-double		calculate_ray_length(t_env *env, double ray_anglem, int visual);
 void		init_textures(t_env *env);
+void		ray_calc_walls(t_env *env, t_raycast *ray);
+void		ray_calc_iterations(t_env *env, t_raycast *ray, int iterations, int v);
+void		ray_calc_perpendicular_distance(t_env *env, t_raycast *ray);
+double		calculate_ray_length(t_env *env, t_raycast *ray, double ray_angle,
+							 int visual);
 double		ray_calc_length(t_env *env, t_raycast *ray, double ray_angle);
 void		raycasting(t_env *env);
 void		raycasting3d(t_env *env);

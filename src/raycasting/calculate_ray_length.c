@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static void	ray_calc_walls(t_env *env, t_raycast *ray)
+void	ray_calc_walls(t_env *env, t_raycast *ray)
 {
 	if (ray->ray_dir_x < 0)
 	{
@@ -40,7 +40,7 @@ static void	ray_calc_walls(t_env *env, t_raycast *ray)
 	}
 }
 
-static void	ray_calc_iterations(t_env *env, t_raycast *ray, int iterations)
+void	ray_calc_iterations(t_env *env, t_raycast *ray, int iterations, int visual)
 {
 	while (ray->hit == 0 && iterations < env->map.player.max_ray_distance)
 	{
@@ -59,9 +59,19 @@ static void	ray_calc_iterations(t_env *env, t_raycast *ray, int iterations)
 		if (ray->map_x >= 0 && ray->map_y >= 0 && ray->map_x < env->map.width
 			&& ray->map_y < env->map.height)
 		{
-			if (env->map.data[ray->map_y][ray->map_x] == 1
-				|| env->map.data[ray->map_y][ray->map_x] == 2)
-				ray->hit = 1;
+			if (visual == 1)
+			{
+				if (env->map.data[ray->map_y][ray->map_x] == 1
+					|| env->map.data[ray->map_y][ray->map_x] == 2
+					|| env->map.data[ray->map_y][ray->map_x] == 3)
+					ray->hit = 1;
+			}
+			else
+			{
+				if (env->map.data[ray->map_y][ray->map_x] == 1
+					|| env->map.data[ray->map_y][ray->map_x] == 2)
+					ray->hit = 1;
+			}
 		}
 		else
 			break ;
@@ -69,7 +79,7 @@ static void	ray_calc_iterations(t_env *env, t_raycast *ray, int iterations)
 	}
 }
 
-static void	ray_calc_perpendicular_distance(t_env *env, t_raycast *ray)
+void	ray_calc_perpendicular_distance(t_env *env, t_raycast *ray)
 {
 	if (ray->side == 0)
 		ray->perp_wall_dist = (ray->map_x - env->map.player.x / env->map.size
@@ -96,7 +106,7 @@ double	ray_calc_length(t_env *env, t_raycast *ray, double ray_angle)
 	ray->hit = 0;
 	ray->side = -1;
 	ray_calc_walls(env, ray);
-	ray_calc_iterations(env, ray, 0);
+	ray_calc_iterations(env, ray, 0, 0);
 	ray_calc_perpendicular_distance(env, ray);
 	return (ray->perp_wall_dist * env->map.size);
 }
