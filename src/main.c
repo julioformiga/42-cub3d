@@ -16,6 +16,7 @@ static void	ft_mlx_init_values(t_env *env)
 {
 	env->map.numrays = 1360.0;
 	env->map.player.fov = 60.0;
+	env->map.player.max_ray_distance = 1000.0;
 	env->map.player.speed = 1.0;
 	env->map.player.mouse_speed = 0.002;
 	env->map.player.dx = cos(env->map.player.direction) * env->map.player.speed;

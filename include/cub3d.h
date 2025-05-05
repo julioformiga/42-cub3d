@@ -136,6 +136,7 @@ typedef struct s_player
 	double	speed;
 	double	direction;
 	double	fov;
+	double	max_ray_distance;
 	double	mouse_speed;
 	int		mouse_x;
 }	t_player;
@@ -267,6 +268,7 @@ int			ft_mlx_button(int button, int x, int y, t_env *env);
 int			ft_mouse_move(t_env *env);
 double		calculate_ray_length(t_env *env, double ray_anglem, int visual);
 void		init_textures(t_env *env);
+double		ray_calc_length(t_env *env, t_raycast *ray, double ray_angle);
 void		raycasting(t_env *env);
 void		raycasting3d(t_env *env);
 void		ft_draw_line_to_image(t_env *env, int x, int y, int color);

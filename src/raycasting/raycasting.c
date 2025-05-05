@@ -125,19 +125,17 @@ void	raycasting(t_env *env)
 	int		i;
 	double	ray_angle;
 	double	ray_length;
-	double	fov;
+	double	angle;
 	double	fov_start;
 	double	fov_step;
-	int		ray_count;
 	double	ray_dir_x;
 	double	ray_dir_y;
 
-	fov = 60.0 * (M_PI / 180.0);
-	ray_count = 60;
-	fov_start = env->map.player.direction - (fov / 2.0);
-	fov_step = fov / (double)(ray_count - 1);
-	i = 0;
-	while (i < ray_count)
+	angle = env->map.player.fov * (M_PI / 180.0);
+	fov_start = env->map.player.direction - (angle / 2.0);
+	fov_step = angle / (double)(env->map.numrays - 1);
+	i = -1;
+	while (i++, i < env->map.numrays)
 	{
 		ray_angle = fov_start + (fov_step * i);
 		while (ray_angle < 0)
@@ -150,6 +148,5 @@ void	raycasting(t_env *env)
 		ft_mlx_draw_line(env, (t_point){env->map.player.x, env->map.player.y},
 			(t_point){env->map.player.x + ray_dir_x * ray_length,
 			env->map.player.y + ray_dir_y * ray_length}, RED);
-		i++;
 	}
 }

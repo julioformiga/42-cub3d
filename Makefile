@@ -67,7 +67,7 @@ run:	all
 # Run with Valgrind for thorough memory leak checking
 mleak:	all
 		printf "$(YELLOW)Running with Valgrind leak checker$(RESET)\n"
-		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(BIN)
+		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(BIN) ./maps/large_map.cub
 
 # Run with Address Sanitizer
 san:
