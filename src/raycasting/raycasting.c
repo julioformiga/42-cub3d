@@ -15,22 +15,22 @@
 double	calculate_ray_length(t_env *env, t_raycast *ray, double ray_angle,
 							int visual)
 {
-	ray->ray_dir_x = cos(ray_angle);
-	ray->ray_dir_y = sin(ray_angle);
+	ray->dir_x = cos(ray_angle);
+	ray->dir_y = sin(ray_angle);
 	ray->map_x = (int)(env->map.player.x / env->map.size);
 	ray->map_y = (int)(env->map.player.y / env->map.size);
-	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
-	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
-	ray->ray_dir_x = cos(ray_angle);
-	ray->ray_dir_y = sin(ray_angle);
+	ray->delta_dist_x = fabs(1 / ray->dir_x);
+	ray->delta_dist_y = fabs(1 / ray->dir_y);
+	ray->dir_x = cos(ray_angle);
+	ray->dir_y = sin(ray_angle);
 	ray->map_x = (int)(env->map.player.x / env->map.size);
 	ray->map_y = (int)(env->map.player.y / env->map.size);
-	if (fabs(ray->ray_dir_x) < 0.000001)
-		ray->ray_dir_x = 0.000001;
-	if (fabs(ray->ray_dir_y) < 0.000001)
-		ray->ray_dir_y = 0.000001;
-	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
-	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+	if (fabs(ray->dir_x) < 0.000001)
+		ray->dir_x = 0.000001;
+	if (fabs(ray->dir_y) < 0.000001)
+		ray->dir_y = 0.000001;
+	ray->delta_dist_x = fabs(1 / ray->dir_x);
+	ray->delta_dist_y = fabs(1 / ray->dir_y);
 	ray->hit = 0;
 	ray->side = -1;
 	ray_calc_walls(env, ray);

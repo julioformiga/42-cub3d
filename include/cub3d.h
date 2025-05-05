@@ -99,8 +99,8 @@ typedef struct s_texture
 
 typedef struct s_raycast
 {
-	double		ray_dir_x;
-	double		ray_dir_y;
+	double		dir_x;
+	double		dir_y;
 	int			map_x;
 	int			map_y;
 	double		side_dist_x;

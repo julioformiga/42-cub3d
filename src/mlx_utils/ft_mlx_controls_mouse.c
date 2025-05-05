@@ -27,22 +27,20 @@ int	ft_mlx_button_release(int button, int x, int y, t_env *env)
 void	handle_right_click(t_env *env)
 {
 	t_raycast	ray;
-	double	ray_angle;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	ray_length;
-	t_point	hit;
+	double		ray_angle;
+	double		ray_length;
+	t_point		hit;
 
 	ray_angle = env->map.player.direction;
 	while (ray_angle < 0)
 		ray_angle += 2 * M_PI;
 	while (ray_angle >= 2 * M_PI)
 		ray_angle -= 2 * M_PI;
-	ray_dir_x = cos(ray_angle);
-	ray_dir_y = sin(ray_angle);
+	ray.dir_x = cos(ray_angle);
+	ray.dir_y = sin(ray_angle);
 	ray_length = calculate_ray_length(env, &ray, ray_angle, 1);
-	hit.x = (int)((env->map.player.x + ray_dir_x * ray_length) / env->map.size);
-	hit.y = (int)((env->map.player.y + ray_dir_y * ray_length) / env->map.size);
+	hit.x = (int)((env->map.player.x + ray.dir_x * ray_length) / env->map.size);
+	hit.y = (int)((env->map.player.y + ray.dir_y * ray_length) / env->map.size);
 	if (hit.y >= 0 && hit.y < env->map.height && hit.x >= 0
 		&& hit.x < env->map.width && env->map.data[hit.y][hit.x] == 2)
 		env->map.data[hit.y][hit.x] = 3;

@@ -16,28 +16,28 @@ static void	ray_texture(t_env *env, t_raycast *ray)
 {
 	if (ray->side == 0)
 		ray->wall_x = env->map.player.y / env->map.size
-			+ ray->perp_wall_dist * ray->ray_dir_y;
+			+ ray->perp_wall_dist * ray->dir_y;
 	else
 		ray->wall_x = env->map.player.x / env->map.size
-			+ ray->perp_wall_dist * ray->ray_dir_x;
+			+ ray->perp_wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
 	if (ray->side == 0)
 	{
-		if (ray->ray_dir_x > 0)
+		if (ray->dir_x > 0)
 			ray->texture = &env->map.east;
 		else
 			ray->texture = &env->map.west;
 	}
 	else
 	{
-		if (ray->ray_dir_y > 0)
+		if (ray->dir_y > 0)
 			ray->texture = &env->map.south;
 		else
 			ray->texture = &env->map.north;
 	}
 	ray->tex_x = (int)(ray->wall_x * (double)ray->texture->width);
-	if ((ray->side == 0 && ray->ray_dir_x > 0) || (ray->side == 1
-			&& ray->ray_dir_y < 0))
+	if ((ray->side == 0 && ray->dir_x > 0) || (ray->side == 1
+			&& ray->dir_y < 0))
 		ray->tex_x = ray->texture->width - ray->tex_x - 1;
 }
 
