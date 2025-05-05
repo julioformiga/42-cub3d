@@ -64,7 +64,7 @@ void	raycasting(t_env *env)
 			ray_angle -= 2 * M_PI;
 		ray_dir_x = cos(ray_angle);
 		ray_dir_y = sin(ray_angle);
-		ray_length = calculate_ray_length(env, &ray, ray_angle, 1);
+		ray_length = calculate_ray_length(env, &ray, ray_angle, 0);
 		ft_mlx_draw_line(env, (t_point){env->map.player.x, env->map.player.y},
 			(t_point){env->map.player.x + ray_dir_x * ray_length,
 			env->map.player.y + ray_dir_y * ray_length}, RED);
