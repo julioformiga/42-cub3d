@@ -46,12 +46,10 @@ static void	free_textures(t_env *env)
 		free(env->map.east.path);
 	if (env->map.west.img)
 		mlx_destroy_image(env->mlx, env->map.west.img);
-	if (env->map.west.path)
-		free(env->map.west.path);
 	if (env->map.door.img)
 		mlx_destroy_image(env->mlx, env->map.door.img);
-	if (env->map.door.path)
-		free(env->map.door.path);
+	if (env->map.west.path)
+		free(env->map.west.path);
 }
 
 void	free_all(t_env *env)
@@ -65,6 +63,8 @@ void	free_all(t_env *env)
 			free(env->map.data);
 		}
 		free_textures(env);
+		if (env->map.door.path)
+			free(env->map.door.path);
 		if (env->mlx)
 		{
 			if (env->screen.img)

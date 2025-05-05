@@ -17,10 +17,8 @@ static int	load_texture(t_env *env, t_texture *texture)
 	int	width;
 	int	height;
 
-	printf("texture path: %s\n", texture->path);
 	texture->img = mlx_xpm_file_to_image(env->mlx, texture->path,
 			&width, &height);
-	printf("texture img: %p\n", texture->img);
 	if (!texture->img)
 		return (0);
 	texture->data = (int *)mlx_get_data_addr(texture->img,
