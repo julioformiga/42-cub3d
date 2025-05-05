@@ -29,9 +29,9 @@
 # define YELLOW 16776960
 # define WHITE 16777215
 
-# include "../lib/minilibx/mlx_int.h"
 # include "libft.h"
 # include "mlx.h"
+# include "mlx_int.h"
 # include <X11/X.h>
 # include <X11/Xlib.h>
 # include <X11/extensions/Xfixes.h>

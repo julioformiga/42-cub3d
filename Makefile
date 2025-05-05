@@ -1,6 +1,5 @@
 CC				= cc
-CFLAGS_BASE		= -Wall -Werror -Wextra -Iinclude -g -Wshadow -Wpedantic
-CFLAGS_BASE		+= -Wno-unused-variable -Wno-unused-function -Wno-unused-parameter
+CFLAGS_BASE		= -Wall -Werror -Wextra -Iinclude -Ilib/minilibx -g
 CFLAGS			= $(CFLAGS_BASE)
 XFLAGS			= -lX11 -lXext -lm -lz -lXfixes
 MAKEFLAGS		+= --no-print-directory -s

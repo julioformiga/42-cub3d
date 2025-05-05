@@ -1,2 +1,11 @@
 CompileFlags:
-  Add: ["-Wall", "-Wextra", "-Werror", "-I../include", "-I../../include"]
+  Add:
+    [
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I../include",
+      "-I../../include",
+      "-I../lib/minilibx",
+      "-I../../lib/minilibx",
+    ]
