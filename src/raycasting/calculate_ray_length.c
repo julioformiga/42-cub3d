@@ -40,7 +40,25 @@ void	ray_calc_walls(t_env *env, t_raycast *ray)
 	}
 }
 
-void	ray_calc_iterations(t_env *env, t_raycast *ray, int iterations, int visual)
+static void	ray_calc_iterations_visual(t_env *env, t_raycast *ray, int visual)
+{
+	if (visual == 1)
+	{
+		if (env->map.data[ray->map_y][ray->map_x] == 1
+			|| env->map.data[ray->map_y][ray->map_x] == 2
+			|| env->map.data[ray->map_y][ray->map_x] == 3)
+			ray->hit = 1;
+	}
+	else
+	{
+		if (env->map.data[ray->map_y][ray->map_x] == 1
+			|| env->map.data[ray->map_y][ray->map_x] == 2)
+			ray->hit = 1;
+	}
+}
+
+void	ray_calc_iterations(t_env *env, t_raycast *ray, int iterations,
+							int visual)
 {
 	while (ray->hit == 0 && iterations < env->map.player.max_ray_distance)
 	{
@@ -58,21 +76,7 @@ void	ray_calc_iterations(t_env *env, t_raycast *ray, int iterations, int visual)
 		}
 		if (ray->map_x >= 0 && ray->map_y >= 0 && ray->map_x < env->map.width
 			&& ray->map_y < env->map.height)
-		{
-			if (visual == 1)
-			{
-				if (env->map.data[ray->map_y][ray->map_x] == 1
-					|| env->map.data[ray->map_y][ray->map_x] == 2
-					|| env->map.data[ray->map_y][ray->map_x] == 3)
-					ray->hit = 1;
-			}
-			else
-			{
-				if (env->map.data[ray->map_y][ray->map_x] == 1
-					|| env->map.data[ray->map_y][ray->map_x] == 2)
-					ray->hit = 1;
-			}
-		}
+			ray_calc_iterations_visual(env, ray, visual);
 		else
 			break ;
 		iterations++;
