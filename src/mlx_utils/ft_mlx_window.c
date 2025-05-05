@@ -28,7 +28,6 @@ t_env	*ft_mlx_create_env(void)
 	env->cursor_x = WIN_WIDTH / 2;
 	env->cursor_y = WIN_HEIGHT / 2;
 	env->init = (t_point){0, 0};
-	ft_mlx_xpm(env, "./assets/header.xpm");
 	return (env);
 }
 
@@ -40,9 +39,7 @@ void	ft_mouse_hide(t_xvar *xvar, t_win_list *win)
 int	ft_mlx_destroy_window(t_env *env)
 {
 	if (env->mlx)
-	{
 		free_all(env);
-	}
 	exit(EXIT_SUCCESS);
 	return (0);
 }
