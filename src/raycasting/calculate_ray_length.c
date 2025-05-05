@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate_ray_length.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 03:05:41 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/05/05 03:05:41 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/05/05 03:05:41 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/05/05 15:25:18 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ double	ray_calc_length(t_env *env, t_raycast *ray, double ray_angle)
 	ray_calc_walls(env, ray);
 	ray_calc_iterations(env, ray, 0, 0);
 	ray_calc_perpendicular_distance(env, ray);
+	ray->map_value = env->map.data[ray->map_y][ray->map_x];
 	return (ray->perp_wall_dist * env->map.size);
 }

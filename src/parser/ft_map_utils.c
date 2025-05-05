@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 05:21:39 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/05 05:21:39 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/05 05:21:39 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/05/05 15:26:06 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	ft_validate_map_textures(t_map *map)
 		map->west.path = ft_strdup("./assets/textures/west_default.xpm");
 	if (!map->east.path)
 		map->east.path = ft_strdup("./assets/textures/east_default.xpm");
+	if (!map->door.path)
+		map->door.path = ft_strdup("./assets/textures/door_default.xpm");
 	if (map->player.direction == 0)
 		ft_mlx_error("No player position found in map\n");
 }
@@ -99,6 +101,8 @@ int	ft_parse_texture_color(t_map *map, char *line)
 		map->west.path = ft_strdup(elements[1]);
 	else if (!ft_strncmp(elements[0], "EA", 3) && elements[1])
 		map->east.path = ft_strdup(elements[1]);
+	else if (!ft_strncmp(elements[0], "D", 2) && elements[1])
+		map->door.path = ft_strdup(elements[1]);
 	else if (!ft_strncmp(elements[0], "F", 2) && elements[1])
 		map->floor = ft_parse_color(elements[1]);
 	else if (!ft_strncmp(elements[0], "C", 2) && elements[1])

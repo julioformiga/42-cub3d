@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting3d.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/27 18:44:40 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/04/27 18:44:40 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/04/27 18:44:40 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/05/05 15:20:50 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ static void	ray_texture(t_env *env, t_raycast *ray)
 		ray->wall_x = env->map.player.x / env->map.size
 			+ ray->perp_wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
-	if (ray->side == 0)
+	if (ray->map_value == 2)
+	{
+		ray->texture = &env->map.door;
+	}
+	else if (ray->side == 0)
 	{
 		if (ray->dir_x > 0)
 			ray->texture = &env->map.east;

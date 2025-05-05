@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:12:05 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/23 15:46:31 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/05 14:38:53 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct s_raycast
 	double		wall_x;
 	int			tex_x;
 	t_texture	*texture;
+	int			map_value;
 }	t_raycast;
 
 typedef struct s_keys
@@ -154,6 +155,7 @@ typedef struct s_map
 	t_texture	south;
 	t_texture	west;
 	t_texture	east;
+	t_texture	door;
 	t_color		floor;
 	t_color		ceiling;
 	t_player	player;

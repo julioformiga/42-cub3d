@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:02:43 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/26 11:27:02 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/05 15:33:34 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ static int	load_texture(t_env *env, t_texture *texture)
 	int	width;
 	int	height;
 
+	printf("texture path: %s\n", texture->path);
 	texture->img = mlx_xpm_file_to_image(env->mlx, texture->path,
 			&width, &height);
+	printf("texture img: %p\n", texture->img);
 	if (!texture->img)
 		return (0);
 	texture->data = (int *)mlx_get_data_addr(texture->img,
@@ -33,6 +35,7 @@ void	init_textures(t_env *env)
 	if (!load_texture(env, &env->map.north)
 		|| !load_texture(env, &env->map.south)
 		|| !load_texture(env, &env->map.east)
-		|| !load_texture(env, &env->map.west))
+		|| !load_texture(env, &env->map.west)
+		|| !load_texture(env, &env->map.door))
 		ft_mlx_error("Failed to load textures images\n");
 }

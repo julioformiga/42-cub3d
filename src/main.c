@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 06:33:27 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/17 16:43:50 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/05 15:26:28 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ static void	free_textures(t_env *env)
 		mlx_destroy_image(env->mlx, env->map.west.img);
 	if (env->map.west.path)
 		free(env->map.west.path);
+	if (env->map.door.img)
+		mlx_destroy_image(env->mlx, env->map.door.img);
+	if (env->map.door.path)
+		free(env->map.door.path);
 }
 
 void	free_all(t_env *env)
