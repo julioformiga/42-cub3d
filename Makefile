@@ -1,5 +1,5 @@
 CC				= cc
-CFLAGS_BASE		= -Wall -Werror -Wextra -Iinclude -Ilib/minilibx -g
+CFLAGS_BASE		= -Wall -Werror -Wextra -Iinclude -Ilib/.minilibx -g
 CFLAGS			= $(CFLAGS_BASE)
 XFLAGS			= -lX11 -lXext -lm -lz -lXfixes
 MAKEFLAGS		+= --no-print-directory -s
@@ -19,7 +19,7 @@ OBJS			= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 LIBFT_DIR		= lib/libft
 LIBFT			= $(LIBFT_DIR)/libft.a
-MINILIBX_DIR	= lib/minilibx/
+MINILIBX_DIR	= lib/.minilibx/
 MINILIBX		= $(MINILIBX_DIR)libmlx.a
 
 GREEN  			= \033[0;32m
