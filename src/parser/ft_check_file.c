@@ -79,7 +79,7 @@ int	ft_open_file(char *file)
 
 void	ft_init_map(t_map *map, char *file)
 {
-	ft_bzero(map, sizeof(t_map));
+	map = calloc(sizeof(t_map), 1);
 	map->player.direction = 0;
 	map->floor = (t_color){0, 100, 100, 100};
 	map->ceiling = (t_color){0, 135, 206, 235};

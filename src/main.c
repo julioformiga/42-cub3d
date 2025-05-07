@@ -83,14 +83,19 @@ void	free_all(t_env *env)
 int	main(int argc, char **argv)
 {
 	t_env	*env;
-	t_map	map;
+	t_map	*map;
 
+	map = NULL;
 	if (argc != 2)
 		ft_mlx_error("Usage: ./cub3d <map>.cub");
 	ft_check_file(argv[1]);
-	map = ft_map_parse(argv[1]);
+	ft_map_parse(argv[1], map);
+	if (map == NULL)
+	{
+		return (0);
+	}
 	env = ft_mlx_create_env();
-	env->map = map;
+	env->map = *map;
 	ft_mlx_init_values(env);
 	ft_mouse_hide(env->mlx, env->win);
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);

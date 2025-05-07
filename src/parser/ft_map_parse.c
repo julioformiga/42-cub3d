@@ -73,7 +73,7 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 static int	ft_process_line(t_map *map, char *line, int *config_done, int *y)
 {
 	if (!*config_done && ft_parse_texture_color(map, line))
-		return (1);
+		return (0);
 	if (ft_is_map_line(line))
 	{
 		*config_done = 1;
@@ -82,35 +82,38 @@ static int	ft_process_line(t_map *map, char *line, int *config_done, int *y)
 	}
 	else if (*config_done && !ft_is_map_line(line)
 		&& line[0] != '\n' && line[0] != 0)
-		ft_mlx_error("Invalid map format\n");
+		{
+			ft_putstr_fd("Error: Invalid map format\n", 2);
+			return (1);
+		}
 	return (0);
 }
 
-t_map	ft_map_parse(char *file)
+void	ft_map_parse(char *file,  t_map *map)
 {
-	t_map	map;
 	int		fd;
 	char	*line;
 	int		y;
 	int		config_done;
 
-	ft_init_map(&map, file);
+	ft_init_map(map, file);
 	fd = ft_open_file(file);
 	line = get_next_line(fd);
 	config_done = 0;
 	y = 0;
 	while (line)
 	{
-		if (ft_process_line(&map, line, &config_done, &y))
+		if (ft_process_line(map, line, &config_done, &y))
 		{
 			free(line);
-			line = get_next_line(fd);
-			continue ;
+			close(fd);
+			map = NULL;
+			break;
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	ft_validate_map(&map);
-	return (map);
+	if(map != NULL)
+		ft_validate_map(map);
 }

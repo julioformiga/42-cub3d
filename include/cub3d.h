@@ -304,7 +304,7 @@ int				ft_file_count_lines(int fd);
 void			ft_free_array(int **ar);
 void			ft_free_array_char(char **ar);
 void			ft_mlx_xpm(t_env *env, char *filename);
-t_map			ft_map_parse(char *file);
+void			ft_map_parse(char *file,  t_map *map);
 void			draw_map(t_env *env);
 void			map_render_info(t_env *env);
 void			player(t_env *env);
