@@ -186,15 +186,15 @@ t_map	ft_map_parse(char *file)
 	}
 	close(fd);
 	ft_validate_map_textures(&map);
-	// t_map	map_transpose;
-	// printf("\nNormal map:\n");
-	// print_map(&map);
-	// printf("\nMap transpose:\n");
-	// map_transpose = transpose_map(&map);
-	// print_map(&map_transpose);
-	// for (int i = 0; i < map_transpose.height; i++)
-	// 	if (map_transpose.data[i])
-	// 		free(map_transpose.data[i]);
-	// free(map_transpose.data);
+	t_map	map_transpose;
+	printf("\nNormal map:\n");
+	print_map(&map);
+	printf("\nTranspose map:\n");
+	map_transpose = transpose_map(&map);
+	print_map(&map_transpose);
+	for (int i = 0; i < map_transpose.height; i++)
+		if (map_transpose.data[i])
+			free(map_transpose.data[i]);
+	free(map_transpose.data);
 	return (map);
 }
