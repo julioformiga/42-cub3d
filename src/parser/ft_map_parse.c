@@ -56,11 +56,13 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 	x = -1;
 	while (x++, x < width)
 		map->data[y][x] = 0;
-	map->data[y][x] = -1;
+	map->data[y][x] = -2;
 	x = -1;
 	while (x++, line[x] && line[x] != '\n')
 	{
-		if (line[x] == '0' || line[x] == ' ')
+		if (line[x] == ' ')
+			map->data[y][x] = -1;
+		else if (line[x] == '0')
 			map->data[y][x] = 0;
 		else if (line[x] == '1')
 			map->data[y][x] = 1;
@@ -85,6 +87,77 @@ static int	ft_process_line(t_map *map, char *line, int *config_done, int *y)
 		&& line[0] != '\n' && line[0] != 0)
 		ft_mlx_error("Invalid map format\n");
 	return (0);
+}
+
+t_map	transpose_map(t_map *map)
+{
+	t_map temp_map;
+	int	i;
+	int	j;
+	int	**temp;
+	int	*row_widths;
+	int	temp_height;
+	int	temp_width;
+	int max_width;
+
+	row_widths = (int *)ft_calloc(map->height, sizeof(int));
+	max_width = 0;
+	for (i = 0; i < map->height; i++) {
+		j = 0;
+		while (map->data[i] && map->data[i][j] != -2)
+			j++;
+		row_widths[i] = j;
+		if (j > max_width)
+			max_width = j;
+	}
+	temp_height = max_width;
+	temp_width = map->height;
+	temp = (int **)ft_calloc(temp_height + 1, sizeof(int *));
+	for (i = 0; i < temp_height; i++) {
+		temp[i] = (int *)ft_calloc(temp_width + 1, sizeof(int));
+		for (j = 0; j < temp_width; j++)
+			temp[i][j] = -1;
+	}
+	for (i = 0; i < map->height; i++) {
+		for (j = 0; j < row_widths[i]; j++) {
+			temp[j][i] = map->data[i][j];
+		}
+	}
+	temp_map.data = temp;
+	temp_map.width = map->height;
+	temp_map.height = max_width;
+	free(row_widths);
+	return (temp_map);
+}
+
+void	print_map(t_map *map)
+{
+	int		i;
+	int		j;
+	int		value;
+
+	i = -1;
+	while (i++, i < map->height)
+	{
+		j = -1;
+		while (j++, j < map->width && map->data[i] && map->data[i][j] >= -1)
+		{
+			value = map->data[i][j];
+			if (value == -1)
+				printf(". ");
+			else if (value == 0)
+				printf("0 ");
+			else if (value == 1)
+				printf("1 ");
+			else if (value == 2)
+				printf("D ");
+			else if (value >= 0 && value < 5)
+				printf("%c ", "NSWED"[value]);
+			else
+				printf("? ");
+		}
+		printf("\n");
+	}
 }
 
 t_map	ft_map_parse(char *file)
@@ -113,5 +186,15 @@ t_map	ft_map_parse(char *file)
 	}
 	close(fd);
 	ft_validate_map_textures(&map);
+	// t_map	map_transpose;
+	// printf("\nNormal map:\n");
+	// print_map(&map);
+	// printf("\nMap transpose:\n");
+	// map_transpose = transpose_map(&map);
+	// print_map(&map_transpose);
+	// for (int i = 0; i < map_transpose.height; i++)
+	// 	if (map_transpose.data[i])
+	// 		free(map_transpose.data[i]);
+	// free(map_transpose.data);
 	return (map);
 }
