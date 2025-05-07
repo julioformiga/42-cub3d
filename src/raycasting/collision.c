@@ -24,7 +24,7 @@ bool	collision(t_env *env, double p_x, double p_y)
 	while (y++, y < env->map.height)
 	{
 		x = -1;
-		while (x++, env->map.data[y] && env->map.data[y][x] != -1)
+		while (x++, env->map.data[y] && env->map.data[y][x] >= -1)
 		{
 			if (env->map.data[y][x] == 1 || env->map.data[y][x] == 2)
 			{

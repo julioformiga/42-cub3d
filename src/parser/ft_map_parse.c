@@ -18,13 +18,10 @@ static int	ft_count_map_width(char *line)
 	int	width;
 
 	width = 0;
-	i = 0;
-	while (line[i])
-	{
+	i = -1;
+	while (i++, line[i])
 		if (line[i] != '\n')
 			width++;
-		i++;
-	}
 	return (width);
 }
 
@@ -56,11 +53,13 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 	x = -1;
 	while (x++, x < width)
 		map->data[y][x] = 0;
-	map->data[y][x] = -1;
+	map->data[y][x] = -2;
 	x = -1;
 	while (x++, line[x] && line[x] != '\n')
 	{
-		if (line[x] == '0' || line[x] == ' ')
+		if (line[x] == ' ')
+			map->data[y][x] = -1;
+		else if (line[x] == '0')
 			map->data[y][x] = 0;
 		else if (line[x] == '1')
 			map->data[y][x] = 1;
@@ -112,6 +111,6 @@ t_map	ft_map_parse(char *file)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	ft_validate_map_textures(&map);
+	ft_validate_map(&map);
 	return (map);
 }

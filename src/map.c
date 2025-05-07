@@ -48,7 +48,7 @@ static void	draw_floor(t_env *env)
 		1);
 }
 
-static void	draw_red_cross(t_env *env, t_point position)
+static void	draw_red_cross(t_env *env, t_point pos)
 {
 	int	i;
 	int	j;
@@ -59,8 +59,7 @@ static void	draw_red_cross(t_env *env, t_point position)
 		j = -1;
 		while (j++, j < 11)
 			if (i == 4 || i == 5 || j == 4 || j == 5)
-				ft_draw_line_to_image(env, position.x + i - 5, position.y + j,
-					RED);
+				ft_draw_line_to_image(env, pos.x + i - 5, pos.y + j, RED);
 	}
 }
 
@@ -76,17 +75,16 @@ void	draw_minimap(t_env *env)
 	while (i++, env->map.data[i])
 	{
 		j = -1;
-		while (j++, env->map.data[i][j] != -1)
+		while (j++, env->map.data[i][j] != -2)
 		{
 			if (!env->map.data[i])
 				ft_mlx_error("Map data is NULL");
 			position = (t_point){j * env->map.size, i * env->map.size};
-			ft_mlx_draw_square(env, position, env->map.size, BLACK);
 			if (env->map.data[i][j] == 1)
 				ft_mlx_draw_square(env, position, env->map.size, WHITE);
 			else if (env->map.data[i][j] == 2)
 				ft_mlx_draw_square(env, position, env->map.size, RED);
-			else
+			else if (env->map.data[i][j] == 0 || env->map.data[i][j] == 3)
 				ft_mlx_draw_square(env, position, env->map.size, BLACK);
 		}
 	}
@@ -102,8 +100,8 @@ void	draw_map(t_env *env)
 		printf("Map data is NULL\n");
 		return ;
 	}
-	ft_bzero(env->screen.addr, WIN_WIDTH * WIN_HEIGHT * ((double)env->screen.bpp
-			/ 8));
+	ft_bzero(env->screen.addr,
+		WIN_WIDTH * WIN_HEIGHT * ((double)env->screen.bpp / 8));
 	draw_celing(env);
 	draw_floor(env);
 	raycasting3d(env);

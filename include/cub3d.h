@@ -262,6 +262,7 @@ int				ft_open_file(char *file);
 void			ft_init_map(t_map *map, char *file);
 void			ft_remove_newline(char *str);
 void			ft_validate_map_textures(t_map *map);
+void			ft_validate_map(t_map *map);
 t_color			ft_parse_color(char *color_str);
 int				ft_parse_texture_color(t_map *map, char *line);
 int				ft_is_map_line(char *line);
