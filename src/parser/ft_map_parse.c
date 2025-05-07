@@ -45,7 +45,6 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 	int	x;
 	int	width;
 
-	map->size = 10;
 	width = ft_count_map_width(line);
 	if (width > map->width)
 		map->width = width + 1;

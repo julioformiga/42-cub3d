@@ -12,25 +12,6 @@
 
 #include "cub3d.h"
 
-void	ft_map_init(t_map *map, int n)
-{
-	int	i;
-
-	map->width = 0;
-	map->height = 0;
-	map->min = 0;
-	map->max = 0;
-	map->data = (int **)malloc(n * sizeof(int *));
-	if (!map->data)
-		return ;
-	i = 0;
-	while (i < n)
-	{
-		map->data[i] = NULL;
-		i++;
-	}
-}
-
 void	ft_validate_map_textures(t_map *map)
 {
 	if (!map->north.path)

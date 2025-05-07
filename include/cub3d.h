@@ -282,7 +282,6 @@ void			ft_mlx_draw_line(t_env *env, t_point p0, t_point p1, int color);
 void			ft_mlx_draw_square(t_env *env, t_point p, int width, int color);
 int				ft_mlx_line_color(t_env *env, int i, int j, char type);
 int				ft_map_value(t_range range_in, t_range range_out, int value);
-void			ft_map_init(t_map *map, int n);
 void			ft_mouse_hide(t_xvar *xvar, t_win_list *win);
 int				ft_mlx_button_release(int button, int x, int y, t_env *env);
 int				ft_mlx_button(int button, int x, int y, t_env *env);
