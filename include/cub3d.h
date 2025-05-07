@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:12:05 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/05/05 15:56:04 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/07 18:34:47 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,7 @@ void			init_textures(t_env *env);
 void			ray_calc_walls(t_env *env, t_raycast *ray);
 void			ray_calc_iterations(t_env *env, t_raycast *ray, int iterations,
 					int v);
+void			free_map(t_map *map, int init_map);
 void			ray_calc_perpendicular_distance(t_env *env, t_raycast *ray);
 double			calculate_ray_length(t_env *env, t_raycast *ray,
 					double ray_angle, int visual);

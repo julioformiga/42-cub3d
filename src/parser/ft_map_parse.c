@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:13:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/26 11:26:40 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/07 18:43:14 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,14 @@ t_map	ft_map_parse(char *file)
 		if (ft_process_line(&map, line, &config_done, &y))
 		{
 			free(line);
-			line = get_next_line(fd);
-			continue ;
+			map.data = NULL;
+			break;
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	ft_validate_map(&map);
+	if(map.data != NULL)
+		ft_validate_map(&map);
 	return (map);
 }

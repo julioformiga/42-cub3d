@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 06:33:27 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/05/05 15:26:28 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/07 18:42:10 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ int	main(int argc, char **argv)
 		ft_mlx_error("Usage: ./cub3d <map>.cub");
 	ft_check_file(argv[1]);
 	map = ft_map_parse(argv[1]);
+	if (map.data == NULL || map.width <= 0 || map.height <= 0)
+	{
+		ft_mlx_error("Invalid map structure after parsing");
+		free_map(&map, 1);
+		return (1);
+	}
 	env = ft_mlx_create_env();
 	env->map = map;
 	ft_mlx_init_values(env);
