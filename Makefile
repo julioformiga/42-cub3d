@@ -66,7 +66,7 @@ run:	all
 # Run with Valgrind for thorough memory leak checking
 mleak:	all
 		printf "$(YELLOW)Running with Valgrind leak checker$(RESET)\n"
-		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(BIN) ./maps/large_map.cub
+		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(BIN) ./maps/large_map.cub
 
 # Run with Address Sanitizer
 san:
@@ -81,7 +81,7 @@ san:
 		$(CC) $(CFLAGS_BASE) -fsanitize=address,leak $(SRCS) -o $(BIN_SAN) -I$(LIBFT_DIR)/include $(XFLAGS) $(LIBFT) $(MINILIBX)
 		printf "☑️ $(GREEN)Sanitized binary compiled in$(RESET): $(BIN_SAN)\n"
 		printf "$(RED)Running with Address Sanitizer$(RESET)\n"
-		ASAN_OPTIONS=symbolize=1:detect_leaks=1:abort_on_error=1:verbose=1  ./$(BIN_SAN)
+		ASAN_OPTIONS=symbolize=1:detect_leaks=1:abort_on_error=1:verbose=1  ./$(BIN_SAN) ./maps/large_map.cub
 
 debug:	all
 		$(CC) $(CFLAGS) $(XFLAGS) $(NAME) $(LIBFT) $(MINILIBX) -g3 -o a.out
