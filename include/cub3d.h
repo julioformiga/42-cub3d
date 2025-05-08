@@ -259,6 +259,7 @@ typedef struct s_sprite_context
 }				t_sprite_context;
 
 int				ft_open_file(char *file);
+int				ft_file_exists(char *path);
 void			ft_init_map(t_map *map, char *file);
 void			ft_remove_newline(char *str);
 void			ft_validate_map_textures(t_map *map);
@@ -266,6 +267,7 @@ void			ft_validate_map(t_map *map);
 t_color			ft_parse_color(char *color_str);
 int				ft_parse_texture_color(t_map *map, char *line);
 int				ft_is_map_line(char *line);
+void			free_map(t_map *map, int init_map);
 
 void			ft_mlx_put_image(t_env *env);
 void			ft_mlx_error(char *msg);

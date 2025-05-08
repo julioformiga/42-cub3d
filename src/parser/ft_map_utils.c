@@ -12,8 +12,33 @@
 
 #include "cub3d.h"
 
+void	ft_check_valid_texture_path(t_map *map)
+{
+	if (map->north.path && ft_file_exists(map->north.path))
+	{
+		free_map(map, 1);
+		ft_mlx_error("Invalid texture path for north\n");
+	}
+	if (map->south.path && ft_file_exists(map->south.path))
+	{
+		free_map(map, 1);
+		ft_mlx_error("Invalid texture path for south\n");
+	}
+	if (map->west.path && ft_file_exists(map->west.path))
+	{
+		free_map(map, 1);
+		ft_mlx_error("Invalid texture path for west\n");
+	}
+	if (map->east.path && ft_file_exists(map->east.path))
+	{
+		free_map(map, 1);
+		ft_mlx_error("Invalid texture path for east\n");
+	}
+}
+
 void	ft_validate_map_textures(t_map *map)
 {
+	ft_check_valid_texture_path(map);
 	if (!map->north.path)
 		map->north.path = ft_strdup("./assets/textures/north_default.xpm");
 	if (!map->south.path)
@@ -25,7 +50,10 @@ void	ft_validate_map_textures(t_map *map)
 	if (!map->door.path)
 		map->door.path = ft_strdup("./assets/textures/door_default.xpm");
 	if (map->player.direction == 0)
+	{
+		free_map(map, 1);
 		ft_mlx_error("No player position found in map\n");
+	}
 }
 
 t_color	ft_parse_color(char *color_str)
@@ -89,6 +117,6 @@ int	ft_parse_texture_color(t_map *map, char *line)
 	else if (!ft_strncmp(elements[0], "C", 2) && elements[1])
 		map->ceiling = ft_parse_color(elements[1]);
 	else
-		return (ft_free_array_char(elements), 0);
-	return (ft_free_array_char(elements), 1);
+		return (ft_free_array_char(elements), 1);
+	return (ft_free_array_char(elements), 0);
 }

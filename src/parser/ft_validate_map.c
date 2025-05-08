@@ -58,34 +58,6 @@ t_map	transpose_map(t_map *map)
 	return (temp_map);
 }
 
-void	print_map(t_map *map)
-{
-	int		i;
-	int		j;
-	int		value;
-
-	i = -1;
-	while (i++, i < map->height)
-	{
-		j = -1;
-		while (j++, j < map->width && map->data[i] && map->data[i][j] >= -1)
-		{
-			value = map->data[i][j];
-			if (value == -1)
-				printf(". ");
-			else if (value == 0)
-				printf("0 ");
-			else if (value == 1)
-				printf("1 ");
-			else if (value == 2)
-				printf("D ");
-			else
-				printf("? ");
-		}
-		printf("\n");
-	}
-}
-
 int	check_map_holes(t_map *map)
 {
 	int	i;
@@ -109,30 +81,6 @@ int	check_map_holes(t_map *map)
 		}
 	}
 	return (0);
-}
-
-void	free_map(t_map *map, int init_map)
-{
-	int	i;
-
-	i = -1;
-	while (i++, i < map->height)
-		if (map->data[i])
-			free(map->data[i]);
-	free(map->data);
-	if (init_map == 1)
-	{
-		if (map->north.path)
-			free(map->north.path);
-		if (map->south.path)
-			free(map->south.path);
-		if (map->west.path)
-			free(map->west.path);
-		if (map->east.path)
-			free(map->east.path);
-		if (map->door.path)
-			free(map->door.path);
-	}
 }
 
 void	ft_validate_map(t_map *map)

@@ -71,7 +71,7 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 
 static int	ft_process_line(t_map *map, char *line, int *config_done, int *y)
 {
-	if (!*config_done && ft_parse_texture_color(map, line))
+	if (!*config_done && !ft_parse_texture_color(map, line))
 		return (1);
 	if (ft_is_map_line(line))
 	{
