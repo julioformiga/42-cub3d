@@ -37,6 +37,22 @@ int	check_map_holes(t_map *map)
 	return (0);
 }
 
+void	ft_validate_map_colors(t_map *map)
+{
+	if (map->ceiling.r < 0 || map->ceiling.g < 0 || map->ceiling.b < 0
+		|| map->floor.r < 0 || map->floor.g < 0 || map->floor.b < 0)
+	{
+		free_map(map, 1);
+		ft_mlx_error("Invalid color values\n");
+	}
+	if (map->ceiling.r > 255 || map->ceiling.g > 255 || map->ceiling.b > 255
+		|| map->floor.r > 255 || map->floor.g > 255 || map->floor.b > 255)
+	{
+		free_map(map, 1);
+		ft_mlx_error("Color value must be between 0 and 255\n");
+	}
+}
+
 void	ft_validate_map(t_map *map)
 {
 	t_map	map_transpose;
@@ -49,5 +65,6 @@ void	ft_validate_map(t_map *map)
 		ft_mlx_error("Map has holes\n");
 	}
 	free_map(&map_transpose, 0);
+	ft_validate_map_colors(map);
 	ft_validate_map_textures(map);
 }

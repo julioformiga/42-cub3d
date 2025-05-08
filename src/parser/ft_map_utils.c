@@ -62,15 +62,21 @@ t_color	ft_parse_color(char *color_str)
 	char	**values;
 
 	values = ft_split(color_str, ',');
-	if (!values || !values[0] || !values[1] || !values[2] || values[3])
-		ft_mlx_error("Invalid color format\n");
+	if (!values || !values[0] || !values[1] || !values[2] || values[3]
+		|| ft_isnumber(values[0]) || ft_isnumber(values[1])
+		|| ft_isnumber(values[2]))
+	{
+		color.r = -1;
+		ft_free_array_char(values);
+		return (color);
+	}
 	color.r = ft_atoi(values[0]);
 	color.g = ft_atoi(values[1]);
 	color.b = ft_atoi(values[2]);
 	color.t = 0;
 	if (color.r < 0 || color.r > 255 || color.g < 0 || color.g > 255
 		|| color.b < 0 || color.b > 255)
-		ft_mlx_error("Color values must be between 0 and 255\n");
+		color.r = -1;
 	ft_free_array_char(values);
 	return (color);
 }
