@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:59:05 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/05/08 11:54:37 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/08 12:37:56 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_mlx_draw_square(t_env *env, t_point p, int width, int color)
 	int	i;
 
 	i = -1;
-	printf("color: %d\n", color);
 	if (color == 0)
 		color = BLACK;
 	else if (color == 1)
