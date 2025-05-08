@@ -30,7 +30,9 @@ static void	ft_parse_map_line_fill(t_map *map, char *line, int x, int y)
 	map->data[y][x] = 0;
 	map->player.x = x * map->size + (map->size / 2);
 	map->player.y = y * map->size + (map->size / 2);
-	if (line[x] == 'N')
+	if (map->player.direction != 0)
+		map->player.direction = -1;
+	else if (line[x] == 'N')
 		map->player.direction = 270 * M_PI / 180;
 	else if (line[x] == 'S')
 		map->player.direction = 90 * M_PI / 180;

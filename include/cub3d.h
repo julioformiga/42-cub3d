@@ -269,7 +269,6 @@ int				ft_parse_texture_color(t_map *map, char *line);
 int				ft_is_map_line(char *line);
 void			free_map(t_map *map, int init_map);
 t_map			ft_map_transpose(t_map *map);
-void			ft_validate_map_colors(t_map *map);
 
 void			ft_mlx_put_image(t_env *env);
 void			ft_mlx_error(char *msg);

@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int	check_map_holes(t_map *map)
+static int	check_map_holes(t_map *map)
 {
 	int	i;
 	int	j;
@@ -37,7 +37,7 @@ int	check_map_holes(t_map *map)
 	return (0);
 }
 
-void	ft_validate_map_colors(t_map *map)
+static void	ft_validate_map_colors(t_map *map)
 {
 	if (map->ceiling.r < 0 || map->ceiling.g < 0 || map->ceiling.b < 0
 		|| map->floor.r < 0 || map->floor.g < 0 || map->floor.b < 0)
@@ -50,6 +50,15 @@ void	ft_validate_map_colors(t_map *map)
 	{
 		free_map(map, 1);
 		ft_mlx_error("Color value must be between 0 and 255\n");
+	}
+}
+
+static void	ft_validate_map_multiple_player_location(t_map *map)
+{
+	if (map->player.direction == -1)
+	{
+		free_map(map, 1);
+		ft_mlx_error("Multiple player positions found\n");
 	}
 }
 
@@ -66,5 +75,6 @@ void	ft_validate_map(t_map *map)
 	}
 	free_map(&map_transpose, 0);
 	ft_validate_map_colors(map);
+	ft_validate_map_multiple_player_location(map);
 	ft_validate_map_textures(map);
 }
