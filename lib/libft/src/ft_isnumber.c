@@ -14,7 +14,7 @@
 
 int	ft_isnumber(char *number)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (i++, number[i])
@@ -22,4 +22,3 @@ int	ft_isnumber(char *number)
 			return (1);
 	return (0);
 }
-
