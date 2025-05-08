@@ -40,6 +40,10 @@ jobs:
       - name: Run Norminette
         run: |
           norminette .
+          if [ $? -ne 0 ]; then
+            echo "Norminette error."
+            exit 1
+          fi
 
       - name: Configure and build
         run: |
