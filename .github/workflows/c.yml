@@ -39,7 +39,7 @@ jobs:
 
       - name: Run Norminette
         run: |
-          norminette
+          norminette .
 
       - name: Configure and build
         run: |
