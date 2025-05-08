@@ -85,8 +85,7 @@ int	ft_mouse_move(t_env *env)
 			* env->map.player.speed;
 	}
 	env->map.player.mouse_x = x;
-	if (x < 100 || x > WIN_WIDTH - 100 || y < 100
-		|| y > WIN_HEIGHT - 100)
+	if (x < 100 || x > WIN_WIDTH - 100 || y < 100 || y > WIN_HEIGHT - 100)
 	{
 		mlx_mouse_move(env->mlx, env->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 		env->map.player.mouse_x = WIN_WIDTH / 2;
