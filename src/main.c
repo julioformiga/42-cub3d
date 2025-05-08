@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 06:33:27 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/05/05 15:26:28 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/08 11:40:12 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	main(int argc, char **argv)
 	env = ft_mlx_create_env();
 	env->map = map;
 	ft_mlx_init_values(env);
-	ft_mouse_hide(env->mlx, env->win);
+	//ft_mouse_hide(env->mlx, env->win);
 	env->screen.img = mlx_new_image(env->mlx, WIN_WIDTH, WIN_HEIGHT);
 	env->screen.addr = mlx_get_data_addr(env->screen.img, &env->screen.bpp,
 			&env->screen.line, &env->screen.endian);
