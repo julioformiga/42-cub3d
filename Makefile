@@ -2,7 +2,7 @@ CC				= cc
 CFLAGS_BASE		= -Wall -Werror -Wextra -Iinclude -Ilib/.minilibx -g
 CFLAGS_BASE		+= -Wunused-result
 CFLAGS			= $(CFLAGS_BASE)
-XFLAGS			= -lX11 -lXext -lz -lXfixes -lm
+XFLAGS			= -lX11 -lXext -lz -lXfixes
 MAKEFLAGS		+= --no-print-directory -s
 AR				= ar -src
 RM				= rm -f
@@ -43,7 +43,7 @@ $(NAME):	$(OBJS)
 		make all -C $(MINILIBX_DIR) > /dev/null
 		printf "⚙️  $(BLUE)Building CUB3D$(RESET)\n"
 		$(AR) $@ $(OBJS)
-		$(CC) $(CFLAGS) $(XFLAGS) $@ $(LIBFT) $(MINILIBX) -o $(BIN)
+		$(CC) $(CFLAGS) $(XFLAGS) $@ $(LIBFT) $(MINILIBX) -o $(BIN) -lm
 		printf "☑️ $(GREEN)Compiled in$(RESET): $(BIN)\n"
 
 clean:
@@ -79,13 +79,13 @@ san:
 		printf "⚙️  $(BLUE)Building MINILIBX$(RESET)\n"
 		make all -C $(MINILIBX_DIR) > /dev/null
 		printf "⚙️  $(BLUE)Compiling with sanitizer flags$(RESET)\n"
-		$(CC) $(CFLAGS_BASE) -fsanitize=address,leak $(SRCS) -o $(BIN_SAN) -I$(LIBFT_DIR)/include $(XFLAGS) $(LIBFT) $(MINILIBX)
+		$(CC) $(CFLAGS_BASE) -fsanitize=address,leak $(SRCS) -o $(BIN_SAN) -I$(LIBFT_DIR)/include $(XFLAGS) $(LIBFT) $(MINILIBX) -lm
 		printf "☑️ $(GREEN)Sanitized binary compiled in$(RESET): $(BIN_SAN)\n"
 		printf "$(RED)Running with Address Sanitizer$(RESET)\n"
 		ASAN_OPTIONS=symbolize=1:detect_leaks=1:abort_on_error=1:verbose=1  ./$(BIN_SAN) ./maps/large_map.cub
 
 debug:	all
-		$(CC) $(CFLAGS) $(XFLAGS) $(NAME) $(LIBFT) $(MINILIBX) -g3 -o a.out
+		$(CC) $(CFLAGS) $(XFLAGS) $(NAME) $(LIBFT) $(MINILIBX) -g3 -o a.out -lm
 
 .SILENT:	all clean fclean re
 .PHONY:		all clean fclean re run mleak san debug
