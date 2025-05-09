@@ -6,18 +6,18 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:09:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/05/08 12:00:44 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/09 15:14:02 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	draw_celing(t_env *env)
+static void	draw_ceiling(t_env *env)
 {
 	int	floor;
 
 	floor = ft_mlx_color((t_color){0, 100, 100, 100});
-	if (env->map.floor.r)
+	if (env->map.floor.r >= 0)
 		floor = ft_mlx_color(env->map.floor);
 	ft_mlx_draw_rect(env,
 		(t_rect){
@@ -32,11 +32,11 @@ static void	draw_celing(t_env *env)
 
 static void	draw_floor(t_env *env)
 {
-	int	celing;
+	int	ceiling;
 
-	celing = ft_mlx_color((t_color){0, 135, 206, 235});
-	if (env->map.ceiling.r)
-		celing = ft_mlx_color(env->map.ceiling);
+	ceiling = ft_mlx_color((t_color){0, 135, 206, 235});
+	if (env->map.ceiling.r >= 0)
+		ceiling = ft_mlx_color(env->map.ceiling);
 	ft_mlx_draw_rect(env,
 		(t_rect){
 		(t_point){0, 0},
@@ -44,7 +44,7 @@ static void	draw_floor(t_env *env)
 		(t_point){WIN_WIDTH, WIN_HEIGHT / 2},
 		(t_point){WIN_WIDTH, 0},
 	},
-		celing,
+		ceiling,
 		1);
 }
 
@@ -100,7 +100,7 @@ void	draw_map(t_env *env)
 	}
 	ft_bzero(env->screen.addr,
 		WIN_WIDTH * WIN_HEIGHT * ((double)env->screen.bpp / 8));
-	draw_celing(env);
+	draw_ceiling(env);
 	draw_floor(env);
 	raycasting3d(env);
 	draw_minimap(env);
