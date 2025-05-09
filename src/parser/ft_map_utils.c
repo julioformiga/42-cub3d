@@ -12,38 +12,17 @@
 
 #include "cub3d.h"
 
-void	ft_check_valid_texture_path(t_map *map)
-{
-	if (map->north.path && ft_file_exists(map->north.path))
-	{
-		free_map(map, 1);
-		ft_mlx_error("Invalid texture path for north\n");
-	}
-	if (map->south.path && ft_file_exists(map->south.path))
-	{
-		free_map(map, 1);
-		ft_mlx_error("Invalid texture path for south\n");
-	}
-	if (map->west.path && ft_file_exists(map->west.path))
-	{
-		free_map(map, 1);
-		ft_mlx_error("Invalid texture path for west\n");
-	}
-	if (map->east.path && ft_file_exists(map->east.path))
-	{
-		free_map(map, 1);
-		ft_mlx_error("Invalid texture path for east\n");
-	}
-	if (map->door.path && ft_file_exists(map->door.path))
-	{
-		free_map(map, 1);
-		ft_mlx_error("Invalid texture path for door\n");
-	}
-}
-
 void	ft_validate_map_textures(t_map *map)
 {
-	ft_check_valid_texture_path(map);
+	if ((map->north.path && ft_file_exists(map->north.path))
+		|| (map->south.path && ft_file_exists(map->south.path))
+		|| (map->west.path && ft_file_exists(map->west.path))
+		|| (map->east.path && ft_file_exists(map->east.path))
+		|| (map->door.path && ft_file_exists(map->door.path)))
+	{
+		free_map(map, 1);
+		ft_mlx_error("Invalid texture path\n");
+	}
 	if (!map->north.path || !map->south.path
 		|| !map->west.path || !map->east.path || !map->door.path)
 		map->error = 1;
@@ -92,6 +71,29 @@ int	ft_is_map_line(char *line)
 	return (has_valid_char);
 }
 
+void	ft_check_double_keys(t_map *map, char *key)
+{
+	if ((!ft_strncmp(key, "NO", 3) && map->north.path)
+		|| (!ft_strncmp(key, "SO", 3) && map->south.path)
+		|| (!ft_strncmp(key, "WE", 3) && map->west.path)
+		|| (!ft_strncmp(key, "EA", 3) && map->east.path)
+		|| (!ft_strncmp(key, "D", 2) && map->door.path))
+	{
+		free_map(map, 1);
+		ft_mlx_error("Duplicate texture key\n");
+	}
+	else if (!ft_strncmp(key, "F", 2) && map->floor.r >= 0)
+	{
+		free_map(map, 1);
+		ft_mlx_error("Duplicate floor color\n");
+	}
+	else if (!ft_strncmp(key, "C", 2) && map->ceiling.r >= 0)
+	{
+		free_map(map, 1);
+		ft_mlx_error("Duplicate ceiling color\n");
+	}
+}
+
 int	ft_parse_texture_color(t_map *map, char *line)
 {
 	char	**elements;
@@ -101,6 +103,7 @@ int	ft_parse_texture_color(t_map *map, char *line)
 		return (0);
 	if (elements[1])
 		ft_remove_newline(elements[1]);
+	ft_check_double_keys(map, elements[0]);
 	if (!ft_strncmp(elements[0], "NO", 3) && elements[1])
 		map->north.path = ft_strdup(elements[1]);
 	else if (!ft_strncmp(elements[0], "SO", 3) && elements[1])
