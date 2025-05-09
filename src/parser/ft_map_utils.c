@@ -34,26 +34,19 @@ void	ft_check_valid_texture_path(t_map *map)
 		free_map(map, 1);
 		ft_mlx_error("Invalid texture path for east\n");
 	}
+	if (map->door.path && ft_file_exists(map->door.path))
+	{
+		free_map(map, 1);
+		ft_mlx_error("Invalid texture path for door\n");
+	}
 }
 
 void	ft_validate_map_textures(t_map *map)
 {
 	ft_check_valid_texture_path(map);
-	if (!map->north.path)
-		map->north.path = ft_strdup("./assets/textures/north_default.xpm");
-	if (!map->south.path)
-		map->south.path = ft_strdup("./assets/textures/south_default.xpm");
-	if (!map->west.path)
-		map->west.path = ft_strdup("./assets/textures/west_default.xpm");
-	if (!map->east.path)
-		map->east.path = ft_strdup("./assets/textures/east_default.xpm");
-	if (!map->door.path)
-		map->door.path = ft_strdup("./assets/textures/door_default.xpm");
-	if (map->player.direction == 0)
-	{
-		free_map(map, 1);
-		ft_mlx_error("No player position found in map\n");
-	}
+	if (!map->north.path || !map->south.path
+		|| !map->west.path || !map->east.path || !map->door.path)
+		map->error = 1;
 }
 
 t_color	ft_parse_color(char *color_str)

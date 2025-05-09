@@ -55,11 +55,12 @@ static void	ft_validate_map_colors(t_map *map)
 
 static void	ft_validate_map_multiple_player_location(t_map *map)
 {
-	if (map->player.direction == -1)
-	{
+	if (map->player.direction <= 0)
 		free_map(map, 1);
+	if (map->player.direction == 0)
+		ft_mlx_error("No player position found in map\n");
+	if (map->player.direction == -1)
 		ft_mlx_error("Multiple player positions found\n");
-	}
 }
 
 void	ft_validate_map(t_map *map)

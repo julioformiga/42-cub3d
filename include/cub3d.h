@@ -162,6 +162,7 @@ typedef struct s_player
 
 typedef struct s_map
 {
+	int			error;
 	int			**data;
 	int			width;
 	int			height;
