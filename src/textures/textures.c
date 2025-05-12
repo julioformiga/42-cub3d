@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:02:43 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/05/05 15:33:34 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/12 17:58:39 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ void	init_textures(t_env *env)
 		|| !load_texture(env, &env->map.east)
 		|| !load_texture(env, &env->map.west)
 		|| !load_texture(env, &env->map.door))
-		ft_mlx_error("Failed to load textures images\n");
+		{
+			free_map(&env->map, 1);
+			ft_mlx_error("Failed to load textures images\n");
+		}
 }

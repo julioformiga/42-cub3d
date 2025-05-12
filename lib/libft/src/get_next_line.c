@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 21:03:03 by julio.formiga     #+#    #+#             */
-/*   Updated: 2023/11/15 21:03:03 by julio.formiga    ###   ########.fr       */
+/*   Created: 2023/11/15 21:03:03 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/05/12 16:07:53 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:12:05 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/05/05 15:56:04 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:31:11 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ void			ft_remove_newline(char *str);
 void			ft_validate_map_textures(t_map *map);
 void			ft_validate_map(t_map *map);
 t_color			ft_parse_color(char *color_str);
-int				ft_parse_texture_color(t_map *map, char *line);
+int				ft_parse_texture_color(t_map *map, char *line, int fd);
 int				ft_is_map_line(char *line);
 void			free_map(t_map *map, int init_map);
 t_map			ft_map_transpose(t_map *map);

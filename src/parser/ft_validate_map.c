@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_validate_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julio.formiga <julio.formiga@gmail.com>    +#+  +:+       +#+        */
+/*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 15:01:47 by julio.formiga     #+#    #+#             */
-/*   Updated: 2025/05/07 15:01:47 by julio.formiga    ###   ########.fr       */
+/*   Created: 2025/05/07 15:01:47 by julio.formi       #+#    #+#             */
+/*   Updated: 2025/05/12 18:35:51 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ void	ft_validate_map(t_map *map)
 		ft_mlx_error("Map has holes\n");
 	}
 	free_map(&map_transpose, 0);
+	if (map->north.path == NULL
+		|| map->south.path == NULL || map->west.path == NULL
+		|| map->east.path == NULL || map->door.path == NULL)
+	{
+		free_map(map, 1);
+		ft_mlx_error("Missing texture path\n");
+	}
 	ft_validate_map_colors(map);
 	ft_validate_map_multiple_player_location(map);
 	ft_validate_map_textures(map);

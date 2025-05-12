@@ -6,7 +6,7 @@
 /*   By: tfalchi <tfalchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 06:13:11 by julio.formi       #+#    #+#             */
-/*   Updated: 2025/04/26 11:26:40 by tfalchi          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:44:30 by tfalchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ static void	ft_parse_map_line(t_map *map, char *line, int y)
 	}
 }
 
-static int	ft_process_line(t_map *map, char *line, int *config_done, int *y)
+static int	ft_process_line(t_map *map, char *line, int *config_done, int *y, int fd)
 {
-	if (!*config_done && !ft_parse_texture_color(map, line))
+	if (!*config_done && !ft_parse_texture_color(map, line, fd))
 		return (1);
-	if (ft_is_map_line(line))
+	if (ft_is_map_line(line) && map->north.path && map->south.path
+		&& map->west.path && map->east.path && map->door.path)
 	{
 		*config_done = 1;
 		ft_parse_map_line(map, line, *y);
@@ -84,6 +85,19 @@ static int	ft_process_line(t_map *map, char *line, int *config_done, int *y)
 	else if (*config_done && !ft_is_map_line(line)
 		&& line[0] != '\n' && line[0] != 0)
 		ft_mlx_error("Invalid map format\n");
+	else if (!*config_done && !ft_is_map_line(line)
+		&& line[0] != '\n')
+	{
+		while (line)
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+		if (line)
+			free(line);
+		free_map(map, 1);
+		ft_mlx_error("Wrong variables in fd\n");
+	} 
 	return (0);
 }
 
@@ -102,7 +116,7 @@ t_map	ft_map_parse(char *file)
 	y = 0;
 	while (line)
 	{
-		if (ft_process_line(&map, line, &config_done, &y))
+		if (ft_process_line(&map, line, &config_done, &y, fd))
 		{
 			free(line);
 			line = get_next_line(fd);
