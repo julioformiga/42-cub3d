@@ -35,8 +35,8 @@ void	init_textures(t_env *env)
 		|| !load_texture(env, &env->map.east)
 		|| !load_texture(env, &env->map.west)
 		|| !load_texture(env, &env->map.door))
-		{
-			free_map(&env->map, 1);
-			ft_mlx_error("Failed to load textures images\n");
-		}
+	{
+		free_map(&env->map, 1);
+		ft_mlx_error("Failed to load textures images\n");
+	}
 }
