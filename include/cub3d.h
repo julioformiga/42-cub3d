@@ -164,6 +164,8 @@ typedef struct s_map
 {
 	int			error;
 	int			**data;
+	char		*line;
+	int			fd;
 	int			width;
 	int			height;
 	int			min;
@@ -266,10 +268,11 @@ void			ft_remove_newline(char *str);
 void			ft_validate_map_textures(t_map *map);
 void			ft_validate_map(t_map *map);
 t_color			ft_parse_color(char *color_str);
-int				ft_parse_texture_color(t_map *map, char *line, int fd);
+int				ft_parse_texture_color(t_map *map);
 int				ft_is_map_line(char *line);
 void			free_map(t_map *map, int init_map);
 t_map			ft_map_transpose(t_map *map);
+void			map_error(t_map *map, char *msg);
 
 void			ft_mlx_put_image(t_env *env);
 void			ft_mlx_error(char *msg);
