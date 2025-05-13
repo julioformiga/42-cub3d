@@ -43,6 +43,8 @@ void	free_map(t_map *map, int init_map)
 	free(map->data);
 	if (init_map == 1)
 	{
+		if (map->line)
+			free(map->line);
 		if (map->north.path)
 			free(map->north.path);
 		if (map->south.path)
@@ -56,6 +58,36 @@ void	free_map(t_map *map, int init_map)
 	}
 }
 
+void	map_error(t_map *map, char *msg)
+{
+	int	i;
+
+	i = -1;
+	while (i++, i < map->height)
+		if (map->data[i])
+			free(map->data[i]);
+	free(map->data);
+	while (map->line)
+	{
+		free(map->line);
+		map->line = get_next_line(map->fd);
+	}
+	if (map->line)
+		free(map->line);
+	if (map->north.path)
+		free(map->north.path);
+	if (map->south.path)
+		free(map->south.path);
+	if (map->west.path)
+		free(map->west.path);
+	if (map->east.path)
+		free(map->east.path);
+	if (map->door.path)
+		free(map->door.path);
+	ft_mlx_error(msg);
+}
+
+/*
 void	print_map(t_map *map)
 {
 	int		i;
@@ -83,6 +115,7 @@ void	print_map(t_map *map)
 		printf("\n");
 	}
 }
+*/
 
 void	ft_remove_newline(char *str)
 {

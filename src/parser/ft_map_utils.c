@@ -71,7 +71,7 @@ int	ft_is_map_line(char *line)
 	return (has_valid_char);
 }
 
-void	ft_check_double_keys(t_map *map, char *key, char **elements, char *line, int fd)
+void	ft_check_double_keys(t_map *map, char *key, char **elements)
 {
 	if ((!ft_strncmp(key, "NO", 3) && map->north.path)
 		|| (!ft_strncmp(key, "SO", 3) && map->south.path)
@@ -79,44 +79,31 @@ void	ft_check_double_keys(t_map *map, char *key, char **elements, char *line, in
 		|| (!ft_strncmp(key, "EA", 3) && map->east.path)
 		|| (!ft_strncmp(key, "D", 2) && map->door.path))
 	{
-		while (line)
-		{
-			free(line);
-			line = get_next_line(fd);
-		}
-		free(line);
 		ft_free_array_char(elements);
-		free_map(map, 1);
-		ft_mlx_error("Duplicate texture key\n");
+		map_error(map, "Duplicate texture path\n");
 	}
 	else if (!ft_strncmp(key, "F", 2) && map->floor.r >= 0)
 	{
-		printf("freeing line2\n");
-		free(line);
 		ft_free_array_char(elements);
-		free_map(map, 1);
-		ft_mlx_error("Duplicate floor color\n");
+		map_error(map, "Duplicate floor color\n");
 	}
 	else if (!ft_strncmp(key, "C", 2) && map->ceiling.r >= 0)
 	{
-		printf("freeing line3\n");
-		free(line);
 		ft_free_array_char(elements);
-		free_map(map, 1);
-		ft_mlx_error("Duplicate ceiling color\n");
+		map_error(map, "Duplicate ceiling color\n");
 	}
 }
 
-int	ft_parse_texture_color(t_map *map, char *line, int fd)
+int	ft_parse_texture_color(t_map *map)
 {
 	char	**elements;
 
-	elements = ft_split(line, ' ');
+	elements = ft_split(map->line, ' ');
 	if (!elements || !elements[0])
 		return (0);
 	if (elements[1])
 		ft_remove_newline(elements[1]);
-	ft_check_double_keys(map, elements[0], elements, line, fd);
+	ft_check_double_keys(map, elements[0], elements);
 	if (!ft_strncmp(elements[0], "NO", 3) && elements[1])
 		map->north.path = ft_strdup(elements[1]);
 	else if (!ft_strncmp(elements[0], "SO", 3) && elements[1])
