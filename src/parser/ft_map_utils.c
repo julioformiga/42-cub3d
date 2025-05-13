@@ -99,8 +99,8 @@ int	ft_parse_texture_color(t_map *map)
 	char	**elements;
 
 	elements = ft_split(map->line, ' ');
-	if (!elements || !elements[0])
-		return (0);
+	if (!elements || !elements[0] || !elements[1] || elements[2])
+		return (ft_free_array_char(elements), 1);
 	if (elements[1])
 		ft_remove_newline(elements[1]);
 	ft_check_double_keys(map, elements[0], elements);
