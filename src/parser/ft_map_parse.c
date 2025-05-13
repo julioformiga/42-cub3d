@@ -87,10 +87,7 @@ static int	ft_process_line(t_map *map, int *config_done, int *y)
 		ft_mlx_error("Invalid map format\n");
 	else if (!*config_done && !ft_is_map_line(map->line)
 		&& map->line[0] != '\n')
-	{
-		free_map(map, 1);
-		ft_mlx_error("Wrong variables in fd\n");
-	}
+		map_error(map, "Wrong variables in fd\n");
 	return (0);
 }
 
